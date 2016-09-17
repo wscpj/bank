@@ -15,6 +15,10 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 import javax.naming.NamingException;
+import javax.naming.directory.DirContext;
+
+import org.apache.naming.resources.DirContextURLStreamHandler;
+import org.apache.naming.resources.FileDirContext;
 
 public class FilesUtils {
 
@@ -33,15 +37,14 @@ public class FilesUtils {
             return null;
         }
         String name = filename.replaceAll("/", Matcher.quoteReplacement(File.separator));
-//        File f = new File(getServerAbsolutePath() + File.separator + path + File.separator + name);
-//        if (!f.getParentFile().exists()) {
-//            f.getParentFile().mkdirs();
-//        }
-//        if (!f.exists()) {
-//            f.createNewFile();
-//        }
-//        return f;
-        return null;
+        File f = new File(getServerAbsolutePath() + File.separator + path + File.separator + name);
+        if (!f.getParentFile().exists()) {
+            f.getParentFile().mkdirs();
+        }
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+        return f;
     }
 
     /**
@@ -56,12 +59,12 @@ public class FilesUtils {
         }
     }
 
-//    public static String getServerAbsolutePath() throws NamingException {
-//        DirContext dirContext = DirContextURLStreamHandler.get();
-//        FileDirContext fdc = (FileDirContext) dirContext.lookup("");
-//        String webrootPath = fdc.getDocBase();
-//        return webrootPath;
-//    }
+    public static String getServerAbsolutePath() throws NamingException {
+        DirContext dirContext = DirContextURLStreamHandler.get();
+        FileDirContext fdc = (FileDirContext) dirContext.lookup("");
+        String webrootPath = fdc.getDocBase();
+        return webrootPath;
+    }
 
     public static Boolean copyFile(String oldPath, String newPath) {
         File oldfile = new File(oldPath);

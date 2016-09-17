@@ -82,7 +82,6 @@ public class SessionFilter implements Filter {
         String uri =  request.getRequestURI();
         String requestedUri = uri.substring(request.getContextPath().length() + 1);
         appContext.addObject(AppConstants.REQUESTED_URI, requestedUri);
-        String url = request.getRequestURL().toString();
         try {
             chain.doFilter(request, response);
         } catch (IOException e) {

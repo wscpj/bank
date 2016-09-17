@@ -21,14 +21,14 @@ public class AppContextFilter implements Filter {
     public AppContextFilter() {
     }
 
+    @Override
     public void destroy() {
     }
 
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException,ServletException {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         HttpServletResponse response = (HttpServletResponse)servletResponse;
-        String uri = request.getRequestURI();
-        String requestedUri = uri.substring(request.getContextPath().length() + 1);
         AppContext.setContextPath(request.getContextPath());
 
         AppContext appContext = AppContext.getContext();
@@ -47,6 +47,7 @@ public class AppContextFilter implements Filter {
         }
     }
 
+    @Override
     public void init(FilterConfig fConfig) throws ServletException {
     }
 

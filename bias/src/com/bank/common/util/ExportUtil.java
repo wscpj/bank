@@ -2,6 +2,8 @@ package com.bank.common.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,23 +14,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bank.common.AppConstants;
 
+import net.sf.jxls.transformer.XLSTransformer;
+
 
 public class ExportUtil {
 
     public static String generateExcel(String exportTemplateExcel, Map<String, Object> beans, String generateExcelName)
             throws Exception {
-//        String serverAbsolutePath = FilesUtils.getServerAbsolutePath() + File.separator;
-//        XLSTransformer transformer = new XLSTransformer();
-//        String exportTemplateExcelURL = serverAbsolutePath + exportTemplateExcel;
-//        String generateExcelURL = serverAbsolutePath + AppConstants.EXPORT_TEMP_DATA_PATH + generateExcelName
-//                + AppConstants.EXPORT_EXCEL_SUFFIX;
-//        try {
-//            transformer.transformXLS(exportTemplateExcelURL, beans, generateExcelURL);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        return generateExcelURL;
-        return null;
+        String serverAbsolutePath = FilesUtils.getServerAbsolutePath() + File.separator;
+        XLSTransformer transformer = new XLSTransformer();
+        String exportTemplateExcelURL = serverAbsolutePath + exportTemplateExcel;
+        String generateExcelURL = serverAbsolutePath + AppConstants.EXPORT_TEMP_DATA_PATH + generateExcelName
+                + AppConstants.EXPORT_EXCEL_SUFFIX;
+        try {
+            transformer.transformXLS(exportTemplateExcelURL, beans, generateExcelURL);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return generateExcelURL;
     }
 
     public static void downloadExcel(String name, HttpServletResponse response) throws IOException, NamingException {
@@ -42,18 +45,18 @@ public class ExportUtil {
         BufferedOutputStream bos = null;
         OutputStream fos = null;
         InputStream fis = null;
-        //File uploadFile = new File(FilesUtils.getServerAbsolutePath() + File.separator
-//               // + AppConstants.EXPORT_TEMP_DATA_PATH + name + AppConstants.EXPORT_EXCEL_SUFFIX);
+        File uploadFile = new File(FilesUtils.getServerAbsolutePath() + File.separator
+                + AppConstants.EXPORT_TEMP_DATA_PATH + name + AppConstants.EXPORT_EXCEL_SUFFIX);
         try {
-//            //fis = new FileInputStream(uploadFile);
-//            bis = new BufferedInputStream(fis);
-//            fos = response.getOutputStream();
-//            bos = new BufferedOutputStream(fos);
-//            int bytesRead = 0;
-//            byte[] buffer = new byte[8192];
-//            while ((bytesRead = bis.read(buffer, 0, 8192)) != -1) {
-//                bos.write(buffer, 0, bytesRead);
-//            }
+            fis = new FileInputStream(uploadFile);
+            bis = new BufferedInputStream(fis);
+            fos = response.getOutputStream();
+            bos = new BufferedOutputStream(fos);
+            int bytesRead = 0;
+            byte[] buffer = new byte[8192];
+            while ((bytesRead = bis.read(buffer, 0, 8192)) != -1) {
+                bos.write(buffer, 0, bytesRead);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -62,7 +65,7 @@ public class ExportUtil {
             bis.close();
             fos.close();
             bos.close();
-            //uploadFile.delete();
+            uploadFile.delete();
         }
     }
 }
