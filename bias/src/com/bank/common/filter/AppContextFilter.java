@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.bank.common.AppConstants;
 import com.bank.common.AppContext;
 import com.bank.common.model.User;
+import com.bank.common.util.DateTimeUtil;
 
 public class AppContextFilter implements Filter {
 
@@ -34,8 +35,9 @@ public class AppContextFilter implements Filter {
         AppContext appContext = AppContext.getContext();
         appContext.addObject(AppConstants.APP_CONTEXT_REQUEST, request);
         appContext.addObject(AppConstants.APP_CONTEXT_RESPONSE, response);
-
         HttpSession session = request.getSession();
+        session.setAttribute(AppConstants.CURRENT_DATE, DateTimeUtil.getCurrentDate());
+        session.setAttribute(AppConstants.CURRENT_WEEK, DateTimeUtil.getWeek());
         User user = (User)session.getAttribute(AppConstants.USER);
         appContext.addObject(AppConstants.USER, user);
         appContext.addObject(AppConstants.APP_CONTEXT_SESSION, session);

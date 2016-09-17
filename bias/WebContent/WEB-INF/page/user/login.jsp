@@ -8,7 +8,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>段集镇资金互助合作社业务管理系统</title>
     <link href="${pageContext.request.contextPath}/static/style/login/login.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath}/static/style/jquery-ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/lib/dwz/js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/lib/jquery-ui-1.9.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/login/login.js"></script>
   </head>
   <body>
@@ -18,6 +20,10 @@
           visibility = "visible";
       }
     %>
+    <div id="dialog" title="系统提示">
+        <p class="autoLoginMessage" hidden="hidden">系统暂不支持该功能！</p>
+        <p class="forgetPasswordMessage" hidden="hidden">忘记密码请尽快联系管理员！</p>
+    </div>
     <img class="bg_img" alt="background" src="${pageContext.request.contextPath}/static/images/login_background.png"/>
     <div class="main">
       <div class="logo">段集镇资金互助合作社业务管理系统</div>
@@ -30,11 +36,11 @@
             </div>
             <div class="username_div">
               <label>用户名</label>
-              <input type="text" id="username" name="name" class="login_input" value=""/>
+              <input type="text" class="username" id="username" name="name" class="login_input" value=""/>
             </div>
             <div>
               <label>密码</label>
-              <input type="password" id="password" name="password" class="login_input" value=""/>
+              <input type="password" class="password" id="password" name="password" class="login_input" value=""/>
             </div>
             <div class="submit_div">
               <div class="submit_btn">登录</div>

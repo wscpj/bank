@@ -414,4 +414,35 @@ public class DateTimeUtil {
         }
     }
 
+    public static String getCurrentDate() {
+        Calendar c = new GregorianCalendar();
+        String year = c.get(1) + "年";
+        String month = c.get(2) + 1 + "月";
+        String day = c.get(5) + "日";
+        String date = year + month + day;
+        return date;
+    }
+
+    public static String getWeek() {
+        Calendar c = new GregorianCalendar();
+        int m = c.get(7);
+        String st = "";
+        switch (m) {
+        case 1:
+            return "星期日";
+        case 2:
+            return "星期一";
+        case 3:
+            return "星期二";
+        case 4:
+            return "星期三";
+        case 5:
+            return "星期四";
+        case 6:
+            return "星期五";
+        case 7:
+            return "星期六";
+        }
+        return st;
+    }
 }

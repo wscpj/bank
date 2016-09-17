@@ -1,7 +1,7 @@
 package com.bank.common.base;
 
 import com.bank.common.AppContext;
-import com.bank.common.dto.UserDTO;
+import com.bank.common.model.User;
 import com.bank.common.util.SessionUtil;
 
 
@@ -11,7 +11,7 @@ public abstract class BaseController {
         return AppContext.getContext().getUserId();
     }
 
-    protected UserDTO getUser() {
+    protected User getUser() {
         return AppContext.getContext().getUser();
     }
 

@@ -194,6 +194,8 @@ public class AppConstants {
 
     public static final String APP_CONTEXT_REQUEST = "APP_CONTEXT_REQUEST";
     public static final String APP_CONTEXT_RESPONSE = "APP_CONTEXT_RESPONSE";
-    
+
     public static final String APP_URL_PREFIX = "page";
+    public static final String CURRENT_DATE = "date";
+    public static final String CURRENT_WEEK = "week";
 }
