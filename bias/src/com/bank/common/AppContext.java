@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import com.bank.common.dto.UserDTO;
 import com.bank.common.model.Role;
+import com.bank.common.model.User;
 
 
 public class AppContext {
@@ -13,7 +14,7 @@ public class AppContext {
     private static final ThreadLocal<AppContext> appContext = new ThreadLocal<AppContext>();
     private final HashMap<String, Object> values = new HashMap<String, Object>();
     private static String contextPath;
-    
+
     public static AppContext getContext() {
         AppContext context = appContext.get();
         if (context == null) {
@@ -32,7 +33,7 @@ public class AppContext {
             AppContext.contextPath = contextPath;
         }
     }
-    
+
     public void clear() {
         AppContext context = appContext.get();
         if (context != null) {
@@ -50,11 +51,11 @@ public class AppContext {
     }
 
     public String getUserName() {
-        UserDTO userDTO = getUser();
-        if (userDTO == null) {
+        User user = getUser();
+        if (user == null) {
             return "";
         }
-        return userDTO.getUserName();
+        return user.getName();
     }
 
     public String getCurrentRoleCode() {
@@ -63,16 +64,16 @@ public class AppContext {
     }
 
     public Integer getUserId() {
-        UserDTO userDTO = getUser();
-        if (userDTO == null) {
+        User user = getUser();
+        if (user == null) {
             return 0;
         }
-        return userDTO.getId();
+        return user.getId();
     }
 
-    public UserDTO getUser() {
-        UserDTO userDTO = (UserDTO) values.get(AppConstants.USER);
-        return userDTO;
+    public User getUser() {
+        User user = (User) values.get(AppConstants.USER);
+        return user;
     }
 
     public Locale getLocale() {
