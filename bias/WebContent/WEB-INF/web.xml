@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>bias</display-name>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath*:eventContext.xml,classpath*:applicationContext.xml,classpath*:daoContext.xml,classpath*:serviceContext.xml,classpath*:privilegesMap.xml,
+             classpath:*Context.xml
+    </param-value>
+  </context-param>
+  <session-config>
+        <session-timeout>1400</session-timeout>
+    </session-config>
+  <listener>
+    <display-name>contextLoaderListener</display-name>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.bank.common.listener.BiasContextListener</listener-class>
+  </listener>
+  <filter>
+    <filter-name>AppContextFilter</filter-name>
+    <filter-class>com.bank.common.filter.AppContextFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>SessionFilter</filter-name>
+    <filter-class>com.bank.common.filter.SessionFilter</filter-class>
+  </filter>
+  
+  <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>com.bank.common.filter.LoginFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>AppContextFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+    <filter-name>SessionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/page/*</url-pattern>
+  </filter-mapping>
+  
+   <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <description>bias</description>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:bias-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>/admin/welcome.html</welcome-file>
+  </welcome-file-list>
+</web-app>

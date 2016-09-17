@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.common.model.User">
+
+    <resultMap type="User" id="userMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="id_number" property="idNumber"/>
+        <result column="email_address" property="email"/>
+        <result column="phone_number" property="phone"/>
+        <result column="password" property="password"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="getUserByName" parameterType="String" resultMap="userMap">
+        <![CDATA[
+            SELECT * FROM users WHERE name = #{userName}
+        ]]>
+    </select>
+
+</mapper>
