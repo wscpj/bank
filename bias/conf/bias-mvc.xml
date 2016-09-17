@@ -24,6 +24,7 @@
     <mvc:annotation-driven />
     <mvc:resources mapping="/static/**" location="/static/" />
     <mvc:resources mapping="/admin/**" location="/admin/" />
+    
     <context:component-scan base-package="**.controller.**" />
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/page/" p:suffix=".jsp" />
     <mvc:interceptors>
