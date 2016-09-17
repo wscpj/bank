@@ -39,6 +39,7 @@ public class SessionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
+
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         // Set encoding method
