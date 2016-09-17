@@ -7,6 +7,10 @@
              classpath:*Context.xml
     </param-value>
   </context-param>
+  <error-page>  
+    <error-code>404</error-code>  
+    <location>/admin/welcome.html</location>
+  </error-page> 
   <session-config>
         <session-timeout>1400</session-timeout>
     </session-config>
