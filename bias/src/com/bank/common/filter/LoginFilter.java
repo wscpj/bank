@@ -48,13 +48,13 @@ public class LoginFilter implements Filter {
         HttpSession session = request.getSession();
         String uri = request.getRequestURI();
         Boolean isLogin = uri.equals(request.getContextPath() + SPRIT) || uri.endsWith(URL_LOGIN) || uri.endsWith(URL_LOGOUT);
-        Boolean isUpload = uri.contains(URL_UPLOAD);
-        boolean isNotAdmin = false;
+        boolean isNotAdmin = true;
+        String ss = (String)session.getAttribute(NOT_ADMIN);
         if (session.getAttribute(NOT_ADMIN) != null) {
             isNotAdmin = (Boolean) session.getAttribute(NOT_ADMIN);
         }
         try {
-            if (!isUpload && !isLogin && !isNotAdmin) {
+            if (!isLogin && !isNotAdmin) {
                 User user = (User) session.getAttribute(AppConstants.USER);
                 @SuppressWarnings("unchecked")
                 List<Role> userRoles = (List<Role>) session.getAttribute(AppConstants.ROLES);

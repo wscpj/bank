@@ -24,7 +24,7 @@ import com.bank.common.service.UserService;
 public class UserController extends BasePageController {
     private final String LOGIN_JSP = "user/login";
     private final String MAIN_JSP = "user/main";
-    private final String REDIRECT_MAIN_JSP = "page/user/main.jsp";
+    private final String DASHBOARD = "page/user/dashboard";
     private final String USER_MANAGE = "/WEB-INF/page/system/user/user.jsp";
     //private final String LOGIN_PAGE = "user/login";
 
@@ -37,6 +37,13 @@ public class UserController extends BasePageController {
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(LOGIN_JSP);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public ModelAndView dashboard() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(MAIN_JSP);
         return modelAndView;
     }
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -52,21 +59,18 @@ public class UserController extends BasePageController {
             user = userService.login(name, password);
             user.setPassword(null);
             this.addSession(AppConstants.USER, user);
-            String m = AppContext.getContextPath() + "/" + REDIRECT_MAIN_JSP;
-            modelAndView.setView(new RedirectView(AppContext.getContextPath() + "/" + REDIRECT_MAIN_JSP));
+            modelAndView.setView(new RedirectView(AppContext.getContextPath() + "/" + DASHBOARD));
 
         } catch (ValidationException validationException) {
             Map<String, String> errorFilds = validationException.getFieldErrors();
             modelAndView.addObject(AppConstants.ERROR_FILDS, errorFilds);
             modelAndView.setViewName(LOGIN_JSP);
-
             logger.info("The parameter is error!", validationException);
 
         } catch (BusinessException businessException) {
             modelAndView.addObject(AppConstants.MESSAGE, businessException.getErrorMessage() + "  [" + businessException.getCode() + "]");
             modelAndView.addObject(AppConstants.VISIBILITY, "visible");
             modelAndView.setViewName(LOGIN_JSP);
-
             logger.warn("The username or password is error!", businessException);
         }
         return modelAndView;
