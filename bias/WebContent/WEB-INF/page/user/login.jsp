@@ -6,7 +6,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>段集镇资金互助合作社业务管理系统</title>
+    <title>资金互助合作社业务管理平台</title>
     <link href="${pageContext.request.contextPath}/static/style/login/login.css" rel="stylesheet" type="text/css" />
     <link href="${pageContext.request.contextPath}/static/style/jquery-ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/lib/dwz/js/jquery-1.7.2.js"></script>
@@ -26,7 +26,7 @@
     </div>
     <img class="bg_img" alt="background" src="${pageContext.request.contextPath}/static/images/login_background.png"/>
     <div class="main">
-      <div class="logo">段集镇资金互助合作社业务管理系统</div>
+      <div class="logo">资金互助合作社业务管理平台</div>
       <div class="loginForm">
         <form action="<%=request.getContextPath()%>/page/user/login" method="POST" id="loginForm">
           <div class="center">
@@ -51,7 +51,7 @@
               <a class="forgotPassword_a" href="#">忘记密码?</a>
             </div>
             <div class="bottom_div">
-              <label>欢迎登录合作社业务管理系统！</label>
+              <label>欢迎登录合作社业务管理平台！</label>
             </div>
           </div>
         </form>
