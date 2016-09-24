@@ -55,7 +55,7 @@ public class AppContext {
         if (user == null) {
             return "";
         }
-        return user.getName();
+        return user.getUserName();
     }
 
     public String getCurrentRoleCode() {

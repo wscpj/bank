@@ -41,6 +41,5 @@
         <entry key="ClassManagementController-findClassAdmins"><value>classManagement,groupClassManagement</value></entry>
         <entry key="ClassManagementController-updateClassAdmin"><value>classManagement,groupClassManagement</value></entry>
         <entry key="ClassManagementController-getClassNameDuplicateCount"><value>classManagement,groupClassManagement</value></entry>
-        
     </util:map>
 </beans>

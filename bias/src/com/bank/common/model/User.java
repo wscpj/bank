@@ -1,19 +1,17 @@
 package com.bank.common.model;
 
-import java.util.Date;
-
 public class User {
 
     private Integer id;
-    private String name;
+    private String userName;
     private String gender;
-    private String idNumber;
     private String email;
     private String phone;
     private String password;
-    private String status;
-    private Date createTime;
-    private Date updateTime;
+    private Boolean isDeleted;
+    private String salt;
+    private String createTime;
+    private String updateTime;
 
 
     public Integer getId() {
@@ -24,12 +22,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getGender() {
@@ -38,14 +36,6 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public String getIdNumber() {
-        return idNumber;
-    }
-
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
     }
 
     public String getEmail() {
@@ -72,36 +62,63 @@ public class User {
         this.password = password;
     }
 
-    public String getStatus() {
-        return status;
+    public Boolean getIsDeleted() {
+        return isDeleted;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
-    public Date getCreateTime() {
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", gender=" + gender + ", idNumber=" + idNumber + ", email="
-                + email + ", phone=" + phone + ", password=" + password + ", status=" + status + ", createTime="
-                + createTime + ", updateTime=" + updateTime + "]";
+        StringBuilder builder = new StringBuilder();
+        builder.append("User [id=");
+        builder.append(id);
+        builder.append(", userName=");
+        builder.append(userName);
+        builder.append(", gender=");
+        builder.append(gender);
+        builder.append(", email=");
+        builder.append(email);
+        builder.append(", phone=");
+        builder.append(phone);
+        builder.append(", password=");
+        builder.append(password);
+        builder.append(", isDeleted=");
+        builder.append(isDeleted);
+        builder.append(", salt=");
+        builder.append(salt);
+        builder.append(", createTime=");
+        builder.append(createTime);
+        builder.append(", updateTime=");
+        builder.append(updateTime);
+        builder.append("]");
+        return builder.toString();
     }
-
 
 }

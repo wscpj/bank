@@ -1,7 +1,6 @@
 package com.bank.common.filter;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,8 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.bank.common.AppConstants;
-import com.bank.common.model.Role;
 import com.bank.common.model.User;
 
 
@@ -30,8 +30,7 @@ public class LoginFilter implements Filter {
     private static final String SPRIT = "/";
     private static final String AJAX_HEAD = "X-Requested-With";
     private static final String NOT_ADMIN = "notAdmin";
-    private static final String URL_UPLOAD = "/admin/upload";
-
+    private static final Logger logger = Logger.getLogger(LoginFilter.class);
     public LoginFilter() {
 
     }
@@ -48,29 +47,22 @@ public class LoginFilter implements Filter {
         HttpSession session = request.getSession();
         String uri = request.getRequestURI();
         Boolean isLogin = uri.equals(request.getContextPath() + SPRIT) || uri.endsWith(URL_LOGIN) || uri.endsWith(URL_LOGOUT);
-        boolean isNotAdmin = true;
-        String ss = (String)session.getAttribute(NOT_ADMIN);
-        if (session.getAttribute(NOT_ADMIN) != null) {
-            isNotAdmin = (Boolean) session.getAttribute(NOT_ADMIN);
-        }
         try {
-            if (!isLogin && !isNotAdmin) {
-                User user = (User) session.getAttribute(AppConstants.USER);
-                @SuppressWarnings("unchecked")
-                List<Role> userRoles = (List<Role>) session.getAttribute(AppConstants.ROLES);
-                if (user == null || userRoles == null || userRoles.isEmpty()) {
+            User user = (User) session.getAttribute(AppConstants.USER);
+            if (!isLogin) {
+                if (user == null) {
                     if (request.getHeader(AJAX_HEAD) == null) {
                         response.sendRedirect(request.getContextPath());
                         return;
                     }
-                    response.getWriter().print(NOT_LOGIN);
-                    return;
                 }
             }
             chain.doFilter(request, servletResponse);
         } catch (IOException e) {
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         } catch (ServletException e) {
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
 

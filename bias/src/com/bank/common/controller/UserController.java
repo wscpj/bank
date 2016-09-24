@@ -26,7 +26,6 @@ public class UserController extends BasePageController {
     private final String MAIN_JSP = "user/main";
     private final String DASHBOARD = "page/user/dashboard";
     private final String USER_MANAGE = "/WEB-INF/page/system/user/user.jsp";
-    //private final String LOGIN_PAGE = "user/login";
 
     private final Logger logger = Logger.getLogger(UserController.class);
 
@@ -46,12 +45,12 @@ public class UserController extends BasePageController {
         modelAndView.setViewName(MAIN_JSP);
         return modelAndView;
     }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView Login(
             @RequestParam(value = "name", defaultValue = "") String name,
             @RequestParam(value = "password", defaultValue = "") String password
             ){
-
         ModelAndView modelAndView = new ModelAndView();
 
         try {
@@ -59,6 +58,7 @@ public class UserController extends BasePageController {
             user = userService.login(name, password);
             user.setPassword(null);
             this.addSession(AppConstants.USER, user);
+            this.addSession(AppConstants.ROLES, AppConstants.ROLES);
             modelAndView.setView(new RedirectView(AppContext.getContextPath() + "/" + DASHBOARD));
 
         } catch (ValidationException validationException) {
@@ -84,14 +84,40 @@ public class UserController extends BasePageController {
         return modelAndView;
     }
 
-    //    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    //    public ModelAndView logout() {
-    //        ModelAndView modelAndView = new ModelAndView();
-    //        this.removeSession(Constants.USER);
-    //        modelAndView.setView(this.getRedirectView(LOGIN_PAGE));
-    //
-    //        logger.info("The user logout the system!");
-    //
-    //        return modelAndView;
-    //    }
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addUser() {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName(USER_MANAGE);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.PUT)
+    public ModelAndView saveUser() {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName(USER_MANAGE);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public ModelAndView editUser() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(USER_MANAGE);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public ModelAndView modifyUser() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(USER_MANAGE);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public ModelAndView delete() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(USER_MANAGE);
+        return modelAndView;
+    }
 }

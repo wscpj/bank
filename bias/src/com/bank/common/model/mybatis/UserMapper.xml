@@ -5,20 +5,20 @@
 
     <resultMap type="User" id="userMap">
         <id column="id" property="id"/>
-        <result column="name" property="name"/>
+        <result column="user_name" property="userName"/>
         <result column="gender" property="gender"/>
-        <result column="id_number" property="idNumber"/>
-        <result column="email_address" property="email"/>
-        <result column="phone_number" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
         <result column="password" property="password"/>
-        <result column="status" property="status"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="salt" property="salt" />
+        <result column="created_time" property="createTime"/>
+        <result column="updated_time" property="updateTime"/>
     </resultMap>
 
     <select id="getUserByName" parameterType="String" resultMap="userMap">
         <![CDATA[
-            SELECT * FROM users WHERE name = #{userName}
+            SELECT * FROM user WHERE user_name = #{userName}
         ]]>
     </select>
 

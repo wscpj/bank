@@ -2,7 +2,6 @@ package com.bank.common.filter;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,18 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.bank.common.AppConstants;
 import com.bank.common.AppContext;
-import com.bank.common.model.Role;
 import com.bank.common.model.User;
 import com.bank.common.util.AppUtil;
 import com.bank.common.util.StringUtil;
 
-import common.Logger;
 
 public class SessionFilter implements Filter {
 
-    private static Logger log = Logger.getLogger(SessionFilter.class);
+    private static final Logger logger = Logger.getLogger(SessionFilter.class);
 
     public SessionFilter() {
 
@@ -37,7 +36,7 @@ public class SessionFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
 
         HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -45,20 +44,18 @@ public class SessionFilter implements Filter {
         // Set encoding method
         try {
             request.setCharacterEncoding(AppConstants.UTF_ENCODE);
-        } catch (UnsupportedEncodingException e1) {
-            throw new RuntimeException(e1);
+        } catch (UnsupportedEncodingException e) {
+            logger.error(e.getMessage());
+            throw new RuntimeException(e);
         }
         response.setCharacterEncoding(AppConstants.UTF_ENCODE);
 
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute(AppConstants.USER);
-        @SuppressWarnings("unchecked")
-        List<Role> roles = (List<Role>)session.getAttribute(AppConstants.ROLES);
         String currentRoleCode = (String) session.getAttribute(AppConstants.CURRENT_ROLE_CODE);
         AppContext appContext = AppContext.getContext();
         if (user != null) {
             appContext.addObject(AppConstants.USER, user);
-            appContext.addObject(AppConstants.ROLES, roles);
             appContext.addObject(AppConstants.CURRENT_ROLE_CODE, currentRoleCode);
         }
 
@@ -86,10 +83,10 @@ public class SessionFilter implements Filter {
         try {
             chain.doFilter(request, response);
         } catch (IOException e) {
-            log.error(e.getMessage(), e);
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         } catch (ServletException e) {
-            log.error(e.getMessage(), e);
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         } finally {
             appContext.clear();

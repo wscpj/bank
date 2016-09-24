@@ -445,10 +445,22 @@ public class StringUtil {
             if (columnStr.length() > 0) {
                 columnIndex--;
             }
-            columnStr = ((char) (columnIndex % 26 + (int) 'A')) + columnStr;
-            columnIndex = (int) ((columnIndex - columnIndex % 26) / 26);
+            columnStr = ((char) (columnIndex % 26 + 'A')) + columnStr;
+            columnIndex = (columnIndex - columnIndex % 26) / 26;
         } while (columnIndex > 0);
         return columnStr;
     }
 
+    /*
+     * generate range string
+     * @param num
+     * @return string
+     */
+    public static String generateRangeString(Integer num) {
+        String rangeString = UUID.randomUUID().toString();
+        if (rangeString.length() <= num) {
+            return rangeString;
+        }
+        return rangeString.substring(0,num);
+    }
 }
