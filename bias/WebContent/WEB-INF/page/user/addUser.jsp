@@ -12,29 +12,40 @@
       </ul>
     </div>
     <div class="pageContent">
-      <form method="post" action="${pageContext.request.contextPath}/manage/addUser" class="pageForm required-validate"   onsubmit="return validateCallback(this, dialogAjaxDone);">
-        <div class="pageFormContent nowrap" style="overflow-x:hidden" layoutH="56">
-          <table style="margin-top:50px;margin-left:-10px;height:130px;">
-            <tbody style="text-align:right;">
-              <tr><td><label>用户名：</label></td><td><input type="text" name="name" class="required" style="width:200px;" maxlength="600"/></td></tr>
-              <tr><td></td><td></td></tr>
-              <tr><td></td><td></td></tr>
-              <tr><td></td><td></td></tr>
-              <tr><td><label>用户密码：</label></td><td><input type="password" name="password1" class="required" style="width:200px;" maxlength="600"/></td></tr>
-              <tr><td></td><td></td></tr>
-              <tr><td></td><td></td></tr>
-              <tr><td></td><td></td></tr>
-              <tr><td><label>确认密码：</label></td><td><input type="password" name="password" class="required" style="width:200px;" maxlength="600"/></td></tr>
-              <tr><td></td><td></td></tr>
-              <tr><td></td><td></td></tr>
-              <tr>
-                <td colspan="2">
-                  <div class="buttonActive"  style="margin-left:150px;"><div class="buttonContent"><button type="submit" >保存</button></div></div>
-                  <div class="button" style="margin-left:80px;"><div class="buttonContent"><button type="reset"  class="close">取消</button></div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <form method="post" action="${pageContext.request.contextPath}/page/user/add" class="pageForm required-validate"   onsubmit="return validateCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layoutH="90">
+          <p>
+            <label>管理员名称：</label>
+            <input name="userName" class="required" type="text" size="30" value="" alt="请输入管理员名称" />
+          </p>
+          <p>
+            <label>管理员密码：</label>
+            <input name="password" class="required" type="password" size="30" value="" alt="请输入管理员密码" />
+          </p>
+          <p>
+            <label>管理员性别：</label>
+            <select name="gender" class="required combox" style="width:100px;" >
+              <option value="">请选择</option>
+              <option value="0">男</option>
+              <option value="1">女</option>
+            </select>
+          </p>
+          <p>
+            <label>管理员email：</label>
+            <input name="email" class="required email" type="text" size="30" value="" alt="请输入管理员邮箱" />
+          </p>
+          <p>
+            <label>管理员手机：</label>
+            <input name="phone" class="required phone" type="text" size="30" value="" alt="请输入管理员手机号" />
+          </p>
+        </div>
+        <div class="formBar">
+          <ul>
+            <li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+            <li>
+                <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+            </li>
+          </ul>
         </div>
       </form>
     </div>

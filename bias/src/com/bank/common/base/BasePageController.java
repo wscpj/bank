@@ -66,23 +66,28 @@ public abstract class BasePageController extends BaseController {
         return modelAndView;
     }
 
-    protected ModelAndView pagination(Integer currentPage, HttpServletRequest request, String jspPage,
+    protected ModelAndView pagination(Integer currentPage,Integer pageSize, HttpServletRequest request, String jspPage,
             PaginationCallBack<?> paginationCallBack) {
         String relativeUrl = getRelativeUrl(request);
-        return paginationCallBack.execute(currentPage, relativeUrl, jspPage);
+        return paginationCallBack.execute(currentPage, pageSize, relativeUrl, jspPage);
     }
 
-    protected ModelAndView pagination(Integer currentPage, String relativeUrl, String jspPage,
+    protected ModelAndView pagination(Integer currentPage, Integer pageSize, String relativeUrl, String jspPage,
             PaginationCallBack<?> paginationCallBack) {
-        return paginationCallBack.execute(currentPage, relativeUrl, jspPage);
+        return paginationCallBack.execute(currentPage, pageSize, relativeUrl, jspPage);
     }
 
     protected abstract class PaginationCallBack<T> {
 
-        public ModelAndView execute(Integer currentPage, String relativeUrl, String jspPage) {
+        public ModelAndView execute(Integer currentPage, Integer pageSize, String relativeUrl, String jspPage) {
             PaginationDTO<T> paginationDTO = new PaginationDTO<T>();
             AppContext.getContext().addObject(AppConstants.PAGINATION_DTO, paginationDTO);
-            paginationDTO.setCurrentPage(currentPage);
+            if (currentPage != null) {
+                paginationDTO.setCurrentPage(currentPage);
+            }
+            if (pageSize != null) {
+                paginationDTO.setPageSize(pageSize);
+            }
             paginationDTO.setRelativeUrl(relativeUrl);
             ModelAndView modelAndView = new ModelAndView(jspPage);
             List<T> itemList = callBack();
