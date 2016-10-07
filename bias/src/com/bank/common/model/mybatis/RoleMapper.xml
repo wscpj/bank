@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.common.model.Role">
+
+	<resultMap type="Role" id="roleMap">
+		<id column="id" property="id" />
+		<result column="role_code" property="roleCode" />
+		<result column="role_name" property="roleName" />
+		<result column="is_Deleted" property="isDeleted" />
+		<result column="created_time" property="createdTime" />
+		<result column="updated_time" property="updatedTime" />
+	</resultMap>
+
+	<sql id="pagination">
+		<if test="offset != null and rowCount!= null">
+            <![CDATA[
+                LIMIT #{offset},#{rowCount}
+            ]]>
+		</if>
+	</sql>
+
+	<sql id="selectRole">
+		SELECT
+		R.ID AS ID,
+		R.ROLE_CODE AS ROLE_CODE,
+		R.ROLE_NAME AS ROLE_NAME,
+		R.IS_DELETED AS IS_DELETED,
+		R.CREATED_TIME AS CREATED_TIME,
+		R.UPDATED_TIME AS UPDATED_TIME
+	</sql>
+
+	<select id="findAllRole" resultMap="roleMap">
+		<include refid="selectRole"></include>
+		FROM ROLE R WHERE R.IS_DELETED = 0 ORDER BY R.ID
+		<include refid="pagination"></include>
+	</select>
+
+	<select id="getCount" resultType="java.lang.Integer">
+		SELECT COUNT(ID) FROM ROLE R
+		WHERE R.IS_DELETED = 0
+	</select>
+
+	<select id="getById" parameterType="java.lang.Integer" resultMap="roleMap">
+		<include refid="selectRole"></include>
+		FROM ROLE R WHERE R.IS_DELETED = 0 and r.id = #{roleId}
+	</select>
+
+	<insert id="add" parameterType="Role">
+		insert into
+		role(role_code,role_name,is_Deleted,created_time,updated_time)
+		values(#{roleCode},#{roleName},'0',#{createdTime},#{updatedTime})
+	</insert>
+	<update id="update" parameterType="Role">
+        <![CDATA[
+            UPDATE ROLE R 
+            SET 
+                R.ROLE_CODE = #{roleCode},
+                R.ROLE_NAME = #{roleName},
+                R.UPDATED_TIME = #{updatedTime}
+            WHERE R.ID = #{id}
+        ]]>
+	</update>
+</mapper>

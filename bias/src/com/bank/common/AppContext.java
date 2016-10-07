@@ -103,7 +103,7 @@ public class AppContext {
         }
         String[] codes = new String[roles.size()];
         for (int i = 0; i < roles.size(); i++) {
-            codes[i] = roles.get(i).getCode();
+            codes[i] = roles.get(i).getRoleCode();
         }
         return codes;
     }
