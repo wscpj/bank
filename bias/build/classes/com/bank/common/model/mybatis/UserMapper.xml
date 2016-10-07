@@ -110,7 +110,7 @@
         <include refid="pagination" />
     </select>
     
-    <insert id="add" parameterMap="userMap">
+    <!-- <insert id="add" parameterMap="userMap">
         <![CDATA[
             INSERT INTO user u 
             (
@@ -142,7 +142,7 @@
                 u.phone = #{phone]
             WHERE u.id = #{id}
         ]]>
-    </update>
+    </update> -->
     
     <update id="delete" parameterType="java.lang.Integer">
         <![CDATA[

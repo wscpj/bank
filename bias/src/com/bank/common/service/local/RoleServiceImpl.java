@@ -1,6 +1,7 @@
 package com.bank.common.service.local;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bank.common.base.BaseService;
 import com.bank.common.dao.RoleDao;
@@ -12,23 +13,26 @@ public class RoleServiceImpl extends BaseService implements RoleService {
 	public RoleDao roleDao;
 
 	@Override
-	public List<Role> findAllRole() {
+	public List<Role> findAllRole(Map<String, Object> map) {
 		
-		return roleDao.findAllRole();
+		return roleDao.findAllRole(map);
 	}
 	@Override
 	public Boolean saveRole(Role role){
 		return roleDao.saveRole(role);
 	}
 	@Override
-	public Role findByRoleId(String roleId){
+	public Role findByRoleId(Integer roleId){
 		return roleDao.findByRoleId(roleId);
 	}
 	@Override
 	public Boolean updateRole(Role role){
 		return roleDao.updateRole(role);
 	}
-	
+	@Override
+	public void deleteRoleByIds(List<Integer> ids){
+		roleDao.deleteRoleByIds(ids);
+	}
 	
 	
 	

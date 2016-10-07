@@ -2,7 +2,9 @@ package com.bank.common.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,7 @@ import com.bank.common.model.Role;
 import com.bank.common.model.Status;
 import com.bank.common.service.RoleService;
 import com.bank.common.service.UserService;
+import com.bank.common.util.StringUtil;
 
 @Controller
 @RequestMapping("/page/role")
@@ -85,18 +88,20 @@ public class RoleController extends BasePageController {
 		}
 		return mv;
 	}
-	
-	@RequestMapping(value= "edit/{id}")
-	public ModelAndView editRole(@PathVariable String id, HttpServletRequest request, HttpServletResponse response){
+
+	@RequestMapping(value = "edit/{id}")
+	public ModelAndView editRole(@PathVariable Integer id,
+			HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName(EDIT_JSP);
 		Role role = roleService.findByRoleId(id);
 		mv.addObject("role", role);
 		return mv;
 	}
-	
-	@RequestMapping(value= "updateRole")
-	public ModelAndView updateRole(@ModelAttribute Role role, HttpServletRequest request, HttpServletResponse response){
+
+	@RequestMapping(value = "updateRole")
+	public ModelAndView updateRole(@ModelAttribute Role role,
+			HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName(STATUS_JSP);
 		try {
@@ -116,33 +121,72 @@ public class RoleController extends BasePageController {
 		} catch (Exception e) {
 			logger.error("save role error", e);
 		}
-		
-		
-		
-		mv.addObject("role", role);
 		return mv;
 	}
-	
-	@RequestMapping(value = "/find/{currentPage}", method = RequestMethod.GET)
-	public ModelAndView findRole(@PathVariable Integer currentPage,
-			HttpServletRequest request) {
-		return pagination(currentPage, null, request, LIST_JSP,
+
+	@RequestMapping(value = "deleteRole")
+	// todo 删除之后刷新待优化
+	public ModelAndView deleteRole(HttpServletRequest request,
+			HttpServletResponse response) {
+		String ids = request.getParameter("ids");
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName(STATUS_JSP);
+		List<Integer> list = StringUtil.StringToList(ids);
+		roleService.deleteRoleByIds(list);
+		Status sta = new Status("200", "操作成功", "roleManage", "", "forward",
+				"http://localhost:8080/bias/page/role/find/1", "");
+		mv.addObject("model", sta);
+		return mv;
+	}
+
+	@RequestMapping(value = "/find", method = RequestMethod.GET)
+	public ModelAndView findRole(HttpServletRequest request) {
+
+		String pageNum = request.getParameter("pageNum");
+		String numPerPage = request.getParameter("numPerPage");
+		Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
+		Integer numPerPageInt = numPerPage == null ? 10 : Integer.valueOf(numPerPage);
+		
+		String roleName = request.getParameter("roleName");
+		String beginTime = request.getParameter("beginTime");
+		String endTime = request.getParameter("endTime");
+		final Map<String ,Object> map = new HashMap<String, Object>();
+		map.put("roleName", roleName);
+		map.put("beginTime", beginTime);
+		map.put("endTime", endTime);
+		
+
+		return pagination(pageNumInt, numPerPageInt, request, LIST_JSP,
 				new PaginationCallBack<Role>() {
 					@Override
 					public List<Role> callBack() {
-						return roleService.findAllRole();
+						return roleService.findAllRole(map);
 					}
 				});
 	}
 
-	@RequestMapping(value = "/find/{currentPage}", method = RequestMethod.POST)
-	public ModelAndView findRole1(@PathVariable Integer currentPage,
-			HttpServletRequest request) {
-		return pagination(currentPage, null, request, LIST_JSP,
+	@RequestMapping(value = "/find", method = RequestMethod.POST)
+	public ModelAndView findRole1(HttpServletRequest request) {
+		
+		String pageNum = request.getParameter("pageNum");
+		String numPerPage = request.getParameter("numPerPage");
+		Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
+		Integer numPerPageInt = numPerPage == null ? 10 : Integer.valueOf(numPerPage);
+		
+		String roleName = request.getParameter("roleName");
+		String beginTime = request.getParameter("beginTime");
+		String endTime = request.getParameter("endTime");
+		final Map<String ,Object> map = new HashMap<String, Object>();
+		map.put("roleName", roleName);
+		map.put("beginTime", beginTime);
+		map.put("endTime", endTime);
+		
+
+		return pagination(pageNumInt, numPerPageInt, request, LIST_JSP,
 				new PaginationCallBack<Role>() {
 					@Override
 					public List<Role> callBack() {
-						return roleService.findAllRole();
+						return roleService.findAllRole(map);
 					}
 				});
 	}

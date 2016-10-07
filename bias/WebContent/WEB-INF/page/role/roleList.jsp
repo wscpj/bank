@@ -12,14 +12,15 @@
     </ul>
   </div>
   <div class="pageHeader">
-    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="${pageContext.request.contextPath}/page/user/search" method="post">
+    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="${pageContext.request.contextPath}/page/role/find" method="post">
       <input type="hidden" name="pageNum" value="${paginationDTO.currentPage}" />
       <input type="hidden" name="numPerPage" value="${paginationDTO.pageSize}" />
       <div class="searchBar" >
         <table class="searchContent">
           <tr>
-            <td>管理员名称：<input type="text" name="keyword" /></td>
-            <td>建档日期：<input type="text" name="date" class="date" readonly="true" /></td>
+            <td>角色名称：<input type="text" name="roleName" /></td>
+            <td>开始日期：<input type="text" name="beginTime" class="date" readonly="true" /></td>
+            <td>结束日期：<input type="text" name="endTime" class="date" readonly="true" /></td>
           </tr>
         </table>
         <div class="subBar" style="margin-top:-25px;">
@@ -36,14 +37,14 @@
         <li><a class="add" href="${pageContext.request.contextPath}/page/role/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加角色</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/page/role/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改角色</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/manage/modifyView?id={id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
-        <li><a class="delete" href="${pageContext.request.contextPath}/page/user/delete/{id}" target="ajaxTodo" title="确定要删除吗"><span target="navTab">删除角色</span></a></li>
+        <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/role/deleteRole" target="selectedTodo" title="确定要删除吗"><span>删除角色</span></a></li>
       </ul>
     </div>
     <div id="w_list_print">
       <table class="list" width="100%" layoutH="118">
         <thead>
           <tr height="25" style="text-align: center;">
-          	<th width="5%"  align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+          	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
             <th class="center" >序号</th>
             <th class="center">角色号</th>
             <th class="center">角色名称</th>
@@ -54,7 +55,7 @@
         <tbody>
         <c:forEach items="${paginationDTO.itemList}" var="role" varStatus="status">
           <tr style="text-align: center;"height="20" rel="${role.id}" target="id">
-          	<td><input name="ids" type="checkbox" value="${u.id}"></td>
+          	<td><input name="ids" type="checkbox" value="${role.id}"></td>
           	<td>${role.id}</td>
             <td>${role.roleCode}</td>
             <td>${role.roleName}</td>

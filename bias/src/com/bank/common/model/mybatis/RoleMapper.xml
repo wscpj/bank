@@ -30,15 +30,40 @@
 		R.UPDATED_TIME AS UPDATED_TIME
 	</sql>
 
-	<select id="findAllRole" resultMap="roleMap">
+	<select id="findAllRole" parameterType="java.util.HashMap" resultMap="roleMap">
 		<include refid="selectRole"></include>
-		FROM ROLE R WHERE R.IS_DELETED = 0 ORDER BY R.ID
+		FROM ROLE R WHERE R.IS_DELETED = 0
+		<if test="roleName != null">
+		    AND R.ROLE_NAME LIKE '%' #{roleName} '%'
+		</if>
+		<if test="beginTime != null and endTime == null">
+		    AND R.CREATED_TIME > #{beginTime}
+		</if>
+		<if test="beginTime == null and endTime != null">
+		    AND #{endTime} > R.CREATED_TIME
+		</if>
+		<if test="beginTime != null and endTime != null">
+		    AND R.CREATED_TIME > #{beginTime} AND #{endTime} > R.CREATED_TIME
+		</if>
+		 ORDER BY R.ID
 		<include refid="pagination"></include>
 	</select>
 
-	<select id="getCount" resultType="java.lang.Integer">
+	<select id="getCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 		SELECT COUNT(ID) FROM ROLE R
 		WHERE R.IS_DELETED = 0
+		<if test="roleName != null">
+		    AND R.ROLE_NAME LIKE '%' #{roleName} '%'
+		</if>
+		<if test="beginTime != null and endTime == null">
+		    AND R.CREATED_TIME > #{beginTime}
+		</if>
+		<if test="beginTime == null and endTime != null">
+		    AND #{endTime} > R.CREATED_TIME
+		</if>
+		<if test="beginTime != null and endTime != null">
+		    AND R.CREATED_TIME > #{beginTime} AND #{endTime} > R.CREATED_TIME
+		</if>
 	</select>
 
 	<select id="getById" parameterType="java.lang.Integer" resultMap="roleMap">
@@ -47,9 +72,9 @@
 	</select>
 
 	<insert id="add" parameterType="Role">
-		insert into
-		role(role_code,role_name,is_Deleted,created_time,updated_time)
-		values(#{roleCode},#{roleName},'0',#{createdTime},#{updatedTime})
+		INSERT INTO
+		ROLE(ROLE_CODE,ROLE_NAME,IS_DELETED,CREATED_TIME,UPDATED_TIME)
+		VALUES(#{roleCode},#{roleName},'0',#{createdTime},#{updatedTime})
 	</insert>
 	<update id="update" parameterType="Role">
         <![CDATA[
@@ -61,4 +86,10 @@
             WHERE R.ID = #{id}
         ]]>
 	</update>
+	<delete id="deleteRoleByIds" parameterType="java.util.List">
+	    DELETE FROM ROLE WHERE ID IN
+	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  #{item}  
+		</foreach>  
+	</delete>
 </mapper>
