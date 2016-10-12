@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -462,5 +463,28 @@ public class StringUtil {
             return rangeString;
         }
         return rangeString.substring(0,num);
+    }
+    /**
+     * 
+     * @param ids:String类型      "1,2,3"
+     * @return
+     */
+    public static List<Integer> StringToList(String ids){
+    	List<Integer> list = new ArrayList<Integer>();
+    	if(ids == null || ids.length() == 0){
+    		return list;
+    	}
+    	String strIds = "";
+    	if(ids.endsWith(",")){
+    		strIds = ids.substring(0, ids.length() - 1);
+    	}else{
+    		strIds = ids;
+    	}
+    	String[] idArr = strIds.split(",");
+    	for(String id: idArr){
+    		list.add(Integer.valueOf(id));
+    	}
+    	
+    	return list;
     }
 }

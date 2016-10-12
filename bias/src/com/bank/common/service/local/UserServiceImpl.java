@@ -1,5 +1,7 @@
 package com.bank.common.service.local;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.bank.common.base.BaseService;
@@ -36,7 +38,7 @@ public class UserServiceImpl extends BaseService implements UserService {
             throw validationException;
         }
 
-        User user = userDao.getUserByName(userName);
+        User user = userDao.getUserByNameAndPassword(userName,password);
 
         if (user == null) {
             logger.warn("The username or password is error!", new BusinessException(1000, "The user doesn't exist"));
@@ -53,5 +55,30 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public Boolean deleteOrgUser(Integer organizationId) {
         return Boolean.TRUE;
+    }
+
+    @Override
+    public List<User> findUsers() {
+        return userDao.findUsers();
+    }
+
+    @Override
+    public List<User> searchUsers(String username, String date) {
+        return userDao.searchUsers(username, date);
+    }
+
+    @Override
+    public Boolean addUser(User user) {
+        return userDao.add(user);
+    }
+
+    @Override
+    public Boolean updateUser(User user) {
+        return userDao.update(user);
+    }
+
+    @Override
+    public Boolean deleteUser(Integer id) {
+        return userDao.delete(id);
     }
 }

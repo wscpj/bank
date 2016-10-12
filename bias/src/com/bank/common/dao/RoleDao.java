@@ -1,6 +1,7 @@
 package com.bank.common.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bank.common.model.Role;
 
@@ -13,9 +14,17 @@ public interface RoleDao {
      *            id of user
      * @return collection of roles
      */
-    List<Role> find(Integer userId);
+    public Role findByRoleId(Integer roleId);
 
-    Role getByCode(String roleCode);
+    public Role getByCode(String roleCode);
 
-    List<String> findRoleCodes(Integer userId);
+    public List<String> findRoleCodes(Integer userId);
+    
+    public List<Role> findAllRole(Map<String, Object> map);
+    
+    public Integer getCount(Map<String, Object> map);
+    
+    public Boolean saveRole(Role role);
+    public Boolean updateRole(Role role);
+    public void deleteRoleByIds(List<Integer> ids);
 }
