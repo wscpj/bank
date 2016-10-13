@@ -150,17 +150,17 @@ public class RoleController extends BasePageController {
 		String roleName = request.getParameter("roleName");
 		String beginTime = request.getParameter("beginTime");
 		String endTime = request.getParameter("endTime");
-		final Map<String ,Object> map = new HashMap<String, Object>();
-		map.put("roleName", roleName);
-		map.put("beginTime", beginTime);
-		map.put("endTime", endTime);
+		final Map<String ,Object> paramsMap = new HashMap<String, Object>();
+		paramsMap.put("roleName", roleName);
+		paramsMap.put("beginTime", beginTime);
+		paramsMap.put("endTime", endTime);
 		
 
-		return pagination(pageNumInt, numPerPageInt, request, LIST_JSP,
+		return pagination(paramsMap, pageNumInt, numPerPageInt, request, LIST_JSP,
 				new PaginationCallBack<Role>() {
 					@Override
 					public List<Role> callBack() {
-						return roleService.findAllRole(map);
+						return roleService.findAllRole(paramsMap);
 					}
 				});
 	}
@@ -176,17 +176,17 @@ public class RoleController extends BasePageController {
 		String roleName = request.getParameter("roleName");
 		String beginTime = request.getParameter("beginTime");
 		String endTime = request.getParameter("endTime");
-		final Map<String ,Object> map = new HashMap<String, Object>();
-		map.put("roleName", roleName);
-		map.put("beginTime", beginTime);
-		map.put("endTime", endTime);
+		final Map<String ,Object> paramsMap = new HashMap<String, Object>();
+		paramsMap.put("roleName", roleName);
+		paramsMap.put("beginTime", beginTime);
+		paramsMap.put("endTime", endTime);
 		
 
-		return pagination(pageNumInt, numPerPageInt, request, LIST_JSP,
+		return pagination(paramsMap, pageNumInt, numPerPageInt, request, LIST_JSP,
 				new PaginationCallBack<Role>() {
 					@Override
 					public List<Role> callBack() {
-						return roleService.findAllRole(map);
+						return roleService.findAllRole(paramsMap);
 					}
 				});
 	}

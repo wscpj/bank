@@ -1,5 +1,6 @@
 package com.bank.common.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,7 +86,8 @@ public class UserController extends BasePageController {
     @RequestMapping(value = "/find/{currentPage}", method = RequestMethod.GET)
     public ModelAndView findUser(@PathVariable Integer currentPage,
             HttpServletRequest request) {
-        return pagination(currentPage, null,request, LIST_JSP, new PaginationCallBack<User>() {
+    	Map<String, Object> paramsmap = new HashMap<String, Object>();
+        return pagination(paramsmap, currentPage, null,request, LIST_JSP, new PaginationCallBack<User>() {
             @Override
             public List<User> callBack() {
                 return userService.findUsers();
@@ -100,7 +102,8 @@ public class UserController extends BasePageController {
             @RequestParam(value = "keyword") final String keyword,
             @RequestParam(value = "date") final String date,
             HttpServletRequest request) {
-        return pagination(pageNum, numPerPage,request, LIST_JSP, new PaginationCallBack<User>() {
+    	Map<String, Object> paramsmap = new HashMap<String, Object>();
+        return pagination(paramsmap, pageNum, numPerPage,request, LIST_JSP, new PaginationCallBack<User>() {
             @Override
             public List<User> callBack() {
                 return userService.searchUsers(keyword, date);

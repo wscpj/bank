@@ -68,20 +68,20 @@ public abstract class BasePageController extends BaseController {
         return modelAndView;
     }
 
-    protected ModelAndView pagination(Integer currentPage,Integer pageSize, HttpServletRequest request, String jspPage,
+    protected ModelAndView pagination(Map<String, Object> paramsMap, Integer currentPage,Integer pageSize, HttpServletRequest request, String jspPage,
             PaginationCallBack<?> paginationCallBack) {
         String relativeUrl = getRelativeUrl(request);
-        return paginationCallBack.execute(currentPage, pageSize, relativeUrl, jspPage);
+        return paginationCallBack.execute(paramsMap, currentPage, pageSize, relativeUrl, jspPage);
     }
 
-    protected ModelAndView pagination(Integer currentPage, Integer pageSize, String relativeUrl, String jspPage,
+    protected ModelAndView pagination(Map<String, Object> paramsMap, Integer currentPage, Integer pageSize, String relativeUrl, String jspPage,
             PaginationCallBack<?> paginationCallBack) {
-        return paginationCallBack.execute(currentPage, pageSize, relativeUrl, jspPage);
+        return paginationCallBack.execute(paramsMap, currentPage, pageSize, relativeUrl, jspPage);
     }
 
     protected abstract class PaginationCallBack<T> {
 
-        public ModelAndView execute(Integer currentPage, Integer pageSize, String relativeUrl, String jspPage) {
+        public ModelAndView execute(Map<String, Object> paramsMap, Integer currentPage, Integer pageSize, String relativeUrl, String jspPage) {
             PaginationDTO<T> paginationDTO = new PaginationDTO<T>();
             AppContext.getContext().addObject(AppConstants.PAGINATION_DTO, paginationDTO);
             if (currentPage != null) {
@@ -95,6 +95,7 @@ public abstract class BasePageController extends BaseController {
             List<T> itemList = callBack();
             paginationDTO.setItemList(itemList);
             modelAndView.addObject(AppConstants.PAGINATION_DTO, paginationDTO);
+            modelAndView.addObject("paramsMap", paramsMap);
             return modelAndView;
         }
 

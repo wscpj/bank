@@ -36,15 +36,12 @@
 		<if test="roleName != null and roleName != '' ">
 		    AND R.ROLE_NAME LIKE '%' #{roleName} '%'
 		</if>
-		<!-- <if test="beginTime != null and endTime == null">
+		<if test="beginTime != null and beginTime != ''">
 		    AND R.CREATED_TIME > #{beginTime}
 		</if>
-		<if test="beginTime == null and endTime != null">
+		<if test="endTime != null and endTime != ''">
 		    AND #{endTime} > R.CREATED_TIME
 		</if>
-		<if test="beginTime != null and endTime != null">
-		    AND R.CREATED_TIME > #{beginTime} AND #{endTime} > R.CREATED_TIME
-		</if> -->
 		 ORDER BY R.ID
 		<include refid="pagination"></include>
 	</select>
@@ -55,15 +52,12 @@
 		<if test="roleName != null and roleName != '' ">
 		    AND R.ROLE_NAME LIKE '%' #{roleName} '%'
 		</if>
-		<!-- <if test="beginTime != null and endTime == null">
+		<if test="beginTime != null and beginTime != ''">
 		    AND R.CREATED_TIME > #{beginTime}
 		</if>
-		<if test="beginTime == null and endTime != null">
+		<if test="endTime != null and endTime != ''">
 		    AND #{endTime} > R.CREATED_TIME
 		</if>
-		<if test="beginTime != null and endTime != null">
-		    AND R.CREATED_TIME > #{beginTime} AND #{endTime} > R.CREATED_TIME
-		</if> -->
 	</select>
 
 	<select id="getById" parameterType="java.lang.Integer" resultMap="roleMap">

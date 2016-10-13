@@ -18,9 +18,9 @@
       <div class="searchBar" >
         <table class="searchContent">
           <tr>
-            <td>角色名称：<input type="text" name="roleName" /></td>
-            <td>开始日期：<input type="text" name="beginTime" class="date" readonly="true" /></td>
-            <td>结束日期：<input type="text" name="endTime" class="date" readonly="true" /></td>
+            <td>角色名称：<input type="text" name="roleName" value="${paramsMap.roleName }"/></td>
+            <td>开始日期：<input type="text" name="beginTime" class="date" readonly="true" value="${paramsMap.beginTime }"/></td>
+            <td>结束日期：<input type="text" name="endTime" class="date" readonly="true" value="${paramsMap.endTime }"/></td>
           </tr>
         </table>
         <div class="subBar" style="margin-top:-25px;">
