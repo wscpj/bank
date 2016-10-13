@@ -36,7 +36,7 @@ public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
     
     @Override
     public Integer getCount(Map<String, Object> map) {
-        return getSqlSession().selectOne(CLASS_NAME + SQL_ID_FIND_ALL_ROLE_GETCOUNT);
+        return getSqlSession().selectOne(CLASS_NAME + SQL_ID_FIND_ALL_ROLE_GETCOUNT, map);
     }
     
     @Override
@@ -45,10 +45,11 @@ public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
         PaginationDTO<Role> paginationDTO = (PaginationDTO<Role>) AppContext.getContext().getObject(
                 AppConstants.PAGINATION_DTO);
         if (paginationDTO != null) {
+        	map.putAll(paginationDTO.getParameterMap());  
             Integer count = getCount(map);
             paginationDTO.setTotalRowCount(count);
         }
-    	return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_ALL_ROLE);
+    	return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_ALL_ROLE, map);
     }
     @Override
     public Boolean saveRole(Role role){

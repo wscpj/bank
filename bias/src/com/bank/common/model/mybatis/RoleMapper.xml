@@ -13,7 +13,7 @@
 	</resultMap>
 
 	<sql id="pagination">
-		<if test="offset != null and rowCount!= null">
+		<if test="offset != null and rowCount != null">
             <![CDATA[
                 LIMIT #{offset},#{rowCount}
             ]]>
@@ -33,10 +33,10 @@
 	<select id="findAllRole" parameterType="java.util.HashMap" resultMap="roleMap">
 		<include refid="selectRole"></include>
 		FROM ROLE R WHERE R.IS_DELETED = 0
-		<if test="roleName != null">
+		<if test="roleName != null and roleName != '' ">
 		    AND R.ROLE_NAME LIKE '%' #{roleName} '%'
 		</if>
-		<if test="beginTime != null and endTime == null">
+		<!-- <if test="beginTime != null and endTime == null">
 		    AND R.CREATED_TIME > #{beginTime}
 		</if>
 		<if test="beginTime == null and endTime != null">
@@ -44,7 +44,7 @@
 		</if>
 		<if test="beginTime != null and endTime != null">
 		    AND R.CREATED_TIME > #{beginTime} AND #{endTime} > R.CREATED_TIME
-		</if>
+		</if> -->
 		 ORDER BY R.ID
 		<include refid="pagination"></include>
 	</select>
@@ -52,10 +52,10 @@
 	<select id="getCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 		SELECT COUNT(ID) FROM ROLE R
 		WHERE R.IS_DELETED = 0
-		<if test="roleName != null">
+		<if test="roleName != null and roleName != '' ">
 		    AND R.ROLE_NAME LIKE '%' #{roleName} '%'
 		</if>
-		<if test="beginTime != null and endTime == null">
+		<!-- <if test="beginTime != null and endTime == null">
 		    AND R.CREATED_TIME > #{beginTime}
 		</if>
 		<if test="beginTime == null and endTime != null">
@@ -63,7 +63,7 @@
 		</if>
 		<if test="beginTime != null and endTime != null">
 		    AND R.CREATED_TIME > #{beginTime} AND #{endTime} > R.CREATED_TIME
-		</if>
+		</if> -->
 	</select>
 
 	<select id="getById" parameterType="java.lang.Integer" resultMap="roleMap">
