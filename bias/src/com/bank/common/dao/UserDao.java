@@ -1,6 +1,7 @@
 package com.bank.common.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bank.common.base.IBaseDao;
 import com.bank.common.model.User;
@@ -12,5 +13,7 @@ public interface UserDao extends IBaseDao<User, Integer>{
 
     List<User> findUsers();
 
-    List<User> searchUsers(String username, String date);
+    List<User> searchUsers(Map<String, Object> map);
+    
+    void deleteUserByIds(List<Integer> ids);
 }

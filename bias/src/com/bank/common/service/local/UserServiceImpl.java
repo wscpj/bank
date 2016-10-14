@@ -1,6 +1,7 @@
 package com.bank.common.service.local;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -63,8 +64,8 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     @Override
-    public List<User> searchUsers(String username, String date) {
-        return userDao.searchUsers(username, date);
+    public List<User> searchUsers(Map<String, Object> map) {
+        return userDao.searchUsers(map);
     }
 
     @Override
@@ -80,5 +81,10 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public Boolean deleteUser(Integer id) {
         return userDao.delete(id);
+    }
+    
+    @Override
+    public void deleteUserByIds(List<Integer> ids){
+        userDao.deleteUserByIds(ids);
     }
 }

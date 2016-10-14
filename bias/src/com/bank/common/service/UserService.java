@@ -1,6 +1,7 @@
 package com.bank.common.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
@@ -13,11 +14,13 @@ public interface UserService {
 
     List<User> findUsers();
 
-    List<User> searchUsers(String username, String date);
+    List<User> searchUsers(Map<String, Object> map);
 
     Boolean addUser(User user);
 
     Boolean updateUser(User user);
 
     Boolean deleteUser(Integer id);
+    
+    void deleteUserByIds(List<Integer> ids);
 }

@@ -19,6 +19,7 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
     private static final String SQL_ID_USER_GET_COUNT_BY_KEYWORDS = ".getCountByKeywords";
     private static final String SQL_ID_USER_FIND_USERS = ".findAll";
     private static final String SQL_ID_USER_SEARCH_USERS = ".searchUsers";
+    private static final String SQL_ID_DELETE_USER_BYIDS = ".deleteUserByIds";
 
     @Override
     public User getUserByNameAndPassword(String userName, String password) {
@@ -33,7 +34,7 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
         return getSqlSession().selectOne(CLASS_NAME + SQL_ID_USER_GET_COUNT);
     }
 
-    private Integer getCountByKeywords(Map params) {
+    private Integer getCountByKeywords(Map<String, Object> params) {
         return getSqlSession().selectOne(CLASS_NAME + SQL_ID_USER_GET_COUNT_BY_KEYWORDS, params);
     }
 
@@ -49,26 +50,26 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
         }
         System.out.println(paginationDTO.toString());
         return getSqlSession().selectList(
-                CLASS_NAME + SQL_ID_USER_FIND_USERS, params);
+                CLASS_NAME + SQL_ID_USER_FIND_USERS);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> searchUsers(String username, String date) {
+    public List<User> searchUsers(Map<String, Object> map) {
         Map<String, Object> params = getParameterMap();
         PaginationDTO<User> paginationDTO = (PaginationDTO<User>) AppContext.getContext().getObject(
                 AppConstants.PAGINATION_DTO);
         if (paginationDTO != null) {
-            if (!StringUtil.isEmpty(username)) {
-                params.put("username", username);
-            }
-            if (!StringUtil.isEmpty(date)) {
-                params.put("date", date);
-            }
+        	params.putAll(map);
             Integer count = getCountByKeywords(params);
             paginationDTO.setTotalRowCount(count);
         }
         return getSqlSession().selectList(
                 CLASS_NAME + SQL_ID_USER_SEARCH_USERS, params);
+    }
+    @Override
+    public void deleteUserByIds(List<Integer> ids){
+    	 getSqlSession().update(
+                 CLASS_NAME + SQL_ID_DELETE_USER_BYIDS, ids);
     }
 }

@@ -3,7 +3,6 @@
 <!DOCTYPE>
 <html>
   <head>
-    <title>添加管理员</title>
   </head>
   <body style="background-repeat: no-repeat;background-position: center;background: url('${pageContext.request.contextPath}/Images/background.jpg');">
     <div class="panelBar" style=" border-width:1px;">
@@ -12,15 +11,15 @@
       </ul>
     </div>
     <div class="pageContent">
-      <form method="post" action="${pageContext.request.contextPath}/page/user/add" class="pageForm required-validate"   onsubmit="return validateCallback(this, dialogAjaxDone);">
+      <form method="post" action="${pageContext.request.contextPath}/page/user/save" class="pageForm required-validate"   onsubmit="return validateCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="90">
           <p>
             <label>管理员名称：</label>
-            <input name="userName" class="required" type="text" size="30" value="" alt="请输入管理员名称" />
+            <input name="userName" class="required" type="text" size="30"  alt="请输入管理员名称" />
           </p>
           <p>
             <label>管理员密码：</label>
-            <input name="password" class="required" type="password" size="30" value="" alt="请输入管理员密码" />
+            <input name="password" class="required" type="password" size="30"  alt="请输入管理员密码" />
           </p>
           <p>
             <label>管理员性别：</label>
@@ -32,11 +31,11 @@
           </p>
           <p>
             <label>管理员email：</label>
-            <input name="email" class="required email" type="text" size="30" value="" alt="请输入管理员邮箱" />
+            <input name="email" class="required email" type="text" size="30"  alt="请输入管理员邮箱" />
           </p>
           <p>
             <label>管理员手机：</label>
-            <input name="phone" class="required phone" type="text" size="30" value="" alt="请输入管理员手机号" />
+            <input name="phone" class="required phone" type="text" size="30"  alt="请输入管理员手机号" />
           </p>
         </div>
         <div class="formBar">
