@@ -8,7 +8,8 @@ import com.bank.common.exception.ValidationException;
 import com.bank.common.model.User;
 
 public interface UserService {
-    User login(String userName, String password) throws ValidationException, BusinessException;
+    User login(String userName, String password) throws ValidationException,
+            BusinessException;
 
     Boolean deleteOrgUser(Integer organizationId);
 
@@ -21,6 +22,8 @@ public interface UserService {
     Boolean updateUser(User user);
 
     Boolean deleteUser(Integer id);
-    
+
     void deleteUserByIds(List<Integer> ids);
+
+    User findUserById(Integer id);
 }

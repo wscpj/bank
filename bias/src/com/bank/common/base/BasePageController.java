@@ -1,6 +1,5 @@
 package com.bank.common.base;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.bank.common.AppConstants;
 import com.bank.common.AppContext;
 import com.bank.common.model.PaginationDTO;
-
 
 public abstract class BasePageController extends BaseController {
     protected static final String JSP_MAIN_LAYOUT = "main-layout";
@@ -31,7 +29,7 @@ public abstract class BasePageController extends BaseController {
     public ModelAndView handleException(Exception e) {
         log.error(e.getMessage(), e);
         ModelAndView modelAndview = new ModelAndView();
-        //TODO
+        // TODO
         // should redirect to error page
         modelAndview.setViewName(JSP_NOT_LOGIN_PAGINATION_VIEW);
         return modelAndview;
@@ -64,26 +62,34 @@ public abstract class BasePageController extends BaseController {
         if (isLogin()) {
             return null;
         }
-        ModelAndView modelAndView = new ModelAndView(JSP_NOT_LOGIN_PAGINATION_VIEW);
+        ModelAndView modelAndView = new ModelAndView(
+                JSP_NOT_LOGIN_PAGINATION_VIEW);
         return modelAndView;
     }
 
-    protected ModelAndView pagination(Map<String, Object> paramsMap, Integer currentPage,Integer pageSize, HttpServletRequest request, String jspPage,
-            PaginationCallBack<?> paginationCallBack) {
+    protected ModelAndView pagination(Map<String, Object> paramsMap,
+            Integer currentPage, Integer pageSize, HttpServletRequest request,
+            String jspPage, PaginationCallBack<?> paginationCallBack) {
         String relativeUrl = getRelativeUrl(request);
-        return paginationCallBack.execute(paramsMap, currentPage, pageSize, relativeUrl, jspPage);
+        return paginationCallBack.execute(paramsMap, currentPage, pageSize,
+                relativeUrl, jspPage);
     }
 
-    protected ModelAndView pagination(Map<String, Object> paramsMap, Integer currentPage, Integer pageSize, String relativeUrl, String jspPage,
-            PaginationCallBack<?> paginationCallBack) {
-        return paginationCallBack.execute(paramsMap, currentPage, pageSize, relativeUrl, jspPage);
+    protected ModelAndView pagination(Map<String, Object> paramsMap,
+            Integer currentPage, Integer pageSize, String relativeUrl,
+            String jspPage, PaginationCallBack<?> paginationCallBack) {
+        return paginationCallBack.execute(paramsMap, currentPage, pageSize,
+                relativeUrl, jspPage);
     }
 
     protected abstract class PaginationCallBack<T> {
 
-        public ModelAndView execute(Map<String, Object> paramsMap, Integer currentPage, Integer pageSize, String relativeUrl, String jspPage) {
+        public ModelAndView execute(Map<String, Object> paramsMap,
+                Integer currentPage, Integer pageSize, String relativeUrl,
+                String jspPage) {
             PaginationDTO<T> paginationDTO = new PaginationDTO<T>();
-            AppContext.getContext().addObject(AppConstants.PAGINATION_DTO, paginationDTO);
+            AppContext.getContext().addObject(AppConstants.PAGINATION_DTO,
+                    paginationDTO);
             if (currentPage != null) {
                 paginationDTO.setCurrentPage(currentPage);
             }

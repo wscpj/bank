@@ -23,15 +23,18 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     @Override
-    public User login(String userName, String password) throws ValidationException, BusinessException{
+    public User login(String userName, String password)
+            throws ValidationException, BusinessException {
 
         ValidationException validationException = new ValidationException();
         if (StringUtil.isEmpty(userName)) {
-            validationException.addError("erroruserName", "Your name is required!");
+            validationException.addError("erroruserName",
+                    "Your name is required!");
         }
 
         if (StringUtil.isEmpty(password)) {
-            validationException.addError("errorpassword", "Your password is required!");
+            validationException.addError("errorpassword",
+                    "Your password is required!");
         }
 
         if (validationException.isError()) {
@@ -39,15 +42,17 @@ public class UserServiceImpl extends BaseService implements UserService {
             throw validationException;
         }
 
-        User user = userDao.getUserByNameAndPassword(userName,password);
+        User user = userDao.getUserByNameAndPassword(userName, password);
 
         if (user == null) {
-            logger.warn("The username or password is error!", new BusinessException(1000, "The user doesn't exist"));
+            logger.warn("The username or password is error!",
+                    new BusinessException(1000, "The user doesn't exist"));
             throw new BusinessException(1000, "用户不存在");
         }
 
         if (!password.equals(user.getPassword())) {
-            logger.warn("The username or password is error!", new BusinessException(1001, "The password is error"));
+            logger.warn("The username or password is error!",
+                    new BusinessException(1001, "The password is error"));
             throw new BusinessException(1001, "密码错误");
         }
         return user;
@@ -82,9 +87,14 @@ public class UserServiceImpl extends BaseService implements UserService {
     public Boolean deleteUser(Integer id) {
         return userDao.delete(id);
     }
-    
+
     @Override
-    public void deleteUserByIds(List<Integer> ids){
+    public void deleteUserByIds(List<Integer> ids) {
         userDao.deleteUserByIds(ids);
+    }
+
+    @Override
+    public User findUserById(Integer id) {
+        return userDao.findUserById(id);
     }
 }

@@ -36,11 +36,11 @@
             </div>
             <div class="username_div">
               <label>用户名</label>
-              <input type="text" class="username" id="username" name="name" class="login_input" value="gao"/>
+              <input type="text" class="username" id="username" name="name" class="login_input" value="admin"/>
             </div>
             <div>
               <label>密码</label>
-              <input type="password" class="password" id="password" name="password" class="login_input" value="gao"/>
+              <input type="password" class="password" id="password" name="password" class="login_input" value="ee05a31705e045008df639839735a2fe"/>
             </div>
             <div class="submit_div">
               <div class="submit_btn">登录</div>

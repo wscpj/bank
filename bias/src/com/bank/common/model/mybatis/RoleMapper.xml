@@ -6,6 +6,7 @@
 	<resultMap type="Role" id="roleMap">
 		<id column="id" property="id" />
 		<result column="role_code" property="roleCode" />
+		<result column="display_name" property="displayName" />
 		<result column="role_name" property="roleName" />
 		<result column="is_Deleted" property="isDeleted" />
 		<result column="created_time" property="createdTime" />
@@ -24,6 +25,7 @@
 		SELECT
 		R.ID AS ID,
 		R.ROLE_CODE AS ROLE_CODE,
+		R.DISPLAY_NAME AS DISPLAY_NAME,
 		R.ROLE_NAME AS ROLE_NAME,
 		R.IS_DELETED AS IS_DELETED,
 		R.CREATED_TIME AS CREATED_TIME,
@@ -67,8 +69,8 @@
 
 	<insert id="add" parameterType="Role">
 		INSERT INTO
-		ROLE(ROLE_CODE,ROLE_NAME,IS_DELETED,CREATED_TIME,UPDATED_TIME)
-		VALUES(#{roleCode},#{roleName},'0',#{createdTime},#{updatedTime})
+		ROLE(ROLE_CODE,DISPLAY_NAME,ROLE_NAME,IS_DELETED,CREATED_TIME,UPDATED_TIME)
+		VALUES(#{roleCode},#{displayName},#{roleName},'0',#{createdTime},#{updatedTime})
 	</insert>
 	<update id="update" parameterType="Role">
         <![CDATA[
@@ -76,6 +78,7 @@
             SET 
                 R.ROLE_CODE = #{roleCode},
                 R.ROLE_NAME = #{roleName},
+                R.DISPLAY_NAME = #{displayName},
                 R.UPDATED_TIME = #{updatedTime}
             WHERE R.ID = #{id}
         ]]>

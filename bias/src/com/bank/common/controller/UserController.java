@@ -16,15 +16,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.bank.common.AppConstants;
 import com.bank.common.AppContext;
 import com.bank.common.base.BasePageController;
+import com.bank.common.base.ResultMsg;
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
-import com.bank.common.model.Status;
 import com.bank.common.model.User;
 import com.bank.common.service.UserService;
 import com.bank.common.util.StringUtil;
@@ -38,7 +39,6 @@ public class UserController extends BasePageController {
     private final String EDIT_JSP = "user/editUser";
     private final String LIST_JSP = "user/userList";
     private final String DASHBOARD = "page/user/dashboard";
-    private final String STATUS_JSP = "common/status";
 
     private final Logger logger = Logger.getLogger(UserController.class);
 
@@ -62,8 +62,7 @@ public class UserController extends BasePageController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView Login(
             @RequestParam(value = "name", defaultValue = "") String name,
-            @RequestParam(value = "password", defaultValue = "") String password
-            ){
+            @RequestParam(value = "password", defaultValue = "") String password) {
         ModelAndView modelAndView = new ModelAndView();
 
         try {
@@ -72,16 +71,20 @@ public class UserController extends BasePageController {
             user.setPassword(null);
             this.addSession(AppConstants.USER, user);
             this.addSession(AppConstants.ROLES, AppConstants.ROLES);
-            modelAndView.setView(new RedirectView(AppContext.getContextPath() + "/" + DASHBOARD));
+            modelAndView.setView(new RedirectView(AppContext.getContextPath()
+                    + "/" + DASHBOARD));
 
         } catch (ValidationException validationException) {
-            Map<String, String> errorFilds = validationException.getFieldErrors();
+            Map<String, String> errorFilds = validationException
+                    .getFieldErrors();
             modelAndView.addObject(AppConstants.ERROR_FILDS, errorFilds);
             modelAndView.setViewName(LOGIN_JSP);
             logger.info("The parameter is error!", validationException);
 
         } catch (BusinessException businessException) {
-            modelAndView.addObject(AppConstants.MESSAGE, businessException.getErrorMessage() + "  [" + businessException.getCode() + "]");
+            modelAndView.addObject(AppConstants.MESSAGE,
+                    businessException.getErrorMessage() + "  ["
+                            + businessException.getCode() + "]");
             modelAndView.addObject(AppConstants.VISIBILITY, "visible");
             modelAndView.setViewName(LOGIN_JSP);
             logger.warn("The username or password is error!", businessException);
@@ -89,85 +92,57 @@ public class UserController extends BasePageController {
         return modelAndView;
     }
 
-   /* @RequestMapping(value = "/find/{currentPage}", method = RequestMethod.GET)
-    public ModelAndView findUser(@PathVariable Integer currentPage,
-            HttpServletRequest request) {
-    	Map<String, Object> paramsmap = new HashMap<String, Object>();
-        return pagination(paramsmap, currentPage, null,request, LIST_JSP, new PaginationCallBack<User>() {
-            @Override
-            public List<User> callBack() {
-                return userService.findUsers(paramsmap);
-            }
-        });
-    }*/
-
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ModelAndView findRole(HttpServletRequest request) {
+    public ModelAndView findRole(HttpServletRequest request) {
 
-		String pageNum = request.getParameter("pageNum");
-		String numPerPage = request.getParameter("numPerPage");
-		Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
-		Integer numPerPageInt = numPerPage == null ? 10 : Integer
-				.valueOf(numPerPage);
+        String pageNum = request.getParameter("pageNum");
+        String numPerPage = request.getParameter("numPerPage");
+        Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
+        Integer numPerPageInt = numPerPage == null ? 10 : Integer
+                .valueOf(numPerPage);
 
-		String userName = request.getParameter("userName");
-		String beginTime = request.getParameter("beginTime");
-		String endTime = request.getParameter("endTime");
-		final Map<String, Object> paramsMap = new HashMap<String, Object>();
-		paramsMap.put("userName", userName);
-		paramsMap.put("beginTime", beginTime);
-		paramsMap.put("endTime", endTime);
+        String userName = request.getParameter("userName");
+        String beginTime = request.getParameter("beginTime");
+        String endTime = request.getParameter("endTime");
+        final Map<String, Object> paramsMap = new HashMap<String, Object>();
+        paramsMap.put("userName", userName);
+        paramsMap.put("beginTime", beginTime);
+        paramsMap.put("endTime", endTime);
 
-		return pagination(paramsMap, pageNumInt, numPerPageInt, request,
-				LIST_JSP, new PaginationCallBack<User>() {
-					@Override
-					public List<User> callBack() {
-						return userService.searchUsers(paramsMap);
-					}
-				});
-	}
-    
+        return pagination(paramsMap, pageNumInt, numPerPageInt, request,
+                LIST_JSP, new PaginationCallBack<User>() {
+                    @Override
+                    public List<User> callBack() {
+                        return userService.searchUsers(paramsMap);
+                    }
+                });
+    }
+
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView findRole1(HttpServletRequest request) {
+    public ModelAndView findRole1(HttpServletRequest request) {
 
-		String pageNum = request.getParameter("pageNum");
-		String numPerPage = request.getParameter("numPerPage");
-		Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
-		Integer numPerPageInt = numPerPage == null ? 10 : Integer
-				.valueOf(numPerPage);
+        String pageNum = request.getParameter("pageNum");
+        String numPerPage = request.getParameter("numPerPage");
+        Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
+        Integer numPerPageInt = numPerPage == null ? 10 : Integer
+                .valueOf(numPerPage);
 
-		String userName = request.getParameter("userName");
-		String beginTime = request.getParameter("beginTime");
-		String endTime = request.getParameter("endTime");
-		final Map<String, Object> paramsMap = new HashMap<String, Object>();
-		paramsMap.put("userName", userName);
-		paramsMap.put("beginTime", beginTime);
-		paramsMap.put("endTime", endTime);
+        String userName = request.getParameter("userName");
+        String beginTime = request.getParameter("beginTime");
+        String endTime = request.getParameter("endTime");
+        final Map<String, Object> paramsMap = new HashMap<String, Object>();
+        paramsMap.put("userName", userName);
+        paramsMap.put("beginTime", beginTime);
+        paramsMap.put("endTime", endTime);
 
-		return pagination(paramsMap, pageNumInt, numPerPageInt, request,
-				LIST_JSP, new PaginationCallBack<User>() {
-					@Override
-					public List<User> callBack() {
-						return userService.searchUsers(paramsMap);
-					}
-				});
-	}
-    
-    /*@RequestMapping(value = "/search", method = RequestMethod.POST)
-    public ModelAndView searchUser(
-            @RequestParam(value = "pageNum") Integer pageNum,
-            @RequestParam(value = "numPerPage") Integer numPerPage,
-            @RequestParam(value = "keyword") final String keyword,
-            @RequestParam(value = "date") final String date,
-            HttpServletRequest request) {
-    	Map<String, Object> paramsmap = new HashMap<String, Object>();
-        return pagination(paramsmap, pageNum, numPerPage,request, LIST_JSP, new PaginationCallBack<User>() {
-            @Override
-            public List<User> callBack() {
-                return userService.searchUsers(keyword, date);
-            }
-        });
-    }*/
+        return pagination(paramsMap, pageNumInt, numPerPageInt, request,
+                LIST_JSP, new PaginationCallBack<User>() {
+                    @Override
+                    public List<User> callBack() {
+                        return userService.searchUsers(paramsMap);
+                    }
+                });
+    }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addUser() {
@@ -177,52 +152,61 @@ public class UserController extends BasePageController {
         return modelAndView;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView saveUser(@ModelAttribute User user, HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(STATUS_JSP);
+    public ResultMsg saveUser(@ModelAttribute User user,
+            HttpServletRequest request) {
+        ResultMsg resultMsg = null;
 
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String nowDate = sf.format(new Date());
-		user.setCreatedTime(nowDate);
-		user.setUpdatedTime(nowDate);
-		Boolean bl = userService.addUser(user);
-		Status sta = null;
-		if (bl) {
-			sta = new Status("200", "操作成功", "userManage", "",
-					"closeCurrent", "", "");
-		} else {
-			sta = new Status("300", "操作成功", "userManage", "",
-					"closeCurrent", "", "");
-		}
-		modelAndView.addObject("model", sta);
-        return modelAndView;
+        String nowDate = sf.format(new Date());
+        user.setCreatedTime(nowDate);
+        user.setUpdatedTime(nowDate);
+        Boolean bl = userService.addUser(user);
+        if (bl) {
+            resultMsg = ResultMsg.okMsg();
+        } else {
+            resultMsg = ResultMsg.errorMsg();
+        }
+        return resultMsg;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editUser(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(EDIT_JSP);
+        User user = userService.findUserById(id);
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public ModelAndView modifyUser() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(EDIT_JSP);
-        return modelAndView;
-    }
-
+    @ResponseBody
     @RequestMapping(value = "/delete")
-    public ModelAndView delete(HttpServletRequest request) {
-    	String ids = request.getParameter("ids");
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(STATUS_JSP);
+    public ResultMsg delete(HttpServletRequest request) {
+        ResultMsg resultMsg = null;
+        String ids = request.getParameter("ids");
         List<Integer> list = StringUtil.StringToList(ids);
         userService.deleteUserByIds(list);
-        Status sta = new Status("200", "操作成功", "userManage", "", "forward", "",
-				"");
-        modelAndView.addObject("model", sta);
-        return modelAndView;
+        resultMsg = ResultMsg.okMsg();
+        resultMsg.setCallbackType("");
+        return resultMsg;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResultMsg updateUser(@ModelAttribute User user,
+            HttpServletRequest request) {
+        ResultMsg resultMsg = null;
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String nowDate = sf.format(new Date());
+        user.setUpdatedTime(nowDate);
+        Boolean bl = userService.updateUser(user);
+        if (bl) {
+            resultMsg = ResultMsg.okMsg();
+        } else {
+            resultMsg = ResultMsg.errorMsg();
+        }
+        return resultMsg;
     }
 }

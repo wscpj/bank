@@ -47,6 +47,7 @@
           	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
             <th class="center" >序号</th>
             <th class="center">角色号</th>
+            <th class="center">展示名称</th>
             <th class="center">角色名称</th>
             <th class="center">创建时间</th>
             <th class="center">更新时间</th>
@@ -58,6 +59,7 @@
           	<td><input name="ids" type="checkbox" value="${role.id}"></td>
           	<td>${role.id}</td>
             <td>${role.roleCode}</td>
+            <td>${role.displayName}</td>
             <td>${role.roleName}</td>
             <td>${role.createdTime}</td>
             <td>${role.updatedTime}</td>
