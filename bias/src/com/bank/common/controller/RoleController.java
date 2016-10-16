@@ -130,34 +130,8 @@ public class RoleController extends BasePageController {
         return resultMsg;
     }
 
-    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    @RequestMapping(value = "/find")
     public ModelAndView findRole(HttpServletRequest request) {
-
-        String pageNum = request.getParameter("pageNum");
-        String numPerPage = request.getParameter("numPerPage");
-        Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
-        Integer numPerPageInt = numPerPage == null ? 10 : Integer
-                .valueOf(numPerPage);
-
-        String roleName = request.getParameter("roleName");
-        String beginTime = request.getParameter("beginTime");
-        String endTime = request.getParameter("endTime");
-        final Map<String, Object> paramsMap = new HashMap<String, Object>();
-        paramsMap.put("roleName", roleName);
-        paramsMap.put("beginTime", beginTime);
-        paramsMap.put("endTime", endTime);
-
-        return pagination(paramsMap, pageNumInt, numPerPageInt, request,
-                LIST_JSP, new PaginationCallBack<Role>() {
-                    @Override
-                    public List<Role> callBack() {
-                        return roleService.findAllRole(paramsMap);
-                    }
-                });
-    }
-
-    @RequestMapping(value = "/find", method = RequestMethod.POST)
-    public ModelAndView findRole1(HttpServletRequest request) {
 
         String pageNum = request.getParameter("pageNum");
         String numPerPage = request.getParameter("numPerPage");

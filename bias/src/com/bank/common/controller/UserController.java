@@ -92,34 +92,8 @@ public class UserController extends BasePageController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/search")
     public ModelAndView findRole(HttpServletRequest request) {
-
-        String pageNum = request.getParameter("pageNum");
-        String numPerPage = request.getParameter("numPerPage");
-        Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
-        Integer numPerPageInt = numPerPage == null ? 10 : Integer
-                .valueOf(numPerPage);
-
-        String userName = request.getParameter("userName");
-        String beginTime = request.getParameter("beginTime");
-        String endTime = request.getParameter("endTime");
-        final Map<String, Object> paramsMap = new HashMap<String, Object>();
-        paramsMap.put("userName", userName);
-        paramsMap.put("beginTime", beginTime);
-        paramsMap.put("endTime", endTime);
-
-        return pagination(paramsMap, pageNumInt, numPerPageInt, request,
-                LIST_JSP, new PaginationCallBack<User>() {
-                    @Override
-                    public List<User> callBack() {
-                        return userService.searchUsers(paramsMap);
-                    }
-                });
-    }
-
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public ModelAndView findRole1(HttpServletRequest request) {
 
         String pageNum = request.getParameter("pageNum");
         String numPerPage = request.getParameter("numPerPage");
