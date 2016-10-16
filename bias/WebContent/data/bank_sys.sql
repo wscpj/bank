@@ -89,12 +89,9 @@ CREATE TABLE `user` (
   `updated_time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
 -- ----------------------------
---  Records of `user`
+--  设置管理员初始化密码，明文密码：admin
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1', 'admin', null, '15221971705@163.com', '15221971705', 'ee05a31705e045008df639839735a2fe', '0', '2016-09-24 23:57:29', '2016-09-24 23:57:29');
+INSERT INTO `user` (user_name,gender,email,phone,password,is_deleted,created_time,updated_time) VALUES ('admin', '0', 'admin@dev.com', '18236916020', 'c3284d0f94606de1fd2af172aba15bf3', '0', '2016-10-16 20:44:51', '2016-10-16 20:44:51');
 COMMIT;
-
-SET FOREIGN_KEY_CHECKS = 1;
