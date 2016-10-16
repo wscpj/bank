@@ -1,4 +1,4 @@
-.externalToolBuilders
-.settings
+.externalToolBuilders/
+.settings/
 build/
-.class
+*.class
