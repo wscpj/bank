@@ -21,6 +21,9 @@
     <bean id="userService" parent="baseService" class="com.bank.common.service.local.UserServiceImpl">
         <property name="userDao" ref="userDao"></property>
     </bean>
+    <bean id="roleService" parent="baseService" class="com.bank.common.service.local.RoleServiceImpl">
+        <property name="roleDao" ref="roleDao"></property>
+    </bean>
     <bean id="privilegeService" parent="baseService" class="com.bank.common.service.local.PrivilegeServiceImpl">
         <property name="privilegeDao" ref="privilegeDao"></property>
     </bean>
