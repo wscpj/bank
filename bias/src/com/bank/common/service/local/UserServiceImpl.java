@@ -43,18 +43,12 @@ public class UserServiceImpl extends BaseService implements UserService {
         }
 
         User user = userDao.getUserByNameAndPassword(userName, password);
-
         if (user == null) {
             logger.warn("The username or password is error!",
                     new BusinessException(1000, "The user doesn't exist"));
             throw new BusinessException(1000, "用户不存在");
         }
 
-        if (!password.equals(user.getPassword())) {
-            logger.warn("The username or password is error!",
-                    new BusinessException(1001, "The password is error"));
-            throw new BusinessException(1001, "密码错误");
-        }
         return user;
     }
 

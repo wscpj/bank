@@ -48,7 +48,7 @@
         <include refid="selectUser" />
         <![CDATA[
             FROM user u
-            WHERE u.user_name = #{userName} and u.password=#{password} and is_deleted = 0
+            WHERE u.user_name = #{userName} and u.password=md5(md5(#{password})) and is_deleted = 0
         ]]>
     </select>
     
@@ -134,7 +134,7 @@
             VALUES
             (
                 #{userName},
-                #{password},
+                md5(md5(#{password})),
                 #{gender},
                 #{email},
                 #{phone},
