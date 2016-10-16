@@ -18,8 +18,9 @@
       <div class="searchBar" >
         <table class="searchContent">
           <tr>
-            <td>管理员名称：<input type="text" name="keyword" /></td>
-            <td>建档日期：<input type="text" name="date" class="date" readonly="true" /></td>
+            <td>用户名称：<input type="text" name="userName" value="${paramsMap.userName }"/></td>
+            <td>开始日期：<input type="text" name="beginTime" class="date" readonly="true" value="${paramsMap.beginTime }"/></td>
+            <td>结束日期：<input type="text" name="endTime" class="date" readonly="true" value="${paramsMap.endTime }"/></td>
           </tr>
         </table>
         <div class="subBar" style="margin-top:-25px;">
@@ -36,13 +37,14 @@
         <li><a class="add" href="${pageContext.request.contextPath}/page/user/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加管理员</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/page/user/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改管理员</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/manage/modifyView?id={id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
-        <li><a class="delete" href="${pageContext.request.contextPath}/page/user/delete/{id}" target="ajaxTodo" title="确定要删除吗"><span target="navTab">删除管理员</span></a></li>
+        <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/user/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除管理员</span></a></li>
       </ul>
     </div>
     <div id="w_list_print">
       <table class="list" width="100%" layoutH="118">
         <thead>
           <tr height="25" style="text-align: center;">
+          	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
             <th class="center" >序号</th>
             <th class="center">姓名</th>
             <th class="center">密码</th>
@@ -55,6 +57,7 @@
         <tbody>
         <c:forEach items="${paginationDTO.itemList}" var="user" varStatus="status">
           <tr style="text-align: center;"height="20" rel="${user.id}" target="id">
+          	<td><input name="ids" type="checkbox" value="${user.id}"></td>
             <td>${status.count+mp.flag}</td>
             <td>${user.userName}</td>
             <td><input type="password" value="${user.password}" style="border:0px;background-color: white" readonly="readonly"/></td>

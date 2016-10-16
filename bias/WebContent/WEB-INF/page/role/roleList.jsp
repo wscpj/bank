@@ -18,9 +18,9 @@
       <div class="searchBar" >
         <table class="searchContent">
           <tr>
-            <td>角色名称：<input type="text" name="roleName" /></td>
-            <td>开始日期：<input type="text" name="beginTime" class="date" readonly="true" /></td>
-            <td>结束日期：<input type="text" name="endTime" class="date" readonly="true" /></td>
+            <td>角色名称：<input type="text" name="roleName" value="${paramsMap.roleName }"/></td>
+            <td>开始日期：<input type="text" name="beginTime" class="date" readonly="true" value="${paramsMap.beginTime }"/></td>
+            <td>结束日期：<input type="text" name="endTime" class="date" readonly="true" value="${paramsMap.endTime }"/></td>
           </tr>
         </table>
         <div class="subBar" style="margin-top:-25px;">
@@ -47,6 +47,7 @@
           	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
             <th class="center" >序号</th>
             <th class="center">角色号</th>
+            <th class="center">展示名称</th>
             <th class="center">角色名称</th>
             <th class="center">创建时间</th>
             <th class="center">更新时间</th>
@@ -58,6 +59,7 @@
           	<td><input name="ids" type="checkbox" value="${role.id}"></td>
           	<td>${role.id}</td>
             <td>${role.roleCode}</td>
+            <td>${role.displayName}</td>
             <td>${role.roleName}</td>
             <td>${role.createdTime}</td>
             <td>${role.updatedTime}</td>
