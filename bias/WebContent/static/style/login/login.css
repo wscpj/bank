@@ -1,0 +1,163 @@
+@CHARSET "UTF-8";
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+}
+.bg_img{
+    width: 100%;
+    height: 100%;
+    z-index: -100;
+    position:absolute;
+}
+.main{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+}
+.logo{
+    width: 100%;
+    height: 60px;
+    margin: 0 auto;
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 15px;
+}
+.loginForm{
+    width: 100%;
+    margin: 0 auto;
+}
+.center{
+    width:494px;
+    height:416px;
+    background:url('../../images/centerBg_login.png');
+    position:absolute;
+    left:50%;
+    margin-left:-247px;
+    top:50%;
+    margin-top:-208px;
+}
+.center div{
+    float:left;
+    width:496px;
+    height:40px;
+    color:White;
+    font-size:14px;
+    font-family:Arial;
+    margin-top:30px;
+}
+.center div.lblUserLogin{
+    height:20px;
+}
+.center div.tipMessage_div{
+    margin-top:10px;
+}
+.center div.username_div{
+    margin-top:0px;
+}
+.center label{
+    width:70px;
+    height:40px;
+    float:left;
+    margin-left:20px;
+    line-height:40px; 
+    text-align:right;
+    
+}
+.center input{
+    width:341px;
+    height:40px;
+    float:left;
+    margin-left:20px;
+    color:Black;
+    text-indent:10px;
+    line-height:40px; 
+    text-align:left;
+    
+}
+.center label.tipMessage{
+    width:343px;
+    color:Red;
+    margin-left:110px;
+    text-indent:10px;
+    line-height:40px;
+    text-align:left;
+    background-color:#dbf2ff;
+    border:1px solid #00a3ff;
+    visibility:hidden;
+}
+.center div.submit_btn{
+    width:220px;
+    height:40px;
+    float:left;
+    margin-left:110px;
+    line-height:40px;
+    color:White;
+    cursor:pointer;
+    background:url('../../images/btnLoginBg.png') no-repeat;
+    border:none;
+}
+.center div.clear_btn{
+    width:98px;
+    height:40px;
+    float:right;
+    margin-right:45px;
+    line-height:40px; 
+    color:Black;
+    cursor:pointer;
+    background:url('../../images/btnClearBg.png') no-repeat;
+    border:none;
+}
+.center input.autoLogin_input
+{
+    width:16px;
+    height:16px;
+    float:left;
+    cursor:pointer;
+    margin-top:12px;
+    margin-left:110px;
+}
+.center label.autoLogin_label{
+    margin-left: 2px;
+    text-align: left;
+}
+.forgotPassword_a
+{
+    float:right;
+    height:40px;
+    line-height:40px;
+    margin-right:45px;
+    cursor:pointer;
+    color:White;
+    text-decoration:none;
+}
+.center div.bottom_div
+{
+    width:494px;
+    height:60px;
+    float:left;
+    font-family:Arial;
+    position:absolute;
+    left:0px;    
+    bottom:0px;
+}
+.center div.bottom_div label
+{
+    width:100%;
+    height:60px;
+    float:left;
+    color:#0ba4ea;
+    margin-left:0px;
+    cursor:pointer;
+    text-align: center;
+    line-height: 60px;
+}
+.login_footer{
+    width: 100%;
+    margin: 0 auto;
+    position:absolute;
+    bottom: 10px;
+}

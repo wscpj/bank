@@ -1,0 +1,41 @@
+<!DOCTYPE SYSTEM>
+<project name="ITS build" default="runAll.server">
+    <property file="build.properties"/>
+
+    <target name="runAll.server" depends="deploy.war">
+    </target>
+
+    <target name="package.war">
+        <delete dir="${project.output}/temp"/>
+
+        <mkdir dir="${project.output}/temp"/>
+
+        <copy todir="${project.output}/temp">
+           <fileset dir="${project.webcontent}">
+           </fileset>
+        </copy>
+ 
+        <copy todir="${project.output}/temp/WEB-INF/classes">
+            <fileset dir="${project.build.classes}">
+            </fileset>
+        </copy>
+
+        <war destfile="${project.output}/its_admin.war">
+              <fileset dir="${project.output}/temp"/>
+        </war>
+
+        <delete dir="${project.output}/temp"/>
+
+    </target>
+
+    <target name="deploy.war" depends="package.war">
+        <delete dir="${work.dir}">
+        </delete>
+ 
+        <delete dir="${deploy.dir}/its_admin">
+        </delete>
+
+        <copy todir="${deploy.dir}" file="${project.output}/its_admin.war">
+        </copy>
+    </target>
+</project>

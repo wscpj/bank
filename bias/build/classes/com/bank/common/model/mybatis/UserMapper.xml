@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.common.model.User">
+
+    <resultMap type="User" id="userMap">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="password" property="password"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="created_time" property="createTime"/>
+        <result column="updated_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="pagination">
+        <if test="offset != null and rowCount!= null">
+            <![CDATA[
+                LIMIT #{offset},#{rowCount}
+            ]]>
+        </if>
+    </sql>
+
+    <sql id="selectUser">
+        SELECT
+            u.id AS id,
+            u.user_name AS user_name,
+            u.gender AS gender,
+            u.email AS email,
+            u.phone AS phone,
+            u.password AS password,
+            u.created_time AS created_time,
+            u.updated_time AS updated_time,
+            u.is_deleted AS is_deleted
+    </sql>
+    
+    <select id="getById" parameterType="java.lang.Integer" resultMap="userMap">
+        <include refid="selectUser" />
+        <![CDATA[
+            FROM user u
+            WHERE u.id = #{id} and is_deleted = 0
+        ]]>
+    </select>
+    
+    <select id="getUserByNameAndPassword" parameterType="java.util.HashMap" resultMap="userMap">
+        <include refid="selectUser" />
+        <![CDATA[
+            FROM user u
+            WHERE u.user_name = #{userName} and u.password=#{password} and is_deleted = 0
+        ]]>
+    </select>
+    
+    <select id="getCount" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT COUNT(u.id)
+            FROM user u
+            WHERE is_deleted = 0
+        ]]>
+        <if test="username != null">
+            <![CDATA[
+                AND u.user_name like '%'#{username}'%'
+            ]]>
+        </if>
+        <if test="date != null">
+            <![CDATA[
+                AND date_format(u.created_time,’%Y-%m-%d’) = #{date}
+            ]]>
+        </if>
+    </select>
+    
+    <select id="getCountByKeywords" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT COUNT(u.id)
+            FROM user u
+            WHERE is_deleted = 0
+        ]]>
+    </select>
+    
+    <select id="findAll" resultMap="userMap">
+        <include refid="selectUser" />
+        <![CDATA[
+            FROM user u
+            WHERE is_deleted = 0
+            ORDER BY u.id
+        ]]>
+        <include refid="pagination" />
+    </select>
+    
+    <select id="searchUsers" resultMap="userMap">
+        <include refid="selectUser" />
+        <![CDATA[
+            FROM user u
+            WHERE is_deleted = 0
+        ]]>
+        <if test="username != null">
+            <![CDATA[
+                AND u.user_name like '%'#{username}'%'
+            ]]>
+        </if>
+        <if test="date != null">
+            <![CDATA[
+                AND date_format(u.created_time,’%Y-%m-%d’) = #{date}
+            ]]>
+        </if>
+        <![CDATA[
+            ORDER BY u.id
+        ]]>
+        <include refid="pagination" />
+    </select>
+    
+    <!-- <insert id="add" parameterMap="userMap">
+        <![CDATA[
+            INSERT INTO user u 
+            (
+                u.user_name,
+                u.password,
+                u.gender,
+                u.email,
+                u.phone
+            )
+            VALUES
+            (
+                #{userName},
+                #{password},
+                #{gender},
+                #{email},
+                #{phone}
+            )
+        ]]>
+    </insert>
+
+    <update id="add" parameterMap="userMap">
+        <![CDATA[
+            UPDATE user u 
+            SET 
+                u.user_name = #{userName},
+                u.password = #{password},
+                u.gender = #{gender},
+                u.email = #{email},
+                u.phone = #{phone]
+            WHERE u.id = #{id}
+        ]]>
+    </update> -->
+    
+    <update id="delete" parameterType="java.lang.Integer">
+        <![CDATA[
+            UPDATE user u SET u.is_deleted = 1 WHERE u.id = #{id}
+        ]]>
+    </update>
+</mapper>
