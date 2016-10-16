@@ -1,6 +1,5 @@
-*.class
-*.apk
-bin/
-gen/
+.externalToolBuilders/
 .settings/
-proguard/
+build/
+*.class
+
