@@ -19,6 +19,10 @@
             <label>角色编号：</label>
             <input name="roleCode" class="required" value="${role.roleCode}" type="text" size="30" value="" alt="请输入角色编号" />
           </p>
+           <p>
+            <label>展示名称：</label>
+            <input name="roleName" class="required" value="${role.displayName }"type="text" size="30" value="" alt="请输入展示名称" />
+          </p>
           <p>
             <label>角色名称：</label>
             <input name="roleName" class="required" value="${role.roleName }"type="text" size="30" value="" alt="请输入角色名称" />

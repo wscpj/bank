@@ -61,6 +61,6 @@ public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
     }
     @Override
     public void deleteRoleByIds(List<Integer> ids){
-    	getSqlSession().delete(CLASS_NAME + SQL_ID_DELETE_ROLE_BYIDS, ids);
+    	getSqlSession().update(CLASS_NAME + SQL_ID_DELETE_ROLE_BYIDS, ids);
     }
 }
