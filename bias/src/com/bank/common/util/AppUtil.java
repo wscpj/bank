@@ -12,7 +12,7 @@ import com.bank.common.event.EventManager;
 
 
 public final class AppUtil {
-    private static final String RESOURCE_NAME = "app.properties";
+    private static final String RESOURCE_NAME = "bias.properties";
     private static Properties property = null;
 
     public static void init() throws IOException {
