@@ -1,5 +1,6 @@
 package com.bank.common.base;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -17,8 +18,11 @@ import net.sf.oval.Validator;
 import net.sf.oval.localization.message.ResourceBundleMessageResolver;
 
 
-public abstract class BaseService {
-    private static final String OVAL_MESSAGE_BASE_NAME = "ovalMessage";
+public abstract class BaseService implements Serializable{
+	
+	private static final long serialVersionUID = -8779239453137243883L;
+	
+	private static final String OVAL_MESSAGE_BASE_NAME = "ovalMessage";
     private static final ResourceBundle RESOURCE_BUNDLE_ZH_CN = ResourceBundle.getBundle(
             OVAL_MESSAGE_BASE_NAME, Locale.CHINA);
     private static final ResourceBundle RESOURCE_BUNDLE_EN_US = ResourceBundle.getBundle(

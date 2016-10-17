@@ -12,7 +12,9 @@ import com.bank.common.service.PrivilegeService;
 
 public class PrivilegeServiceImpl extends BaseService implements PrivilegeService {
 
-    private PrivilegeDao privilegeDao;
+	private static final long serialVersionUID = -319207069173729558L;
+	
+	private PrivilegeDao privilegeDao;
 
     public void setPrivilegeDao(PrivilegeDao privilegeDao) {
         this.privilegeDao = privilegeDao;
@@ -32,5 +34,14 @@ public class PrivilegeServiceImpl extends BaseService implements PrivilegeServic
             rolePrivileges.get(privilegeDTO.getRoleCode()).add(privilege);
         }
         return rolePrivileges;
+    }
+    
+    @Override
+    public Integer findPrivilegeCount(Map<String, Object> map){
+    	return privilegeDao.findPrivilegeCount(map);
+    }
+    @Override
+    public List<Privilege> findAllPrivilege(Map<String, Object> map){
+    	return privilegeDao.findAllPrivilege(map);
     }
 }

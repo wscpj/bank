@@ -6,7 +6,7 @@ public class PrivilegeDTO {
 
     private Integer id;
     private String name;
-    private Date createdTime;
+    private String createdTime;
     private String code;
     private String type;
     private Integer parentId;
@@ -28,11 +28,11 @@ public class PrivilegeDTO {
         this.name = name;
     }
 
-    public Date getCreatedTime() {
+    public String getCreatedTime() {
         return this.createdTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
+    public void setCreatedTime(String createdTime) {
         this.createdTime = createdTime;
     }
 

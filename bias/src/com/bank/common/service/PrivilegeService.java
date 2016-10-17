@@ -6,5 +6,7 @@ import java.util.Map;
 import com.bank.common.model.Privilege;
 
 public interface PrivilegeService {
-	Map<String, List<Privilege>> findRolePrivileges();
+	public Map<String, List<Privilege>> findRolePrivileges();
+	public Integer findPrivilegeCount(Map<String, Object> map);
+	public List<Privilege> findAllPrivilege(Map<String, Object> map);
 }

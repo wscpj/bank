@@ -130,7 +130,7 @@ public class RoleController extends BasePageController {
         return resultMsg;
     }
 
-    @RequestMapping(value = "/find")
+    @RequestMapping(value = "/search")
     public ModelAndView findRole(HttpServletRequest request) {
 
         String pageNum = request.getParameter("pageNum");

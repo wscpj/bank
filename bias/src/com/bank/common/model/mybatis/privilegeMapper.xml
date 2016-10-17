@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.common.model.Privilege">
+
+	<resultMap type="Privilege" id="privilegeMap">
+		<id column="id" property="id" />
+		<result column="display_name" property="displayName" />
+		<result column="privilege_name" property="privilegeName" />
+		<result column="privilege_code" property="privilegeCode" />
+		<result column="url" property="url" />
+		<result column="parent_id" property="parentId" />
+		<result column="is_deleted" property="isDeleted" />
+		<result column="created_time" property="createdTime" />
+		<result column="updated_time" property="updatedTime" />
+	</resultMap>
+
+	<sql id="pagination">
+		<if test="offset != null and rowCount != null">
+            <![CDATA[
+                LIMIT #{offset},#{rowCount}
+            ]]>
+		</if>
+	</sql>
+
+	<sql id="selectRole">
+		SELECT
+		p.ID AS ID,
+		p.display_name AS display_name,
+		p.privilege_name AS privilege_name,
+		p.privilege_code AS privilege_code,
+		p.url AS url,
+		p.parent_id AS parent_id,
+		p.is_deleted AS is_deleted,
+		p.CREATED_TIME AS CREATED_TIME,
+		p.UPDATED_TIME AS UPDATED_TIME
+	</sql>
+
+	<select id="findAllRole" parameterType="java.util.HashMap" resultMap="privilegeMap">
+		<include refid="selectRole"></include>
+		FROM PRIVILEGE p WHERE p.IS_DELETED = 0
+		<if test="displayName != null and displayName != '' ">
+		    AND p.display_name LIKE '%' #{displayName} '%'
+		</if>
+		<if test="beginTime != null and beginTime != ''">
+		    AND p.CREATED_TIME > #{beginTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+		    AND #{endTime} > p.CREATED_TIME
+		</if>
+		 ORDER BY R.ID
+		<include refid="pagination"></include>
+	</select>
+
+	<select id="getCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(ID) FROM PRIVILEGE P
+		WHERE P.IS_DELETED = 0
+		<if test="displayName != null and displayName != '' ">
+		    AND p.display_name LIKE '%' #{displayName} '%'
+		</if>
+		<if test="beginTime != null and beginTime != ''">
+		    AND p.CREATED_TIME > #{beginTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+		    AND #{endTime} > p.CREATED_TIME
+		</if>
+	</select>
+
+	<<!-- select id="getById" parameterType="java.lang.Integer" resultMap="roleMap">
+		<include refid="selectRole"></include>
+		FROM ROLE R WHERE R.IS_DELETED = 0 and r.id = #{roleId}
+	</select>
+
+	<insert id="add" parameterType="Role">
+		INSERT INTO
+		ROLE(ROLE_CODE,DISPLAY_NAME,ROLE_NAME,IS_DELETED,CREATED_TIME,UPDATED_TIME)
+		VALUES(#{roleCode},#{displayName},#{roleName},'0',#{createdTime},#{updatedTime})
+	</insert>
+	<update id="update" parameterType="Role">
+        <![CDATA[
+            UPDATE ROLE R 
+            SET 
+                R.ROLE_CODE = #{roleCode},
+                R.ROLE_NAME = #{roleName},
+                R.DISPLAY_NAME = #{displayName},
+                R.UPDATED_TIME = #{updatedTime}
+            WHERE R.ID = #{id}
+        ]]>
+	</update>
+	<update id="deleteRoleByIds" parameterType="java.util.List">
+	     UPDATE ROLE R SET R.IS_DELETED = 1 WHERE R.ID IN
+	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  #{item}  
+		</foreach>  
+	</update> -->
+</mapper>
