@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bank.common.AppConstants;
 import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
 import com.bank.common.model.Role;
@@ -126,7 +127,7 @@ public class RoleController extends BasePageController {
         List<Integer> list = StringUtil.StringToList(ids);
         roleService.deleteRoleByIds(list);
         resultMsg = ResultMsg.okMsg();
-        resultMsg.setCallbackType("");
+        resultMsg.setCallbackType(AppConstants.EMPTY);
         return resultMsg;
     }
 
@@ -149,11 +150,11 @@ public class RoleController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<Role>() {
-                    @Override
-                    public List<Role> callBack() {
-                        return roleService.findAllRole(paramsMap);
-                    }
-                });
+            @Override
+            public List<Role> callBack() {
+                return roleService.findAllRole(paramsMap);
+            }
+        });
     }
 
 }
