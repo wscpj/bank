@@ -12,7 +12,7 @@
     </ul>
   </div>
   <div class="pageHeader">
-    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="${pageContext.request.contextPath}/page/user/search" method="post">
+    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="${pageContext.request.contextPath}/page/privilege/search" method="post">
       <input type="hidden" name="pageNum" value="${paginationDTO.currentPage}" />
       <input type="hidden" name="numPerPage" value="${paginationDTO.pageSize}" />
       <div class="searchBar" >
@@ -34,10 +34,10 @@
   <div class="pageContent">
     <div class="panelBar">
       <ul class="toolBar">
-        <li><a class="add" href="${pageContext.request.contextPath}/page/user/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加管理员</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/page/user/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改管理员</span></a></li>
+        <li><a class="add" href="${pageContext.request.contextPath}/page/privilege/addPrivilege" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加权限</span></a></li>
+        <li><a class="edit" href="${pageContext.request.contextPath}/page/privilege/editPrivilege/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改权限</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/manage/modifyView?id={id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
-        <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/user/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除管理员</span></a></li>
+        <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/privilege/deletePrivilege" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除权限</span></a></li>
       </ul>
     </div>
     <div id="w_list_print">
@@ -48,7 +48,7 @@
             <th class="center" >权限ID</th>
             <th class="center">权限名称</th>
             <th class="center">权限代码</th>
-            <th class="center" >URL</th>
+            <th class="center">URL</th>
             <th class="center">父权限ID</th>
             <th class="center">创建时间</th>
             <th class="center">最后更新时间</th>

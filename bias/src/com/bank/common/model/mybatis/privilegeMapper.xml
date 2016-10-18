@@ -66,31 +66,33 @@
 		</if>
 	</select>
 
-	<!-- <select id="getById" parameterType="java.lang.Integer" resultMap="roleMap">
+	<select id="getById" parameterType="java.lang.Integer" resultMap="privilegeMap">
 		<include refid="selectPrivilege"></include>
-		FROM ROLE R WHERE R.IS_DELETED = 0 and r.id = #{roleId}
+		FROM PRIVILEGE P WHERE P.IS_DELETED = 0 AND P.ID = #{id}
 	</select>
 
-	<insert id="add" parameterType="Role">
-		INSERT INTO
-		ROLE(ROLE_CODE,DISPLAY_NAME,ROLE_NAME,IS_DELETED,CREATED_TIME,UPDATED_TIME)
-		VALUES(#{roleCode},#{displayName},#{roleName},'0',#{createdTime},#{updatedTime})
+	<insert id="add" parameterType="Privilege">
+		INSERT INTO PRIVILEGE
+		(DISPLAY_NAME,PRIVILEGE_NAME,PRIVILEGE_CODE,URL,PARENT_ID,IS_DELETED,CREATED_TIME,UPDATED_TIME)
+		VALUES(#{displayName},#{privilegeName},#{privilegeCode},#{url},#{parentId},'0',#{createdTime},#{updatedTime})
 	</insert>
-	<update id="update" parameterType="Role">
+	<update id="update" parameterType="Privilege">
         <![CDATA[
-            UPDATE ROLE R 
+            UPDATE PRIVILEGE P 
             SET 
-                R.ROLE_CODE = #{roleCode},
-                R.ROLE_NAME = #{roleName},
-                R.DISPLAY_NAME = #{displayName},
-                R.UPDATED_TIME = #{updatedTime}
-            WHERE R.ID = #{id}
+                P.DISPLAY_NAME = #{displayName},
+                P.PRIVILEGE_NAME = #{privilegeName},
+                P.PRIVILEGE_CODE = #{privilegeCode},
+                P.URL = #{url},
+                P.PARENT_ID = #{parentId},
+                P.UPDATED_TIME = #{updatedTime}
+            WHERE P.ID = #{id}
         ]]>
 	</update>
-	<update id="deleteRoleByIds" parameterType="java.util.List">
-	     UPDATE ROLE R SET R.IS_DELETED = 1 WHERE R.ID IN
+	<update id="deletePrivilegeByIds" parameterType="java.util.List">
+	     UPDATE PRIVILEGE P SET P.IS_DELETED = 1 WHERE P.ID IN
 	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
 		  #{item}  
 		</foreach>  
-	</update> -->
+	</update>
 </mapper>

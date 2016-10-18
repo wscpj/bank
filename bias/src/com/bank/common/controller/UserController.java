@@ -140,10 +140,6 @@ public class UserController extends BasePageController {
             HttpServletRequest request) {
         ResultMsg resultMsg = null;
 
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String nowDate = sf.format(new Date());
-        user.setCreatedTime(nowDate);
-        user.setUpdatedTime(nowDate);
         Boolean bl = userService.addUser(user);
         if (bl) {
             resultMsg = ResultMsg.okMsg();
