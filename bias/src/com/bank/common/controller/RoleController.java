@@ -70,10 +70,6 @@ public class RoleController extends BasePageController {
             HttpServletRequest request, HttpServletResponse response) {
         ResultMsg resultMsg = null;
         try {
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String nowDate = sf.format(new Date());
-            role.setCreatedTime(nowDate);
-            role.setUpdatedTime(nowDate);
             Boolean bl = roleService.saveRole(role);
 
             if (bl) {

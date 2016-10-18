@@ -9,11 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bank.common.base.BasePageController;
+import com.bank.common.base.ResultMsg;
 import com.bank.common.model.Privilege;
 import com.bank.common.service.PrivilegeService;
 import com.bank.common.service.UserService;
@@ -25,6 +28,7 @@ public class PrivilegeController extends BasePageController {
     private final Logger logger = Logger.getLogger(PrivilegeController.class);
     private final String LOGIN_JSP = "user/login";
     private final String LIST_JSP = "privilege/privilegeList";
+    private final String ADD_JSP = "privilege/addPrivilege";
 
     @Autowired
     private UserService userService;
@@ -62,6 +66,26 @@ public class PrivilegeController extends BasePageController {
                         return privilegeService.findAllPrivilege(paramsMap);
                     }
                 });
+    }
+    @RequestMapping(value = "/addPrivilege", method = RequestMethod.GET)
+    public ModelAndView addPrivilege() {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName(ADD_JSP);
+        return modelAndView;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/savePrivilege", method = RequestMethod.POST)
+    public ResultMsg savePrivilege(@ModelAttribute Privilege privilege){
+    	ResultMsg resulMsg = null;
+    	
+    	Boolean bl = privilegeService.addPrivilege(privilege);
+    	if(bl){
+    		resulMsg = ResultMsg.okMsg();
+    	}else{
+    		resulMsg = ResultMsg.errorMsg();
+    	}
+    	return resulMsg;
     }
 
 }

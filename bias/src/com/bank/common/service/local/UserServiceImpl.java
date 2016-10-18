@@ -1,5 +1,7 @@
 package com.bank.common.service.local;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +74,10 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public Boolean addUser(User user) {
+    	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String nowDate = sf.format(new Date());
+        user.setCreatedTime(nowDate);
+        user.setUpdatedTime(nowDate);
         return userDao.add(user);
     }
 

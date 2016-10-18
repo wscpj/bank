@@ -1,5 +1,7 @@
 package com.bank.common.service.local;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,5 +57,13 @@ public class PrivilegeServiceImpl extends BaseService implements PrivilegeServic
             paginationDTO.setTotalRowCount(count);
         }
     	return privilegeDao.findAllPrivilege(map);
+    }
+    @Override
+    public Boolean addPrivilege(Privilege privilege){
+    	 SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+         String nowDate = sf.format(new Date());
+         privilege.setCreatedTime(nowDate);
+         privilege.setUpdatedTime(nowDate);
+    	return privilegeDao.add(privilege);
     }
 }
