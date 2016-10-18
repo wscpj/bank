@@ -16,39 +16,39 @@
 	</resultMap>
 
 	<sql id="pagination">
-		<if test="offset != null and rowCount != null">
+		<if test="offset != null and rowCount != null and offset != '' and rowCount!= ''">
             <![CDATA[
                 LIMIT #{offset},#{rowCount}
             ]]>
 		</if>
 	</sql>
 
-	<sql id="selectRole">
+	<sql id="selectPrivilege">
 		SELECT
-		p.ID AS ID,
-		p.display_name AS display_name,
-		p.privilege_name AS privilege_name,
-		p.privilege_code AS privilege_code,
-		p.url AS url,
-		p.parent_id AS parent_id,
-		p.is_deleted AS is_deleted,
-		p.CREATED_TIME AS CREATED_TIME,
-		p.UPDATED_TIME AS UPDATED_TIME
+		P.ID AS ID,
+		P.DISPLAY_NAME AS DISPLAY_NAME,
+		P.PRIVILEGE_NAME AS PRIVILEGE_NAME,
+		P.PRIVILEGE_CODE AS PRIVILEGE_CODE,
+		P.URL AS URL,
+		P.PARENT_ID AS PARENT_ID,
+		P.IS_DELETED AS IS_DELETED,
+		P.CREATED_TIME AS CREATED_TIME,
+		P.UPDATED_TIME AS UPDATED_TIME
 	</sql>
 
-	<select id="findAllRole" parameterType="java.util.HashMap" resultMap="privilegeMap">
-		<include refid="selectRole"></include>
-		FROM PRIVILEGE p WHERE p.IS_DELETED = 0
+	<select id="findAllPrivilege" parameterType="java.util.HashMap" resultMap="privilegeMap">
+		<include refid="selectPrivilege"></include>
+		FROM PRIVILEGE P WHERE P.IS_DELETED = 0
 		<if test="displayName != null and displayName != '' ">
-		    AND p.display_name LIKE '%' #{displayName} '%'
+		    AND P.DISPLAY_NAME LIKE '%' #{displayName} '%'
 		</if>
 		<if test="beginTime != null and beginTime != ''">
-		    AND p.CREATED_TIME > #{beginTime}
+		    AND P.CREATED_TIME > #{beginTime}
 		</if>
 		<if test="endTime != null and endTime != ''">
-		    AND #{endTime} > p.CREATED_TIME
+		    AND #{endTime} > P.CREATED_TIME
 		</if>
-		 ORDER BY R.ID
+		 ORDER BY P.ID
 		<include refid="pagination"></include>
 	</select>
 
@@ -56,18 +56,18 @@
 		SELECT COUNT(ID) FROM PRIVILEGE P
 		WHERE P.IS_DELETED = 0
 		<if test="displayName != null and displayName != '' ">
-		    AND p.display_name LIKE '%' #{displayName} '%'
+		    AND P.DISPLAY_NAME LIKE '%' #{displayName} '%'
 		</if>
 		<if test="beginTime != null and beginTime != ''">
-		    AND p.CREATED_TIME > #{beginTime}
+		    AND P.CREATED_TIME > #{beginTime}
 		</if>
 		<if test="endTime != null and endTime != ''">
-		    AND #{endTime} > p.CREATED_TIME
+		    AND #{endTime} > P.CREATED_TIME
 		</if>
 	</select>
 
-	<<!-- select id="getById" parameterType="java.lang.Integer" resultMap="roleMap">
-		<include refid="selectRole"></include>
+	<!-- <select id="getById" parameterType="java.lang.Integer" resultMap="roleMap">
+		<include refid="selectPrivilege"></include>
 		FROM ROLE R WHERE R.IS_DELETED = 0 and r.id = #{roleId}
 	</select>
 

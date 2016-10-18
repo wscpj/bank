@@ -10,6 +10,8 @@ import com.bank.common.service.RoleService;
 
 public class RoleServiceImpl extends BaseService implements RoleService {
 	
+	private static final long serialVersionUID = -4270844451495902923L;
+	
 	public RoleDao roleDao;
 
 	@Override

@@ -4,10 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.bank.common.AppConstants;
+import com.bank.common.AppContext;
 import com.bank.common.base.BaseService;
 import com.bank.common.dao.PrivilegeDao;
 import com.bank.common.dto.PrivilegeDTO;
+import com.bank.common.model.PaginationDTO;
 import com.bank.common.model.Privilege;
+import com.bank.common.model.Role;
 import com.bank.common.service.PrivilegeService;
 
 public class PrivilegeServiceImpl extends BaseService implements PrivilegeService {
@@ -40,8 +44,16 @@ public class PrivilegeServiceImpl extends BaseService implements PrivilegeServic
     public Integer findPrivilegeCount(Map<String, Object> map){
     	return privilegeDao.findPrivilegeCount(map);
     }
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Privilege> findAllPrivilege(Map<String, Object> map){
+    	PaginationDTO<Role> paginationDTO = (PaginationDTO<Role>) AppContext.getContext().getObject(
+                AppConstants.PAGINATION_DTO);
+        if (paginationDTO != null) {
+        	map.putAll(paginationDTO.getParameterMap());  
+            Integer count = findPrivilegeCount(map);
+            paginationDTO.setTotalRowCount(count);
+        }
     	return privilegeDao.findAllPrivilege(map);
     }
 }
