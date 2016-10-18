@@ -52,7 +52,7 @@ public class UserController extends BasePageController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/exit", method = RequestMethod.POST)
+    @RequestMapping(value = "/exit", method = RequestMethod.GET)
     public ModelAndView exit() {
         ModelAndView modelAndView = new ModelAndView();
         this.invalidate(null);

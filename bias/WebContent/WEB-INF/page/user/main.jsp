@@ -96,16 +96,20 @@ $(function(){
 });
 $(function(){
     $("#a").click(function(){
-        if(confirm("确定要退出系统吗?")){
-            return true;
-        }
-        return false;
+        alertMsg.confirm("确定退出系统吗？", {
+            okCall: function(){
+                window.location.href="${pageContext.request.contextPath}/page/user/exit";
+            }
+      });
+      return false;
     });
     $("#mid").click(function(){
-        if(confirm("确定要退出系统吗?")){
-            window.location.href="${pageContext.request.contextPath}/manage/exit";
-        }
-        return false;
+        alertMsg.confirm("确定退出系统吗？", {
+            okCall: function(){
+                window.location.href="${pageContext.request.contextPath}/page/user/exit";
+            }
+      });
+      return false;
     });
 });
 </script>
@@ -119,7 +123,7 @@ $(function(){
           <li><a href="javascript:void(0);">${date}</a></li>
           <li><a href="javascript:void(0);">${week}!</a></li> 
           <li><a href="javascript:void(0);">${user.userName}&nbsp;&nbsp;欢迎您!</a></li>
-          <li><a href="${pageContext.request.contextPath}/page/user/exit" target="ajaxTodo" title="确定退出系统吗?">退出</a></li>
+          <li><a id="a" href="#">退出</a></li>
         </ul>
         <ul class="themeList" id="themeList">
           <li theme="default"><div>蓝色</div></li>
@@ -194,7 +198,7 @@ $(function(){
                   <li><a href="#" target="navTab" rel="w_table"><i class="fa fa-user fa-lg fa-fw"></i>权限管理</a></li>
                   <li><a href="${pageContext.request.contextPath}/page/backup/database" target="ajaxTodo" rel="w_table" title="确定进行数据库备份吗?"><i class="fa fa-database fa-lg fa-fw"></i>数据库备份</a></li>
                   <li><a href="#" target="navTab" rel="w_table"><i class="fa fa-file fa-lg fa-fw"></i>登陆日志</a></li>
-                  <li><a href="${pageContext.request.contextPath}/page/user/exit" target="ajaxTodo" rel="w_table" title="确定退出系统吗?"><i class="fa fa-user fa-lg fa-fw"></i>退出系统</a></li>
+                  <li><a id="mid" href="#" ><i class="fa fa-user fa-lg fa-fw"></i>退出系统</a></li>
                 </ul>
               </li>
            </ul>
