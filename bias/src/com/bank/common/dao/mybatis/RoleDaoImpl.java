@@ -42,7 +42,8 @@ public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
         return getSqlSession().selectOne(CLASS_NAME + SQL_ID_FIND_ALL_ROLE_GETCOUNT, map);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Role> findAllRole(Map<String, Object> map){
     	Map<String, Object> params = getParameterMap();
         PaginationDTO<Role> paginationDTO = (PaginationDTO<Role>) AppContext.getContext().getObject(

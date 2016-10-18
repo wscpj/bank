@@ -14,7 +14,10 @@ import com.bank.common.service.UserService;
 import com.bank.common.util.StringUtil;
 
 public class UserServiceImpl extends BaseService implements UserService {
-    private final Logger logger = Logger.getLogger(UserServiceImpl.class);
+	
+	private static final long serialVersionUID = 7440921737614461773L;
+
+	private final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     private UserDao userDao;
 

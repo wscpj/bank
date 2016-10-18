@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bank.common.base.BasePageController;
-import com.bank.common.dao.PrivilegeDao;
 import com.bank.common.model.Privilege;
+import com.bank.common.service.PrivilegeService;
 import com.bank.common.service.UserService;
 
 @Controller
@@ -29,7 +29,7 @@ public class PrivilegeController extends BasePageController {
     @Autowired
     private UserService userService;
     @Autowired
-    private PrivilegeDao privilegeDao;
+    private PrivilegeService privilegeService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
@@ -47,11 +47,11 @@ public class PrivilegeController extends BasePageController {
         Integer numPerPageInt = numPerPage == null ? 10 : Integer
                 .valueOf(numPerPage);
 
-        String roleName = request.getParameter("roleName");
+        String displayName = request.getParameter("displayName");
         String beginTime = request.getParameter("beginTime");
         String endTime = request.getParameter("endTime");
         final Map<String, Object> paramsMap = new HashMap<String, Object>();
-        paramsMap.put("roleName", roleName);
+        paramsMap.put("roleName", displayName);
         paramsMap.put("beginTime", beginTime);
         paramsMap.put("endTime", endTime);
 
@@ -59,7 +59,7 @@ public class PrivilegeController extends BasePageController {
                 LIST_JSP, new PaginationCallBack<Privilege>() {
                     @Override
                     public List<Privilege> callBack() {
-                        return privilegeDao.findAllPrivilege(paramsMap);
+                        return privilegeService.findAllPrivilege(paramsMap);
                     }
                 });
     }
