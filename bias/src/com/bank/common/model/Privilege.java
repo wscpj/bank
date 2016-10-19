@@ -1,9 +1,14 @@
 package com.bank.common.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Privilege {
+public class Privilege implements Serializable{
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5260468118300743411L;
     private Integer id;
     private String name;
     private Date createdTime;

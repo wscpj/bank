@@ -1,9 +1,14 @@
 package com.bank.common.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserRole {
+public class UserRole implements Serializable{
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1563584753097024449L;
     private Integer userId;
     private Integer roleId;
     private Date createdTime;
@@ -24,7 +29,7 @@ public class UserRole {
         this.roleId = roleId;
     }
 
-    
+
     public Date getCreatedTime() {
         return createdTime;
     }

@@ -78,7 +78,7 @@
         ]]>
         <if test="userName != null and userName != ''">
             <![CDATA[
-                AND U.USER_NAME LIKE '%'#{userName}'%'
+                AND U.USER_NAME LIKE '%${userName}%'
             ]]>
         </if>
         <if test="beginTime != null and beginTime != ''">
@@ -105,7 +105,7 @@
         ]]>
         <if test="userName != null and userName !=''">
             <![CDATA[
-                AND U.USER_NAME LIKE '%'#{userName}'%'
+                AND U.USER_NAME LIKE '%${userName}%'
             ]]>
         </if>
         <if test="beginTime != null and beginTime != ''">

@@ -36,7 +36,7 @@
 		<include refid="selectRole"></include>
 		FROM ROLE R WHERE R.IS_DELETED = 0
 		<if test="roleName != null and roleName != '' ">
-		    AND R.ROLE_NAME LIKE '%' #{roleName} '%'
+		    AND R.ROLE_NAME LIKE '%${roleName}%'
 		</if>
 		<if test="beginTime != null and beginTime != ''">
 		    AND R.CREATED_TIME > #{beginTime}
@@ -52,7 +52,7 @@
 		SELECT COUNT(ID) FROM ROLE R
 		WHERE R.IS_DELETED = 0
 		<if test="roleName != null and roleName != '' ">
-		    AND R.ROLE_NAME LIKE '%' #{roleName} '%'
+		    AND R.ROLE_NAME LIKE '%${roleName}%'
 		</if>
 		<if test="beginTime != null and beginTime != ''">
 		    AND R.CREATED_TIME > #{beginTime}
