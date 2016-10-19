@@ -95,3 +95,19 @@ CREATE TABLE `user` (
 BEGIN;
 INSERT INTO `user` (user_name,gender,email,phone,password,is_deleted,created_time,updated_time) VALUES ('admin', '0', 'admin@dev.com', '18236916020', 'c3284d0f94606de1fd2af172aba15bf3', '0', '2016-10-16 20:44:51', '2016-10-16 20:44:51');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `log`
+-- ----------------------------
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE `log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(100) NOT NULL,
+  `role_name` varchar(50) NOT NULL,
+  `ip` varchar(100) NOT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+SET FOREIGN_KEY_CHECKS = 1;
