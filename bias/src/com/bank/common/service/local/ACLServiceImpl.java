@@ -52,7 +52,7 @@ public class ACLServiceImpl extends BaseService implements ACLService {
                 continue;
             }
             for (Privilege privilege : privileges) {
-                if (privilege.getCode().equals(privilegeCode)) {
+                if (privilege.getPrivilegeCode().equals(privilegeCode)) {
                     return Boolean.TRUE;
                 }
             }
@@ -72,7 +72,7 @@ public class ACLServiceImpl extends BaseService implements ACLService {
             return null;
         }
         for (Privilege privilege : allTypePrivileges) {
-            if (privilege.getType().equals(privilegeType)) {
+            if (privilege.getPrivilegeCode().equals(privilegeType)) {
                 privileges.add(privilege);
             }
         }

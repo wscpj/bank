@@ -11,7 +11,10 @@ import com.bank.common.model.Role;
 
 
 public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
-    private static final String CLASS_NAME = Role.class.getName();
+   
+	private static final long serialVersionUID = -2188344611935357973L;
+
+	private static final String CLASS_NAME = Role.class.getName();
 
     private static final String SQL_ID_GET_BY_ROLE_CODE = ".getByRoleCode";
     private static final String SQL_ID_FIND_ROLE_CODE = ".findRoleCodes";
@@ -39,7 +42,8 @@ public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
         return getSqlSession().selectOne(CLASS_NAME + SQL_ID_FIND_ALL_ROLE_GETCOUNT, map);
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Role> findAllRole(Map<String, Object> map){
     	Map<String, Object> params = getParameterMap();
         PaginationDTO<Role> paginationDTO = (PaginationDTO<Role>) AppContext.getContext().getObject(

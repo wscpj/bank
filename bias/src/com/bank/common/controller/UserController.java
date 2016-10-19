@@ -52,6 +52,14 @@ public class UserController extends BasePageController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/exit", method = RequestMethod.POST)
+    public ModelAndView exit() {
+        ModelAndView modelAndView = new ModelAndView();
+        this.invalidate(null);
+        modelAndView.setViewName(LOGIN_JSP);
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public ModelAndView dashboard() {
         ModelAndView modelAndView = new ModelAndView();
@@ -111,11 +119,11 @@ public class UserController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<User>() {
-                    @Override
-                    public List<User> callBack() {
-                        return userService.searchUsers(paramsMap);
-                    }
-                });
+            @Override
+            public List<User> callBack() {
+                return userService.searchUsers(paramsMap);
+            }
+        });
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -132,10 +140,6 @@ public class UserController extends BasePageController {
             HttpServletRequest request) {
         ResultMsg resultMsg = null;
 
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String nowDate = sf.format(new Date());
-        user.setCreatedTime(nowDate);
-        user.setUpdatedTime(nowDate);
         Boolean bl = userService.addUser(user);
         if (bl) {
             resultMsg = ResultMsg.okMsg();
@@ -162,7 +166,7 @@ public class UserController extends BasePageController {
         List<Integer> list = StringUtil.StringToList(ids);
         userService.deleteUserByIds(list);
         resultMsg = ResultMsg.okMsg();
-        resultMsg.setCallbackType("");
+        resultMsg.setCallbackType(AppConstants.EMPTY);
         return resultMsg;
     }
 

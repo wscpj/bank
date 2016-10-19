@@ -1,5 +1,7 @@
 package com.bank.common.service.local;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,8 @@ import com.bank.common.service.RoleService;
 
 public class RoleServiceImpl extends BaseService implements RoleService {
 	
+	private static final long serialVersionUID = -4270844451495902923L;
+	
 	public RoleDao roleDao;
 
 	@Override
@@ -19,6 +23,10 @@ public class RoleServiceImpl extends BaseService implements RoleService {
 	}
 	@Override
 	public Boolean saveRole(Role role){
+		 SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+         String nowDate = sf.format(new Date());
+         role.setCreatedTime(nowDate);
+         role.setUpdatedTime(nowDate);
 		return roleDao.saveRole(role);
 	}
 	@Override

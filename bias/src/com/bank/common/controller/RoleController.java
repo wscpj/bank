@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bank.common.AppConstants;
 import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
 import com.bank.common.model.Role;
@@ -69,10 +70,6 @@ public class RoleController extends BasePageController {
             HttpServletRequest request, HttpServletResponse response) {
         ResultMsg resultMsg = null;
         try {
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String nowDate = sf.format(new Date());
-            role.setCreatedTime(nowDate);
-            role.setUpdatedTime(nowDate);
             Boolean bl = roleService.saveRole(role);
 
             if (bl) {
@@ -126,11 +123,11 @@ public class RoleController extends BasePageController {
         List<Integer> list = StringUtil.StringToList(ids);
         roleService.deleteRoleByIds(list);
         resultMsg = ResultMsg.okMsg();
-        resultMsg.setCallbackType("");
+        resultMsg.setCallbackType(AppConstants.EMPTY);
         return resultMsg;
     }
 
-    @RequestMapping(value = "/find")
+    @RequestMapping(value = "/search")
     public ModelAndView findRole(HttpServletRequest request) {
 
         String pageNum = request.getParameter("pageNum");
@@ -149,11 +146,11 @@ public class RoleController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<Role>() {
-                    @Override
-                    public List<Role> callBack() {
-                        return roleService.findAllRole(paramsMap);
-                    }
-                });
+            @Override
+            public List<Role> callBack() {
+                return roleService.findAllRole(paramsMap);
+            }
+        });
     }
 
 }

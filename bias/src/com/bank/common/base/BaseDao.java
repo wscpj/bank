@@ -1,5 +1,6 @@
 package com.bank.common.base;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
@@ -12,9 +13,11 @@ import com.bank.common.AppContext;
 import com.bank.common.model.PaginationDTO;
 
 
-public abstract class BaseDao<T, K> extends SqlSessionDaoSupport {
+public abstract class BaseDao<T, K> extends SqlSessionDaoSupport implements Serializable{
 
-    protected static String SQL_ID_ADD = ".add";
+	private static final long serialVersionUID = -932132602747901889L;
+	
+	protected static String SQL_ID_ADD = ".add";
     protected static String SQL_ID_UPDATE = ".update";
     protected static String SQL_ID_DELETE = ".delete";
     protected static String SQL_ID_BY_ID = ".getById";
