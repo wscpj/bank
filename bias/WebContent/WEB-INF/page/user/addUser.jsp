@@ -19,7 +19,7 @@
           </p>
           <p>
             <label>管理员密码：</label>
-            <input name="password" class="required" type="password" size="30"  alt="请输入管理员密码" />
+            <input name="password" class="required" type="text" size="30"  alt="请输入管理员密码" />
           </p>
           <p>
             <label>管理员性别：</label>

@@ -45,10 +45,10 @@
         <thead>
           <tr height="25" style="text-align: center;">
           	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-            <th class="center" >序号</th>
+            <th class="center">用户ID</th>
             <th class="center">姓名</th>
             <th class="center">密码</th>
-            <th class="center" >性别</th>
+            <th class="center">性别</th>
             <th class="center">邮箱</th>
             <th class="center">手机</th>
             <th class="center">角色</th>
