@@ -12,7 +12,7 @@
     </ul>
   </div>
   <div class="pageHeader">
-    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="${pageContext.request.contextPath}/page/role/find" method="post">
+    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="${pageContext.request.contextPath}/page/role/search" method="post">
       <input type="hidden" name="pageNum" value="${paginationDTO.currentPage}" />
       <input type="hidden" name="numPerPage" value="${paginationDTO.pageSize}" />
       <div class="searchBar" >
