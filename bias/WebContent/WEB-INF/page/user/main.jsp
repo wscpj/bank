@@ -190,8 +190,13 @@ $(function(){
               <li><a><i class="fa fa-sitemap fa-lg fa-fw"></i>系统管理</a>
                 <ul>
                   <li><a href="${pageContext.request.contextPath}/page/user/search" target="navTab" rel="w_table"><i class="fa fa-users fa-lg fa-fw"></i>用户管理</a></li>
+<<<<<<< Upstream, based on origin/development
                   <li><a href="${pageContext.request.contextPath}/page/role/search" target="navTab" rel="w_table"><i class="fa fa-user fa-lg fa-fw"></i>角色管理</a></li>
                   <li><a href="${pageContext.request.contextPath}/page/privilege/search" target="navTab" rel="w_table"><i class="fa fa-user fa-lg fa-fw"></i>权限管理</a></li>
+=======
+                  <li><a href="${pageContext.request.contextPath}/page/role/find" target="navTab" rel="w_table"><i class="fa fa-user fa-lg fa-fw"></i>角色管理</a></li>
+                  <li><a href="#" target="navTab" rel="w_table"><i class="fa fa-user fa-lg fa-fw"></i>权限管理</a></li>
+>>>>>>> ccdde17 添加数据库备份功能
                   <li><a href="${pageContext.request.contextPath}/page/backup/database" target="ajaxTodo" rel="w_table" title="确定进行数据库备份吗?"><i class="fa fa-database fa-lg fa-fw"></i>数据库备份</a></li>
                   <li><a href="#" target="navTab" rel="w_table"><i class="fa fa-file fa-lg fa-fw"></i>登陆日志</a></li>
                   <li><a href="${pageContext.request.contextPath}/page/user/exit" target="ajaxTodo" rel="w_table" title="确定退出系统吗?"><i class="fa fa-user fa-lg fa-fw"></i>退出系统</a></li>

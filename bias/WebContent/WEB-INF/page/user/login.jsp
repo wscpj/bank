@@ -38,9 +38,15 @@
               <label>用户名</label>
               <input type="text" class="username" id="username" name="name" class="login_input" value="admin"/>
             </div>
+<<<<<<< Upstream, based on origin/development
             <div>
               <label>密码</label>
               <input type="password" class="password" id="password" name="password" class="login_input" value="admin"/>
+=======
+            <div>
+              <label>密码</label>
+              <input type="password" class="password" id="password" name="password" class="login_input" value="admin"/>
+>>>>>>> ccdde17 添加数据库备份功能
             </div>
             <div class="submit_div">
               <div class="submit_btn">登录</div>
