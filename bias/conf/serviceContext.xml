@@ -37,4 +37,7 @@
     
     <bean id="backupService" parent="baseService" class="com.bank.common.service.local.BackupServiceImpl" />
     
+    <bean id="logService" parent="baseService" class="com.bank.common.service.local.LogServiceImpl">
+        <property name="logDao" ref="logDao"></property>
+    </bean>
 </beans>
