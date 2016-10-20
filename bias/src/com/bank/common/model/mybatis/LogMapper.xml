@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.common.model.Log">
+
+    <resultMap type="Log" id="logMap">
+        <id column="ID" property="id"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="ROLE_NAME" property="roleName"/>
+        <result column="IP" property="ip"/>
+        <result column="IS_DELETED" property="isDeleted"/>
+        <result column="CREATED_TIME" property="createdTime"/>
+    </resultMap>
+
+    <sql id="pagination">
+        <if test="offset != null and rowCount!= null and offset != '' and rowCount!= ''">
+            <![CDATA[
+                LIMIT #{offset},#{rowCount}
+            ]]>
+        </if>
+    </sql>
+
+    <sql id="selectLog">
+        SELECT
+            L.ID AS ID,
+            L.USER_NAME AS USER_NAME,
+            L.ROLE_NAME AS ROLE_NAME,
+            L.IP AS IP,
+            L.IS_DELETED AS IS_DELETED,
+            L.CREATED_TIME AS CREATED_TIME
+    </sql>
+    
+    <select id="searchLogs" parameterType="java.util.HashMap" resultMap="logMap">
+        <include refid="selectLog" />
+        <![CDATA[
+            FROM LOG L
+            WHERE L.IS_DELETED = 0
+        ]]>
+        <if test="userName != null and userName != ''">
+            <![CDATA[
+                AND L.USER_NAME LIKE '%${userName}%'
+            ]]>
+        </if>
+        <if test="beginTime != null and beginTime != ''">
+            <![CDATA[
+		      AND L.CREATED_TIME > #{beginTime}
+		    ]]>
+		</if>
+		<if test="endTime != null and endTime != ''">
+		    <![CDATA[
+		      AND #{endTime} > L.CREATED_TIME
+		    ]]>
+		</if>
+        <![CDATA[
+            ORDER BY L.ID
+        ]]>
+        <include refid="pagination" />
+    </select>
+    
+    <select id="getCountByKeywords" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT COUNT(L.ID)
+            FROM LOG L
+            WHERE L.IS_DELETED = 0
+        ]]>
+        <if test="userName != null and userName !=''">
+            <![CDATA[
+                AND L.USER_NAME LIKE '%${userName}%'
+            ]]>
+        </if>
+        <if test="beginTime != null and beginTime != ''">
+            <![CDATA[
+		      AND L.CREATED_TIME > #{beginTime}
+		    ]]>
+		</if>
+		<if test="endTime != null and endTime != ''">
+		    <![CDATA[
+		      AND #{endTime} > L.CREATED_TIME
+		    ]]>
+		</if>
+    </select>
+   <insert id="add" parameterType="Log">
+        <![CDATA[
+            INSERT INTO LOG  
+            (
+                USER_NAME,
+                ROLE_NAME,
+                IP
+            )
+            VALUES
+            (
+                #{userName},
+                #{roleName},
+                #{ip}
+            )
+        ]]>
+    </insert>
+    
+    <update id="deleteLogsByIds" parameterType="java.util.List">
+         <![CDATA[
+	       UPDATE LOG L SET L.IS_DELETED = 1 WHERE L.ID IN
+	    ]]>
+	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		  #{item}  
+		</foreach>  
+	</update>
+</mapper>

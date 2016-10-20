@@ -21,7 +21,7 @@
           </p>
            <p>
             <label>展示名称：</label>
-            <input name="roleName" class="required" value="${role.displayName }"type="text" size="30" value="" alt="请输入展示名称" />
+            <input name="displayName" class="required" value="${role.displayName }"type="text" size="30" value="" alt="请输入展示名称" />
           </p>
           <p>
             <label>角色名称：</label>

@@ -26,8 +26,11 @@ import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
+import com.bank.common.model.Log;
 import com.bank.common.model.User;
+import com.bank.common.service.LogService;
 import com.bank.common.service.UserService;
+import com.bank.common.util.RequestUtil;
 import com.bank.common.util.StringUtil;
 
 @Controller
@@ -44,6 +47,8 @@ public class UserController extends BasePageController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private LogService logService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
@@ -52,7 +57,7 @@ public class UserController extends BasePageController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/exit", method = RequestMethod.POST)
+    @RequestMapping(value = "/exit", method = RequestMethod.GET)
     public ModelAndView exit() {
         ModelAndView modelAndView = new ModelAndView();
         this.invalidate(null);
@@ -69,6 +74,7 @@ public class UserController extends BasePageController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView Login(
+            HttpServletRequest request,
             @RequestParam(value = "name", defaultValue = "") String name,
             @RequestParam(value = "password", defaultValue = "") String password) {
         ModelAndView modelAndView = new ModelAndView();
@@ -77,6 +83,11 @@ public class UserController extends BasePageController {
             User user = null;
             user = userService.login(name, password);
             user.setPassword(null);
+            Log log = new Log();
+            log.setUserName(name);
+            log.setRoleName(AppConstants.EMPTY);
+            log.setIp(RequestUtil.getIpAddr(request));
+            logService.addLog(log);
             this.addSession(AppConstants.USER, user);
             this.addSession(AppConstants.ROLES, AppConstants.ROLES);
             modelAndView.setView(new RedirectView(AppContext.getContextPath()

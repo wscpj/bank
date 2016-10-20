@@ -1,8 +1,14 @@
 package com.bank.common.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RolePrivilege {
+public class RolePrivilege implements Serializable{
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2321717860611927120L;
 
     private Integer roleId;
 

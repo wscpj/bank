@@ -78,19 +78,19 @@
         ]]>
         <if test="userName != null and userName != ''">
             <![CDATA[
-                AND U.USER_NAME LIKE '%'#{userName}'%'
+                AND U.USER_NAME LIKE '%${userName}%'
             ]]>
         </if>
         <if test="beginTime != null and beginTime != ''">
             <![CDATA[
-		      AND U.CREATED_TIME > #{beginTime}
-		    ]]>
-		</if>
-		<if test="endTime != null and endTime != ''">
-		    <![CDATA[
-		      AND #{endTime} > U.CREATED_TIME
-		    ]]>
-		</if>
+              AND U.CREATED_TIME > #{beginTime}
+            ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <![CDATA[
+              AND #{endTime} > U.CREATED_TIME
+            ]]>
+        </if>
         <![CDATA[
             ORDER BY U.ID
         ]]>
@@ -105,19 +105,19 @@
         ]]>
         <if test="userName != null and userName !=''">
             <![CDATA[
-                AND U.USER_NAME LIKE '%'#{userName}'%'
+                AND U.USER_NAME LIKE '%${userName}%'
             ]]>
         </if>
         <if test="beginTime != null and beginTime != ''">
             <![CDATA[
-		      AND U.CREATED_TIME > #{beginTime}
-		    ]]>
-		</if>
-		<if test="endTime != null and endTime != ''">
-		    <![CDATA[
-		      AND #{endTime} > U.CREATED_TIME
-		    ]]>
-		</if>
+              AND U.CREATED_TIME > #{beginTime}
+            ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <![CDATA[
+              AND #{endTime} > U.CREATED_TIME
+            ]]>
+        </if>
     </select>
    <insert id="add" parameterType="User">
         <![CDATA[
@@ -171,10 +171,10 @@
     
     <update id="deleteUserByIds" parameterType="java.util.List">
          <![CDATA[
-	       UPDATE USER U SET U.IS_DELETED = 1 WHERE U.ID IN
-	    ]]>
-	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
-		  #{item}  
-		</foreach>  
-	</update>
+           UPDATE USER U SET U.IS_DELETED = 1 WHERE U.ID IN
+        ]]>
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+          #{item}  
+        </foreach>  
+    </update>
 </mapper>
