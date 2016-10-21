@@ -27,8 +27,10 @@ import com.bank.common.base.ResultMsg;
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
 import com.bank.common.model.Log;
+import com.bank.common.model.Role;
 import com.bank.common.model.User;
 import com.bank.common.service.LogService;
+import com.bank.common.service.RoleService;
 import com.bank.common.service.UserService;
 import com.bank.common.util.RequestUtil;
 import com.bank.common.util.StringUtil;
@@ -42,6 +44,7 @@ public class UserController extends BasePageController {
     private final String EDIT_JSP = "user/editUser";
     private final String LIST_JSP = "user/userList";
     private final String DASHBOARD = "page/user/dashboard";
+    private final String USERSETROLE = "user/userSetRole";
 
     private final Logger logger = Logger.getLogger(UserController.class);
 
@@ -49,7 +52,9 @@ public class UserController extends BasePageController {
     private UserService userService;
     @Autowired
     private LogService logService;
-
+    @Autowired
+    private RoleService roleService;
+    
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
@@ -69,6 +74,15 @@ public class UserController extends BasePageController {
     public ModelAndView dashboard() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(MAIN_JSP);
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/userSetRole/{id}", method = RequestMethod.GET)
+    public ModelAndView userSetRole() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(USERSETROLE);
+        List<Role> roleList = roleService.findAllRole();
+        modelAndView.addObject("roleList", roleList);
         return modelAndView;
     }
 

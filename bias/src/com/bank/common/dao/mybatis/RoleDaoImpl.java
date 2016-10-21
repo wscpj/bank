@@ -18,9 +18,10 @@ public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
 
     private static final String SQL_ID_GET_BY_ROLE_CODE = ".getByRoleCode";
     private static final String SQL_ID_FIND_ROLE_CODE = ".findRoleCodes";
-    private static final String SQL_ID_FIND_ALL_ROLE = ".findAllRole";
+    private static final String SQL_ID_FIND_ALL_ROLE_BY_PARAMS = ".findAllRoleByParams";
     private static final String SQL_ID_FIND_ALL_ROLE_GETCOUNT = ".getCount";
     private static final String SQL_ID_DELETE_ROLE_BYIDS = ".deleteRoleByIds";
+    private static final String SQL_ID_FIND_ALL_ROLE = ".findAllRole";
 
     @Override
     public Role findByRoleId(Integer roleId) {
@@ -44,7 +45,7 @@ public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
     
     @SuppressWarnings("unchecked")
 	@Override
-    public List<Role> findAllRole(Map<String, Object> map){
+    public List<Role> findAllRoleByParams(Map<String, Object> map){
     	Map<String, Object> params = getParameterMap();
         PaginationDTO<Role> paginationDTO = (PaginationDTO<Role>) AppContext.getContext().getObject(
                 AppConstants.PAGINATION_DTO);
@@ -53,7 +54,11 @@ public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
             Integer count = getCount(map);
             paginationDTO.setTotalRowCount(count);
         }
-    	return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_ALL_ROLE, map);
+    	return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_ALL_ROLE_BY_PARAMS, map);
+    }
+    @Override
+    public List<Role> findAllRole(){
+    	return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_ALL_ROLE);
     }
     @Override
     public Boolean saveRole(Role role){

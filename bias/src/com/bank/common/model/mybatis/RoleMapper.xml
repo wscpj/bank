@@ -32,7 +32,7 @@
 		R.UPDATED_TIME AS UPDATED_TIME
 	</sql>
 
-	<select id="findAllRole" parameterType="java.util.HashMap" resultMap="roleMap">
+	<select id="findAllRoleByParams" parameterType="java.util.HashMap" resultMap="roleMap">
 		<include refid="selectRole"></include>
 		FROM ROLE R WHERE R.IS_DELETED = 0
 		<if test="roleName != null and roleName != '' ">
@@ -46,6 +46,11 @@
 		</if>
 		 ORDER BY R.ID
 		<include refid="pagination"></include>
+	</select>
+	
+	<select id="findAllRole" resultMap="roleMap">
+		<include refid="selectRole"></include>
+		FROM ROLE R WHERE R.IS_DELETED = 0 ORDER BY R.ID
 	</select>
 
 	<select id="getCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">

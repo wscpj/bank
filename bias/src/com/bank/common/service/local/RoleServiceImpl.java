@@ -17,9 +17,13 @@ public class RoleServiceImpl extends BaseService implements RoleService {
 	public RoleDao roleDao;
 
 	@Override
-	public List<Role> findAllRole(Map<String, Object> map) {
+	public List<Role> findAllRoleByParams(Map<String, Object> map) {
 		
-		return roleDao.findAllRole(map);
+		return roleDao.findAllRoleByParams(map);
+	}
+	@Override
+	public List<Role> findAllRole(){
+		return roleDao.findAllRole();
 	}
 	@Override
 	public Boolean saveRole(Role role){

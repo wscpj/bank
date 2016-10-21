@@ -36,7 +36,7 @@
       <ul class="toolBar">
         <li><a class="add" href="${pageContext.request.contextPath}/page/user/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加管理员</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/page/user/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改管理员</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/manage/modifyView?id={id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
+        <li><a class="edit" href="${pageContext.request.contextPath}/page/user/userSetRole/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
         <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/user/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除管理员</span></a></li>
       </ul>
     </div>

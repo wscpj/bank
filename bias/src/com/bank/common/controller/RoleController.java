@@ -148,7 +148,7 @@ public class RoleController extends BasePageController {
                 LIST_JSP, new PaginationCallBack<Role>() {
             @Override
             public List<Role> callBack() {
-                return roleService.findAllRole(paramsMap);
+                return roleService.findAllRoleByParams(paramsMap);
             }
         });
     }

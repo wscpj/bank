@@ -20,11 +20,12 @@ public interface RoleDao {
 
     public List<String> findRoleCodes(Integer userId);
     
-    public List<Role> findAllRole(Map<String, Object> map);
+    public List<Role> findAllRoleByParams(Map<String, Object> map);
     
     public Integer getCount(Map<String, Object> map);
     
     public Boolean saveRole(Role role);
     public Boolean updateRole(Role role);
     public void deleteRoleByIds(List<Integer> ids);
+    public List<Role> findAllRole();
 }
