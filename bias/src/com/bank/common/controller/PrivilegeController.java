@@ -22,7 +22,6 @@ import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
 import com.bank.common.model.Privilege;
 import com.bank.common.service.PrivilegeService;
-import com.bank.common.service.UserService;
 import com.bank.common.util.StringUtil;
 
 @Controller
@@ -36,16 +35,7 @@ public class PrivilegeController extends BasePageController {
     private final String EDIT_JSP = "privilege/editPrivilege";
 
     @Autowired
-    private UserService userService;
-    @Autowired
     private PrivilegeService privilegeService;
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(LOGIN_JSP);
-        return modelAndView;
-    }
 
     @RequestMapping(value = "/search")
     public ModelAndView findPrivilege(HttpServletRequest request) {
@@ -66,11 +56,11 @@ public class PrivilegeController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<Privilege>() {
-                    @Override
-                    public List<Privilege> callBack() {
-                        return privilegeService.findAllPrivilege(paramsMap);
-                    }
-                });
+            @Override
+            public List<Privilege> callBack() {
+                return privilegeService.findAllPrivilege(paramsMap);
+            }
+        });
     }
 
     @RequestMapping(value = "/addPrivilege", method = RequestMethod.GET)

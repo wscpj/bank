@@ -73,8 +73,8 @@
 
 	<insert id="add" parameterType="Privilege">
 		INSERT INTO PRIVILEGE
-		(DISPLAY_NAME,PRIVILEGE_NAME,PRIVILEGE_CODE,URL,PARENT_ID,IS_DELETED,CREATED_TIME,UPDATED_TIME)
-		VALUES(#{displayName},#{privilegeName},#{privilegeCode},#{url},#{parentId},'0',#{createdTime},#{updatedTime})
+		(DISPLAY_NAME,PRIVILEGE_NAME,PRIVILEGE_CODE,URL,PARENT_ID,IS_DELETED)
+		VALUES(#{displayName},#{privilegeName},#{privilegeCode},#{url},#{parentId},'0')
 	</insert>
 	<update id="update" parameterType="Privilege">
         <![CDATA[

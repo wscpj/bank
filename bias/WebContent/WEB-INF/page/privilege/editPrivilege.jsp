@@ -31,7 +31,7 @@
           </p>
           <p>
             <label>父权限ID：</label>
-            <input name="parentId" class="required" type="text" size="30" value="${privilege.parentId }" alt="请输入父权限ID" />
+            <input name="parentId" class="required" type="text" size="30" value="${privilege.parentId}" alt="请输入父权限ID" />
           </p>
         </div>
         <div class="formBar">

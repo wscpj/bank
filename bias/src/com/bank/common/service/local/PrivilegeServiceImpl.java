@@ -18,7 +18,7 @@ import com.bank.common.model.Role;
 import com.bank.common.service.PrivilegeService;
 
 public class PrivilegeServiceImpl extends BaseService implements
-        PrivilegeService {
+PrivilegeService {
 
     private static final long serialVersionUID = -319207069173729558L;
 
@@ -65,10 +65,6 @@ public class PrivilegeServiceImpl extends BaseService implements
 
     @Override
     public Boolean addPrivilege(Privilege privilege) {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String nowDate = sf.format(new Date());
-        privilege.setCreatedTime(nowDate);
-        privilege.setUpdatedTime(nowDate);
         return privilegeDao.add(privilege);
     }
 

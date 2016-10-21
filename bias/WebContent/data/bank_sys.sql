@@ -59,6 +59,46 @@ CREATE TABLE `privilege` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
+--  向下递归查询子权限节点
+-- ----------------------------
+ DELIMITER $$
+ DROP FUNCTION IF EXISTS `bank_sys`.`getChild` $$
+ CREATE FUNCTION `bank_sys`.`getChild`(parentId INT) RETURNS varchar(1000) 
+ BEGIN 
+    DECLARE sTemp VARCHAR(1000); 
+    DECLARE sTempChd VARCHAR(1000); 
+    
+    SET sTemp = '$'; 
+    SET sTempChd =CAST(parentId AS CHAR); 
+     
+    WHILE sTempChd IS NOT NULL DO 
+      SET sTemp = CONCAT(sTemp,',',sTempChd); 
+      SELECT GROUP_CONCAT(id) INTO sTempChd FROM privilege WHERE FIND_IN_SET(parent_id,sTempChd)>0 AND is_deleted=0; 
+    END WHILE; 
+    RETURN sTemp; 
+ END 
+ 
+-- ----------------------------
+--  向上递归查询父权限节点
+-- ----------------------------
+ DELIMITER $$
+ DROP FUNCTION IF EXISTS `bank_sys`.`getParent` $$
+ CREATE FUNCTION `bank_sys`.`getParent`(childId INT) RETURNS varchar(1000) 
+ BEGIN 
+    DECLARE sTemp VARCHAR(1000); 
+    DECLARE sTempChd VARCHAR(1000); 
+    
+    SET sTemp = '$'; 
+    SET sTempChd =CAST(childId AS CHAR); 
+     
+    WHILE sTempChd IS NOT NULL DO 
+      SET sTemp = CONCAT(sTemp,',',sTempChd); 
+      SELECT GROUP_CONCAT(parent_id) INTO sTempChd FROM privilege WHERE FIND_IN_SET(id,sTempChd)>0 AND is_deleted=0; 
+    END WHILE; 
+    RETURN sTemp; 
+ END 
+ 
+-- ----------------------------
 --  Table structure for `role`
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
