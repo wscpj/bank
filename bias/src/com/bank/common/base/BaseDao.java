@@ -15,9 +15,9 @@ import com.bank.common.model.PaginationDTO;
 
 public abstract class BaseDao<T, K> extends SqlSessionDaoSupport implements Serializable{
 
-	private static final long serialVersionUID = -932132602747901889L;
-	
-	protected static String SQL_ID_ADD = ".add";
+    private static final long serialVersionUID = -932132602747901889L;
+
+    protected static String SQL_ID_ADD = ".add";
     protected static String SQL_ID_UPDATE = ".update";
     protected static String SQL_ID_DELETE = ".delete";
     protected static String SQL_ID_BY_ID = ".getById";

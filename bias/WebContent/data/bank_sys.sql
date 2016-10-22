@@ -9,132 +9,14 @@
  Target Server Version : 50712
  File Encoding         : utf-8
 
- Date: 10/15/2016 15:12:44 PM
+ Date: 10/22/2016 12:52:47 PM
 */
+DROP DATABASE IF EXISTS `bank_sys`;
+CREATE DATABASE IF NOT EXISTS `bank_sys` DEFAULT CHARSET UTF8 COLLATE UTF8_GENERAL_CI;
+USE `bank_sys`;
 
-SET NAMES utf8;
+SET NAMES UTF8;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
---  Table structure for `map_role_privilege`
--- ----------------------------
-DROP TABLE IF EXISTS `map_role_privilege`;
-CREATE TABLE `map_role_privilege` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) NOT NULL,
-  `privilege_id` int(11) NOT NULL,
-  `created_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
---  Table structure for `map_user_role`
--- ----------------------------
-DROP TABLE IF EXISTS `map_user_role`;
-CREATE TABLE `map_user_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `created_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
---  Table structure for `privilege`
--- ----------------------------
-DROP TABLE IF EXISTS `privilege`;
-CREATE TABLE `privilege` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `display_name` varchar(50) NOT NULL,
-  `privilege_name` varchar(50) NOT NULL,
-  `privilege_code` varchar(50) NOT NULL,
-  `url` varchar(500) NOT NULL,
-  `parent_id` int(11) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL,
-  `created_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
---  向下递归查询子权限节点
--- ----------------------------
- DELIMITER $$
- DROP FUNCTION IF EXISTS `bank_sys`.`getChild` $$
- CREATE FUNCTION `bank_sys`.`getChild`(parentId INT) RETURNS varchar(1000) 
- BEGIN 
-    DECLARE sTemp VARCHAR(1000); 
-    DECLARE sTempChd VARCHAR(1000); 
-    
-    SET sTemp = '$'; 
-    SET sTempChd =CAST(parentId AS CHAR); 
-     
-    WHILE sTempChd IS NOT NULL DO 
-      SET sTemp = CONCAT(sTemp,',',sTempChd); 
-      SELECT GROUP_CONCAT(id) INTO sTempChd FROM privilege WHERE FIND_IN_SET(parent_id,sTempChd)>0 AND is_deleted=0; 
-    END WHILE; 
-    RETURN sTemp; 
- END 
- 
--- ----------------------------
---  向上递归查询父权限节点
--- ----------------------------
- DELIMITER $$
- DROP FUNCTION IF EXISTS `bank_sys`.`getParent` $$
- CREATE FUNCTION `bank_sys`.`getParent`(childId INT) RETURNS varchar(1000) 
- BEGIN 
-    DECLARE sTemp VARCHAR(1000); 
-    DECLARE sTempChd VARCHAR(1000); 
-    
-    SET sTemp = '$'; 
-    SET sTempChd =CAST(childId AS CHAR); 
-     
-    WHILE sTempChd IS NOT NULL DO 
-      SET sTemp = CONCAT(sTemp,',',sTempChd); 
-      SELECT GROUP_CONCAT(parent_id) INTO sTempChd FROM privilege WHERE FIND_IN_SET(id,sTempChd)>0 AND is_deleted=0; 
-    END WHILE; 
-    RETURN sTemp; 
- END 
- 
--- ----------------------------
---  Table structure for `role`
--- ----------------------------
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE `role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `display_name` varchar(50) NOT NULL,
-  `role_name` varchar(50) NOT NULL,
-  `role_code` varchar(50) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `created_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
---  Table structure for `user`
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(50) NOT NULL,
-  `gender` int(1) DEFAULT NULL,
-  `email` varchar(100) NOT NULL,
-  `phone` varchar(11) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `created_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
--- ----------------------------
---  设置管理员初始化密码，明文密码：admin
--- ----------------------------
-BEGIN;
-INSERT INTO `user` (user_name,gender,email,phone,password,is_deleted,created_time,updated_time) VALUES ('admin', '0', 'admin@dev.com', '18236916020', 'c3284d0f94606de1fd2af172aba15bf3', '0', '2016-10-16 20:44:51', '2016-10-16 20:44:51');
-COMMIT;
 
 -- ----------------------------
 --  Table structure for `log`
@@ -148,6 +30,132 @@ CREATE TABLE `log` (
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `map_role_privilege`
+-- ----------------------------
+DROP TABLE IF EXISTS `map_role_privilege`;
+CREATE TABLE `map_role_privilege` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL,
+  `privilege_id` int(11) NOT NULL,
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `map_user_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `map_user_role`;
+CREATE TABLE `map_user_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `privilege`
+-- ----------------------------
+DROP TABLE IF EXISTS `privilege`;
+CREATE TABLE `privilege` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `display_name` varchar(50) NOT NULL,
+  `privilege_name` varchar(50) NOT NULL,
+  `privilege_code` varchar(50) NOT NULL,
+  `url` varchar(500) NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `role`
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `display_name` varchar(50) NOT NULL,
+  `role_name` varchar(50) NOT NULL,
+  `role_code` varchar(50) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `user`
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(50) NOT NULL,
+  `gender` int(1) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(11) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES ('1', 'admin', '0', 'admin@dev.com', '18236916020', 'c3284d0f94606de1fd2af172aba15bf3', '0', '2016-10-16 20:44:51', '2016-10-16 20:44:51');
+COMMIT;
+
+-- ----------------------------
+--  Function structure for `getChild`
+-- ----------------------------
+DROP FUNCTION IF EXISTS `getChild`;
+delimiter ;;
+CREATE FUNCTION `getChild`(parentId INT) RETURNS varchar(1000) CHARSET UTF8
+BEGIN 
+    DECLARE sTemp VARCHAR(1000); 
+    DECLARE sTempChd VARCHAR(1000); 
+    
+    SET sTemp = '$'; 
+    SET sTempChd =CAST(parentId AS CHAR); 
+     
+    WHILE sTempChd IS NOT NULL DO 
+      SET sTemp = CONCAT(sTemp,',',sTempChd); 
+      SELECT GROUP_CONCAT(id) INTO sTempChd FROM privilege WHERE FIND_IN_SET(parent_id,sTempChd)>0 AND is_deleted=0; 
+    END WHILE; 
+    RETURN sTemp; 
+ END
+ ;;
+delimiter ;
+
+-- ----------------------------
+--  Function structure for `getParent`
+-- ----------------------------
+DROP FUNCTION IF EXISTS `getParent`;
+delimiter ;;
+CREATE FUNCTION `getParent`(childId INT) RETURNS varchar(1000) CHARSET UTF8
+BEGIN 
+    DECLARE sTemp VARCHAR(1000); 
+    DECLARE sTempChd VARCHAR(1000); 
+    
+    SET sTemp = '$'; 
+    SET sTempChd =CAST(childId AS CHAR); 
+     
+    WHILE sTempChd IS NOT NULL DO 
+      SET sTemp = CONCAT(sTemp,',',sTempChd); 
+      SELECT GROUP_CONCAT(parent_id) INTO sTempChd FROM privilege WHERE FIND_IN_SET(id,sTempChd)>0 AND is_deleted=0; 
+    END WHILE; 
+    RETURN sTemp; 
+ END
+ ;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;

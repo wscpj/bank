@@ -9,7 +9,7 @@ import com.bank.common.dto.PrivilegeDTO;
 import com.bank.common.model.Privilege;
 
 public class PrivilegeDaoImpl extends BaseDao<Privilege, Integer> implements
-        PrivilegeDao {
+PrivilegeDao {
 
     private static final long serialVersionUID = -2578792430404200927L;
 
