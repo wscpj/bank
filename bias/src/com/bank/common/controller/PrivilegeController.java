@@ -28,8 +28,8 @@ import com.bank.common.util.StringUtil;
 @RequestMapping("/page/privilege")
 public class PrivilegeController extends BasePageController {
 
+    @SuppressWarnings("unused")
     private final Logger logger = Logger.getLogger(PrivilegeController.class);
-    private final String LOGIN_JSP = "user/login";
     private final String LIST_JSP = "privilege/privilegeList";
     private final String ADD_JSP = "privilege/addPrivilege";
     private final String EDIT_JSP = "privilege/editPrivilege";

@@ -26,10 +26,8 @@ public class LoginFilter implements Filter {
 
     private static final String URL_LOGIN = "page/user/login";
     private static final String URL_LOGOUT = "/page/user/logout";
-    private static final String NOT_LOGIN = "NotLogin";
     private static final String SPRIT = "/";
     private static final String AJAX_HEAD = "X-Requested-With";
-    private static final String NOT_ADMIN = "notAdmin";
     private static final Logger logger = Logger.getLogger(LoginFilter.class);
     public LoginFilter() {
 

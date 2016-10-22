@@ -38,6 +38,7 @@ public class RoleController extends BasePageController {
 
     private final Logger logger = Logger.getLogger(RoleController.class);
 
+    @SuppressWarnings("unused")
     @Autowired
     private UserService userService;
     @Autowired

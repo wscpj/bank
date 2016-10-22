@@ -12,6 +12,10 @@ import com.bank.common.model.PaginationDTO;
 import com.bank.common.model.User;
 
 public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5086990557645317290L;
     private static final String CLASS_NAME = User.class.getName();
     private static final String SQL_ID_USER_GET_USER_BY_NAME_AND_PASSWORD = ".getUserByNameAndPassword";
     private static final String SQL_ID_USER_GET_COUNT = ".getCount";
@@ -43,6 +47,7 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
     @SuppressWarnings("unchecked")
     @Override
     public List<User> findUsers() {
+        @SuppressWarnings("unused")
         Map<String, Object> params = getParameterMap();
         PaginationDTO<User> paginationDTO = (PaginationDTO<User>) AppContext
                 .getContext().getObject(AppConstants.PAGINATION_DTO);
