@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.common.model.UserRole">
+
+    <resultMap type="UserRole" id="userRoleMap">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="role_id" property="roleId"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+
+    <sql id="selectUserRole">
+        SELECT
+            U.ID AS ID,
+            U.USER_ID AS USER_ID,
+            U.ROLE_ID AS ROLE_ID,
+            U.CREATED_TIME AS CREATED_TIME,
+            U.UPDATED_TIME AS UPDATED_TIME,
+            U.IS_DELETED AS IS_DELETED
+    </sql>
+    
+    <select id="findByUserId" parameterType="java.lang.Integer" resultMap="userRoleMap">
+        <include refid="selectUserRole" />
+        <![CDATA[
+            FROM MAP_USER_ROLE U
+            WHERE U.USER_ID = #{id} AND IS_DELETED = 0
+        ]]>
+    </select>
+    <insert id="add" parameterType="UserRole">
+        INSERT INTO MAP_USER_ROLE  
+            (
+                USER_ID,
+                ROLE_ID,
+                IS_DELETED,
+                CREATED_TIME,
+                UPDATED_TIME
+            )
+            VALUES
+            (
+                #{userId},
+                #{roleId},
+                #{isDeleted},
+                #{createdTime},
+                #{updatedTime}
+            )
+    </insert>
+    <update id="deleteByUserId" parameterType="java.lang.Integer">
+        UPDATE MAP_USER_ROLE MR SET MR.IS_DELETED = 1 WHERE MR.USER_ID = #{userId}
+    </update>
+</mapper>

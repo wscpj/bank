@@ -5,11 +5,10 @@ import java.util.Map;
 
 import com.bank.common.model.Role;
 
-
 public interface RoleDao {
-	/**
+    /**
      * Find roles of user by userId
-     *
+     * 
      * @param userId
      *            id of user
      * @return collection of roles
@@ -19,13 +18,17 @@ public interface RoleDao {
     public Role getByCode(String roleCode);
 
     public List<String> findRoleCodes(Integer userId);
-    
+
     public List<Role> findAllRoleByParams(Map<String, Object> map);
-    
+
     public Integer getCount(Map<String, Object> map);
-    
+
     public Boolean saveRole(Role role);
+
     public Boolean updateRole(Role role);
+
     public void deleteRoleByIds(List<Integer> ids);
+
     public List<Role> findAllRole();
+
 }

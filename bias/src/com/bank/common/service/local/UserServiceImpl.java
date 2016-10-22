@@ -14,12 +14,13 @@ import com.bank.common.exception.ValidationException;
 import com.bank.common.model.User;
 import com.bank.common.service.UserService;
 import com.bank.common.util.StringUtil;
+import com.bank.common.vo.UserSetRoleVo;
 
 public class UserServiceImpl extends BaseService implements UserService {
-	
-	private static final long serialVersionUID = 7440921737614461773L;
 
-	private final Logger logger = Logger.getLogger(UserServiceImpl.class);
+    private static final long serialVersionUID = 7440921737614461773L;
+
+    private final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     private UserDao userDao;
 
@@ -74,7 +75,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public Boolean addUser(User user) {
-    	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String nowDate = sf.format(new Date());
         user.setCreatedTime(nowDate);
         user.setUpdatedTime(nowDate);
@@ -99,5 +100,10 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public User findUserById(Integer id) {
         return userDao.findUserById(id);
+    }
+
+    @Override
+    public List<UserSetRoleVo> userSetRole() {
+        return userDao.userSetRole();
     }
 }

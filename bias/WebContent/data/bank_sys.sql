@@ -23,6 +23,7 @@ CREATE TABLE `map_role_privilege` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NOT NULL,
   `privilege_id` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
   `created_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -36,6 +37,7 @@ CREATE TABLE `map_user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
   `created_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)

@@ -12,7 +12,7 @@
 		<result column="created_time" property="createdTime" />
 		<result column="updated_time" property="updatedTime" />
 	</resultMap>
-
+	
 	<sql id="pagination">
 		<if test="offset != null and rowCount != null">
             <![CDATA[
