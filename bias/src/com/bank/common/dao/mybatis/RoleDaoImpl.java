@@ -11,10 +11,10 @@ import com.bank.common.model.Role;
 
 
 public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
-   
-	private static final long serialVersionUID = -2188344611935357973L;
 
-	private static final String CLASS_NAME = Role.class.getName();
+    private static final long serialVersionUID = -2188344611935357973L;
+
+    private static final String CLASS_NAME = Role.class.getName();
 
     private static final String SQL_ID_GET_BY_ROLE_CODE = ".getByRoleCode";
     private static final String SQL_ID_FIND_ROLE_CODE = ".findRoleCodes";
@@ -36,35 +36,28 @@ public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
     public List<String> findRoleCodes(Integer userId) {
         return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_ROLE_CODE, userId);
     }
-    
+
     @Override
     public Integer getCount(Map<String, Object> map) {
         return getSqlSession().selectOne(CLASS_NAME + SQL_ID_FIND_ALL_ROLE_GETCOUNT, map);
     }
-    
+
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public List<Role> findAllRole(Map<String, Object> map){
-    	Map<String, Object> params = getParameterMap();
+        Map<String, Object> params = getParameterMap();
         PaginationDTO<Role> paginationDTO = (PaginationDTO<Role>) AppContext.getContext().getObject(
                 AppConstants.PAGINATION_DTO);
         if (paginationDTO != null) {
-        	map.putAll(paginationDTO.getParameterMap());  
+            map.putAll(paginationDTO.getParameterMap());
             Integer count = getCount(map);
             paginationDTO.setTotalRowCount(count);
         }
-    	return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_ALL_ROLE, map);
+        return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_ALL_ROLE, map);
     }
-    @Override
-    public Boolean saveRole(Role role){
-    	return this.add(role);
-    }
-    @Override
-    public Boolean updateRole(Role role){
-    	return this.update(role);
-    }
+
     @Override
     public void deleteRoleByIds(List<Integer> ids){
-    	getSqlSession().update(CLASS_NAME + SQL_ID_DELETE_ROLE_BYIDS, ids);
+        getSqlSession().update(CLASS_NAME + SQL_ID_DELETE_ROLE_BYIDS, ids);
     }
 }

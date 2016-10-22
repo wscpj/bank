@@ -13,6 +13,7 @@
     <div class="pageContent">
       <form method="post" action="${pageContext.request.contextPath}/page/privilege/updatePrivilege" class="pageForm required-validate"   onsubmit="return validateCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="90">
+          <input type="hidden" name="id" value="${privilege.id}" />
           <p>
             <label>权限名称：</label>
             <input name="displayName" class="required" type="text" size="30" value="${privilege.displayName }" alt="请输入权限名称" />

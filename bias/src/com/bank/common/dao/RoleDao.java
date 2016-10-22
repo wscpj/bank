@@ -3,11 +3,12 @@ package com.bank.common.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.bank.common.base.IBaseDao;
 import com.bank.common.model.Role;
 
 
-public interface RoleDao {
-	/**
+public interface RoleDao extends IBaseDao<Role, Integer>{
+    /**
      * Find roles of user by userId
      *
      * @param userId
@@ -19,12 +20,10 @@ public interface RoleDao {
     public Role getByCode(String roleCode);
 
     public List<String> findRoleCodes(Integer userId);
-    
+
     public List<Role> findAllRole(Map<String, Object> map);
-    
+
     public Integer getCount(Map<String, Object> map);
-    
-    public Boolean saveRole(Role role);
-    public Boolean updateRole(Role role);
+
     public void deleteRoleByIds(List<Integer> ids);
 }

@@ -40,7 +40,6 @@ PrivilegeDao {
 
     @Override
     public void deletePrivilegeByIds(List<Integer> listId) {
-        // TODO Auto-generated method stub
         getSqlSession().update(CLASS_NAME + SQL_ID_UPDATE_PRIVILEGE, listId);
     }
 }
