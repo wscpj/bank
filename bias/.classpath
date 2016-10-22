@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="product-conf"/>
 	<classpathentry kind="src" path="conf"/>
 	<classpathentry kind="src" path="dev-conf"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
