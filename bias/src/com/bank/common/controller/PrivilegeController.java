@@ -33,6 +33,7 @@ public class PrivilegeController extends BasePageController {
     private final String LIST_JSP = "privilege/privilegeList";
     private final String ADD_JSP = "privilege/addPrivilege";
     private final String EDIT_JSP = "privilege/editPrivilege";
+    private final String PARENT_PRIVILEGTE_JSP = "privilege/parentPrivilege";
 
     @Autowired
     private PrivilegeService privilegeService;
@@ -119,5 +120,14 @@ public class PrivilegeController extends BasePageController {
         resultMsg = ResultMsg.okMsg();
         resultMsg.setCallbackType(AppConstants.EMPTY);
         return resultMsg;
+    }
+
+    @RequestMapping(value = "/searchParent")
+    public ModelAndView searchParentPrivilege() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(PARENT_PRIVILEGTE_JSP);
+        List<String> privilegeTrees = privilegeService.findPrivileges();
+        mv.addObject("privilegeTrees", privilegeTrees);
+        return mv;
     }
 }

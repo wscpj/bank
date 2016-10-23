@@ -30,8 +30,10 @@
             <input name="url" class="required" type="text" size="30"  alt="请输入权限URL" />
           </p>
           <p>
-            <label>父权限ID：</label>
-            <input name="parentId" class="required" type="text" size="30"  alt="请输入父权限ID" />
+            <label>父权限：</label>
+            <input type="hidden" name="privilege.parentId" />
+            <input type="text" readonly="readonly"  name="privilege.displayName" alt="请选择父权限" class="required" size="28" maxlength="600" /> 
+            <a class="btnLook" href="${pageContext.request.contextPath}/page/privilege/searchParent?method=suggest"  lookupGroup="privilege" resizable="false" maxable="false"  width="500" height="400" lookupPk="orgNum" title="查找" ></a>
           </p>
         </div>
         <div class="formBar">
