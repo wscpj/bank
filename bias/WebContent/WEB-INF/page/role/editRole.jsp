@@ -15,7 +15,7 @@
       <form method="post" action="${pageContext.request.contextPath}/page/role/updateRole" class="pageForm required-validate"   onsubmit="return validateCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="90">
         	<input type="hidden" name="id" value="${role.id }"/>
-         <p>
+          <p>
             <label>角色编号：</label>
             <input name="roleCode" class="required" value="${role.roleCode}" type="text" size="30" value="" alt="请输入角色编号" />
           </p>

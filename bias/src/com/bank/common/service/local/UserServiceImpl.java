@@ -14,6 +14,7 @@ import com.bank.common.exception.ValidationException;
 import com.bank.common.model.User;
 import com.bank.common.service.UserService;
 import com.bank.common.util.StringUtil;
+import com.bank.common.vo.UserSetRoleVo;
 
 public class UserServiceImpl extends BaseService implements UserService {
 
@@ -99,5 +100,10 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public User findUserById(Integer id) {
         return userDao.findUserById(id);
+    }
+
+    @Override
+    public List<UserSetRoleVo> userSetRole(Integer userId) {
+        return userDao.userSetRole(userId);
     }
 }

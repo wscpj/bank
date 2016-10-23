@@ -25,17 +25,27 @@ import com.google.common.base.Joiner;
 public class StringUtil {
 
     private static final String UNDERLINE = "_";
-    private static final Pattern RANGE_PATTERN = Pattern.compile("bytes \\d+-\\d+/\\d+");
+    private static final Pattern RANGE_PATTERN = Pattern
+            .compile("bytes \\d+-\\d+/\\d+");
     private static final String CONTENT_RANGE_HEADER = "content-range";
 
     public static boolean isEmpty(String str) {
         return str == null || str.isEmpty() || str.equalsIgnoreCase("null");
     }
 
+    public static Integer isNullToInt(String str) {
+
+        if (isEmpty(str)) {
+            return null;
+        } else {
+            return Integer.valueOf(str);
+        }
+    }
+
     /**
-     * remove str content(provide by reps parameter.) For example: give a str=aaabbbccc, reps={"bbb","ccc"} then this
-     * method return "aaa"
-     *
+     * remove str content(provide by reps parameter.) For example: give a
+     * str=aaabbbccc, reps={"bbb","ccc"} then this method return "aaa"
+     * 
      * @param str
      * @param reps
      * @return
@@ -49,7 +59,7 @@ public class StringUtil {
 
     /**
      * for a List = {"a", "b", "c"} and seperator="," return the result: "a,b,c"
-     *
+     * 
      * @param seperator
      * @param parts
      * @return
@@ -61,7 +71,7 @@ public class StringUtil {
 
     /**
      * If str contains one element of reps, just return true, Else return false.
-     *
+     * 
      * @param str
      * @param reps
      * @return
@@ -81,7 +91,7 @@ public class StringUtil {
 
     /**
      * if Str start with one element of reps, return true, else return false.
-     *
+     * 
      * @param str
      * @param reps
      * @return
@@ -100,7 +110,7 @@ public class StringUtil {
 
     /**
      * Get a uuid(Notice UpperCase)
-     *
+     * 
      * @return
      */
     public static String getUUID() {
@@ -109,7 +119,7 @@ public class StringUtil {
 
     /**
      * Indicate the parameter value is a chinese.
-     *
+     * 
      * @param value
      * @return
      */
@@ -125,7 +135,7 @@ public class StringUtil {
 
     /**
      * Get the ratio of Chinese, if the ratio >= rate(Parameter), return True.
-     *
+     * 
      * @param value
      * @param rate
      * @return
@@ -141,8 +151,9 @@ public class StringUtil {
     }
 
     /**
-     * This method is used to split big string, it can improve the performance compare to string.split method.
-     *
+     * This method is used to split big string, it can improve the performance
+     * compare to string.split method.
+     * 
      * @param strSource
      * @param strDiv
      * @return
@@ -178,10 +189,12 @@ public class StringUtil {
                 for (int intCount = 1;; intCount++) {
                     if (strSource.indexOf(strDiv, intIdx + divLength) != -1) {
                         intIdex = strSource.indexOf(strDiv, intIdx + divLength);
-                        returnStr[intCount] = strSource.substring(intIdx + divLength, intIdex);
+                        returnStr[intCount] = strSource.substring(intIdx
+                                + divLength, intIdex);
                         intIdx = strSource.indexOf(strDiv, intIdx + divLength);
                     } else {
-                        returnStr[intCount] = strSource.substring(intIdx + divLength, strSource.length());
+                        returnStr[intCount] = strSource.substring(intIdx
+                                + divLength, strSource.length());
                         break;
                     }
                 }
@@ -199,15 +212,16 @@ public class StringUtil {
         if (isEmpty(content)) {
             return "";
         }
-        content = content.replaceAll("&amp;", "&").replaceAll("&lt;", "<").replaceAll("&gt;", ">")
-                .replaceAll("&apos;", "\'").replaceAll("&quot;", "\"").replaceAll("&nbsp;", " ")
+        content = content.replaceAll("&amp;", "&").replaceAll("&lt;", "<")
+                .replaceAll("&gt;", ">").replaceAll("&apos;", "\'")
+                .replaceAll("&quot;", "\"").replaceAll("&nbsp;", " ")
                 .replaceAll("&copy;", "@").replaceAll("&reg;", "?");
         return content;
     }
 
     /**
      * get the index of the order specified target string in the str
-     *
+     * 
      * @param source
      * @param target
      * @param orderNumber
@@ -244,7 +258,7 @@ public class StringUtil {
 
     /**
      * Use MD5 digest and UTF-8 encoding to encrypt a string.
-     *
+     * 
      * @param str
      * @return
      */
@@ -261,7 +275,8 @@ public class StringUtil {
         StringBuffer md5StrBuff = new StringBuffer();
         for (int i = 0; i < byteArray.length; i++) {
             if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)
-                md5StrBuff.append("0").append(Integer.toHexString(0xFF & byteArray[i]));
+                md5StrBuff.append("0").append(
+                        Integer.toHexString(0xFF & byteArray[i]));
             else
                 md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
         }
@@ -271,9 +286,11 @@ public class StringUtil {
     static Pattern pattern = Pattern.compile(AppConstants.PATH_VAR_REGEX);
 
     /**
-     * get the variable and output a set contains the key of this path For exampel path: /people/$people/wife/$wife,
-     * Params: {dog:"ddd", people:"aaa", wife:"bbb"} output: /people/aaa/wife/bbb, Params:{dog:"ddd"}
-     *
+     * get the variable and output a set contains the key of this path For
+     * exampel path: /people/$people/wife/$wife, Params: {dog:"ddd",
+     * people:"aaa", wife:"bbb"} output: /people/aaa/wife/bbb,
+     * Params:{dog:"ddd"}
+     * 
      * @param path
      * @return
      */
@@ -292,7 +309,8 @@ public class StringUtil {
         return newPath;
     }
 
-    public static <T> Map<String, String> validateSortNameAndSign(String sortName, String sortSign, Class<T> clz) {
+    public static <T> Map<String, String> validateSortNameAndSign(
+            String sortName, String sortSign, Class<T> clz) {
         Map<String, String> sortNameAndSign = new HashMap<String, String>();
         Field[] fields = clz.getDeclaredFields();
         for (int i = 0, len = fields.length; i < len; i++) {
@@ -306,7 +324,8 @@ public class StringUtil {
             sortNameAndSign.put(AppConstants.SORT_NAME, fields[0].getName());
         }
         if (AppConstants.DESC_ORDER.equalsIgnoreCase(sortSign)) {
-            sortNameAndSign.put(AppConstants.SORT_SIGN, AppConstants.DESC_ORDER);
+            sortNameAndSign
+                    .put(AppConstants.SORT_SIGN, AppConstants.DESC_ORDER);
         } else {
             sortNameAndSign.put(AppConstants.SORT_SIGN, AppConstants.ASC_ORDER);
         }
@@ -314,7 +333,7 @@ public class StringUtil {
     }
 
     /**
-     *
+     * 
      * @param req
      * @return
      * @throws IOException
@@ -340,26 +359,28 @@ public class StringUtil {
     }
 
     public static String getCurrentDate() {
-        Calendar c  = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         String currentTime = "" + c.get(Calendar.DATE);
         return currentTime;
     }
 
     /**
-     *
+     * 
      * @param name
      * @param size
      * @return
      * @throws Exception
      */
-    public static String generateToken(String name, String size) throws IOException {
+    public static String generateToken(String name, String size)
+            throws IOException {
         if (name == null || size == null) {
             return "";
         }
         Date currentTime = new Date();
         int code = (name + currentTime.toString()).hashCode();
         try {
-            String token = (code > 0 ? "A" : "B") + Math.abs(code) + "_" + size.trim();
+            String token = (code > 0 ? "A" : "B") + Math.abs(code) + "_"
+                    + size.trim();
             return token;
         } catch (Exception e) {
             throw new IOException(e);
@@ -390,10 +411,13 @@ public class StringUtil {
         if (name == null) {
             return "";
         }
-        int hashName = name.substring(0, name.lastIndexOf(AppConstants.DOT) == -1
-                ? name.length() : name.lastIndexOf(AppConstants.DOT)).hashCode();
-        String fileSuffix = name.substring(name.lastIndexOf(AppConstants.DOT) == -1
-                ? name.length() : name.lastIndexOf(AppConstants.DOT));
+        int hashName = name.substring(
+                0,
+                name.lastIndexOf(AppConstants.DOT) == -1 ? name.length() : name
+                        .lastIndexOf(AppConstants.DOT)).hashCode();
+        String fileSuffix = name
+                .substring(name.lastIndexOf(AppConstants.DOT) == -1 ? name
+                        .length() : name.lastIndexOf(AppConstants.DOT));
         String fileName = hashName + fileSuffix;
         return fileName;
     }
@@ -408,18 +432,25 @@ public class StringUtil {
         fileTypeMap.put(AppConstants.FILE_SUFFIX_MP4, AppConstants.VIDEO);
 
         // Compress package type
-        fileTypeMap.put(AppConstants.FILE_SUFFIX_RAR, AppConstants.COMPRESSED_PACKAGE);
-        fileTypeMap.put(AppConstants.FILE_SUFFIX_ZIP, AppConstants.COMPRESSED_PACKAGE);
-        fileTypeMap.put(AppConstants.FILE_SUFFIX_GZ, AppConstants.COMPRESSED_PACKAGE);
-        fileTypeMap.put(AppConstants.FILE_SUFFIX_7Z, AppConstants.COMPRESSED_PACKAGE);
+        fileTypeMap.put(AppConstants.FILE_SUFFIX_RAR,
+                AppConstants.COMPRESSED_PACKAGE);
+        fileTypeMap.put(AppConstants.FILE_SUFFIX_ZIP,
+                AppConstants.COMPRESSED_PACKAGE);
+        fileTypeMap.put(AppConstants.FILE_SUFFIX_GZ,
+                AppConstants.COMPRESSED_PACKAGE);
+        fileTypeMap.put(AppConstants.FILE_SUFFIX_7Z,
+                AppConstants.COMPRESSED_PACKAGE);
 
         // Picture type
         fileTypeMap.put(AppConstants.FILE_SUFFIX_JPG, AppConstants.PICTURE);
-        fileTypeMap.put(AppConstants.FILE_SUFFIX_CAPITAL_JPG, AppConstants.PICTURE);
+        fileTypeMap.put(AppConstants.FILE_SUFFIX_CAPITAL_JPG,
+                AppConstants.PICTURE);
         fileTypeMap.put(AppConstants.FILE_SUFFIX_JPEG, AppConstants.PICTURE);
-        fileTypeMap.put(AppConstants.FILE_SUFFIX_CAPITAL_JPEG, AppConstants.PICTURE);
+        fileTypeMap.put(AppConstants.FILE_SUFFIX_CAPITAL_JPEG,
+                AppConstants.PICTURE);
         fileTypeMap.put(AppConstants.FILE_SUFFIX_PNG, AppConstants.PICTURE);
-        fileTypeMap.put(AppConstants.FILE_SUFFIX_CAPITAL_PNG, AppConstants.PICTURE);
+        fileTypeMap.put(AppConstants.FILE_SUFFIX_CAPITAL_PNG,
+                AppConstants.PICTURE);
         fileTypeMap.put(AppConstants.FILE_SUFFIX_GIF, AppConstants.PICTURE);
         fileTypeMap.put(AppConstants.FILE_SUFFIX_BMP, AppConstants.PICTURE);
         fileTypeMap.put(AppConstants.FILE_SUFFIX_PIC, AppConstants.PICTURE);
@@ -454,7 +485,9 @@ public class StringUtil {
 
     /*
      * generate range string
+     * 
      * @param num
+     * 
      * @return string
      */
     public static String generateRangeString(Integer num) {
@@ -462,29 +495,31 @@ public class StringUtil {
         if (rangeString.length() <= num) {
             return rangeString;
         }
-        return rangeString.substring(0,num);
+        return rangeString.substring(0, num);
     }
+
     /**
      * 
-     * @param ids:String类型      "1,2,3"
+     * @param ids
+     *            :String类型 "1,2,3"
      * @return
      */
-    public static List<Integer> StringToList(String ids){
-    	List<Integer> list = new ArrayList<Integer>();
-    	if(ids == null || ids.length() == 0){
-    		return list;
-    	}
-    	String strIds = "";
-    	if(ids.endsWith(",")){
-    		strIds = ids.substring(0, ids.length() - 1);
-    	}else{
-    		strIds = ids;
-    	}
-    	String[] idArr = strIds.split(",");
-    	for(String id: idArr){
-    		list.add(Integer.valueOf(id));
-    	}
-    	
-    	return list;
+    public static List<Integer> StringToList(String ids) {
+        List<Integer> list = new ArrayList<Integer>();
+        if (ids == null || ids.length() == 0) {
+            return list;
+        }
+        String strIds = "";
+        if (ids.endsWith(",")) {
+            strIds = ids.substring(0, ids.length() - 1);
+        } else {
+            strIds = ids;
+        }
+        String[] idArr = strIds.split(",");
+        for (String id : idArr) {
+            list.add(Integer.valueOf(id));
+        }
+
+        return list;
     }
 }

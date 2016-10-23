@@ -6,6 +6,7 @@ import java.util.Map;
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
 import com.bank.common.model.User;
+import com.bank.common.vo.UserSetRoleVo;
 
 public interface UserService {
     User login(String userName, String password) throws ValidationException,
@@ -26,4 +27,6 @@ public interface UserService {
     void deleteUserByIds(List<Integer> ids);
 
     User findUserById(Integer id);
+
+    List<UserSetRoleVo> userSetRole(Integer userId);
 }

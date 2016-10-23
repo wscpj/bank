@@ -10,8 +10,14 @@ import com.bank.common.base.BaseDao;
 import com.bank.common.dao.UserDao;
 import com.bank.common.model.PaginationDTO;
 import com.bank.common.model.User;
+import com.bank.common.vo.UserSetRoleVo;
 
 public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5086990557645317290L;
+
     private static final String CLASS_NAME = User.class.getName();
     private static final String SQL_ID_USER_GET_USER_BY_NAME_AND_PASSWORD = ".getUserByNameAndPassword";
     private static final String SQL_ID_USER_GET_COUNT = ".getCount";
@@ -20,6 +26,7 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
     private static final String SQL_ID_USER_SEARCH_USERS = ".searchUsers";
     private static final String SQL_ID_DELETE_USER_BYIDS = ".deleteUserByIds";
     private static final String SQL_ID_FIND_USER_BYID = ".findById";
+    private static final String SQL_ID_USERSETROLE = ".userSetRole";
 
     @Override
     public User getUserByNameAndPassword(String userName, String password) {
@@ -78,5 +85,11 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
     public User findUserById(Integer id) {
         return getSqlSession()
                 .selectOne(CLASS_NAME + SQL_ID_FIND_USER_BYID, id);
+    }
+
+    @Override
+    public List<UserSetRoleVo> userSetRole(Integer userId) {
+        return getSqlSession().selectList(CLASS_NAME + SQL_ID_USERSETROLE,
+                userId);
     }
 }

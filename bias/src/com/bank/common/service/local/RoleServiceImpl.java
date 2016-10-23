@@ -17,33 +17,39 @@ public class RoleServiceImpl extends BaseService implements RoleService {
     public RoleDao roleDao;
 
     @Override
-    public List<Role> findAllRole(Map<String, Object> map) {
+    public List<Role> findAllRoleByParams(Map<String, Object> map) {
 
-        return roleDao.findAllRole(map);
+        return roleDao.findAllRoleByParams(map);
     }
+
     @Override
-    public Boolean saveRole(Role role){
+    public List<Role> findAllRole() {
+        return roleDao.findAllRole();
+    }
+
+    @Override
+    public Boolean saveRole(Role role) {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String nowDate = sf.format(new Date());
         role.setCreatedTime(nowDate);
         role.setUpdatedTime(nowDate);
         return roleDao.add(role);
     }
+
     @Override
-    public Role findByRoleId(Integer roleId){
+    public Role findByRoleId(Integer roleId) {
         return roleDao.findByRoleId(roleId);
     }
+
     @Override
-    public Boolean updateRole(Role role){
+    public Boolean updateRole(Role role) {
         return roleDao.update(role);
     }
+
     @Override
-    public void deleteRoleByIds(List<Integer> ids){
+    public void deleteRoleByIds(List<Integer> ids) {
         roleDao.deleteRoleByIds(ids);
     }
-
-
-
 
     public RoleDao getRoleDao() {
         return roleDao;

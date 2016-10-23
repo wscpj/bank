@@ -28,10 +28,14 @@ import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
 import com.bank.common.model.Log;
 import com.bank.common.model.User;
+import com.bank.common.model.UserRole;
 import com.bank.common.service.LogService;
+import com.bank.common.service.RoleService;
+import com.bank.common.service.UserRoleService;
 import com.bank.common.service.UserService;
 import com.bank.common.util.RequestUtil;
 import com.bank.common.util.StringUtil;
+import com.bank.common.vo.UserSetRoleVo;
 
 @Controller
 @RequestMapping("/page/user")
@@ -42,6 +46,7 @@ public class UserController extends BasePageController {
     private final String EDIT_JSP = "user/editUser";
     private final String LIST_JSP = "user/userList";
     private final String DASHBOARD = "page/user/dashboard";
+    private final String USERSETROLE = "user/userSetRole";
 
     private final Logger logger = Logger.getLogger(UserController.class);
 
@@ -49,6 +54,10 @@ public class UserController extends BasePageController {
     private UserService userService;
     @Autowired
     private LogService logService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private UserRoleService userRoleService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
@@ -72,9 +81,46 @@ public class UserController extends BasePageController {
         return modelAndView;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/saveUserSetRole", method = RequestMethod.POST)
+    public ResultMsg saveUserSetRole(HttpServletRequest request) {
+        Integer userId = StringUtil.isNullToInt(request.getParameter("userId"));
+        String[] roleIdArr = request.getParameterValues("roleId");
+        ResultMsg resultMsg = null;
+        try {
+            userRoleService.deleteUserRoleByUserId(userId);
+
+            UserRole userRole = new UserRole();
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String nowDate = sf.format(new Date());
+            for (String id : roleIdArr) {
+                userRole.setUserId(userId);
+                userRole.setRoleId(StringUtil.isNullToInt(id));
+                userRole.setCreatedTime(nowDate);
+                userRole.setUpdatedTime(nowDate);
+                userRoleService.insertUserRole(userRole);
+            }
+            resultMsg = ResultMsg.okMsg();
+        } catch (Exception e) {
+            logger.error("userSetRole error", e);
+            resultMsg = ResultMsg.errorMsg();
+        }
+
+        return resultMsg;
+    }
+
+    @RequestMapping(value = "/userSetRole/{id}", method = RequestMethod.GET)
+    public ModelAndView userSetRole(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(USERSETROLE);
+        List<UserSetRoleVo> list = userService.userSetRole(id);
+        modelAndView.addObject("userRoleList", list);
+        modelAndView.addObject("userId", id);
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView Login(
-            HttpServletRequest request,
+    public ModelAndView Login(HttpServletRequest request,
             @RequestParam(value = "name", defaultValue = "") String name,
             @RequestParam(value = "password", defaultValue = "") String password) {
         ModelAndView modelAndView = new ModelAndView();
@@ -130,11 +176,11 @@ public class UserController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<User>() {
-            @Override
-            public List<User> callBack() {
-                return userService.searchUsers(paramsMap);
-            }
-        });
+                    @Override
+                    public List<User> callBack() {
+                        return userService.searchUsers(paramsMap);
+                    }
+                });
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
