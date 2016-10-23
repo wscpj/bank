@@ -113,7 +113,7 @@ public class UserController extends BasePageController {
     public ModelAndView userSetRole(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(USERSETROLE);
-        List<UserSetRoleVo> list = userService.userSetRole();
+        List<UserSetRoleVo> list = userService.userSetRole(id);
         modelAndView.addObject("userRoleList", list);
         modelAndView.addObject("userId", id);
         return modelAndView;

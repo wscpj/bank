@@ -20,5 +20,5 @@ public interface UserDao extends IBaseDao<User, Integer> {
 
     User findUserById(Integer id);
 
-    List<UserSetRoleVo> userSetRole();
+    List<UserSetRoleVo> userSetRole(Integer userId);
 }

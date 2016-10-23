@@ -35,6 +35,7 @@ public class RoleController extends BasePageController {
     private final String LIST_JSP = "role/roleList";
     private final String ADD_JSP = "role/addRole";
     private final String EDIT_JSP = "role/editRole";
+    private final String ROLE_SET_PRIVILEGE = "role/roleSetPrivilege";
 
     private final Logger logger = Logger.getLogger(RoleController.class);
 
@@ -61,6 +62,21 @@ public class RoleController extends BasePageController {
     public ModelAndView addRole() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName(ADD_JSP);
+        return mv;
+    }
+
+    @RequestMapping(value = "/roleSetPrivilege/{id}", method = RequestMethod.GET)
+    public ModelAndView roleSetPrivilege(@PathVariable Integer id) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(ROLE_SET_PRIVILEGE);
+        return mv;
+    }
+
+    @RequestMapping(value = "/saveRoleSetPrivilege", method = RequestMethod.POST)
+    public ModelAndView saveRoleSetPrivilege(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView();
+        String[] a = request.getParameterValues("name");
+        mv.setViewName(ROLE_SET_PRIVILEGE);
         return mv;
     }
 
@@ -146,11 +162,11 @@ public class RoleController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<Role>() {
-            @Override
-            public List<Role> callBack() {
-                return roleService.findAllRoleByParams(paramsMap);
-            }
-        });
+                    @Override
+                    public List<Role> callBack() {
+                        return roleService.findAllRoleByParams(paramsMap);
+                    }
+                });
     }
 
 }

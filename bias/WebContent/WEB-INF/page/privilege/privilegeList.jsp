@@ -36,7 +36,6 @@
       <ul class="toolBar">
         <li><a class="add" href="${pageContext.request.contextPath}/page/privilege/addPrivilege" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加权限</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/page/privilege/editPrivilege/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改权限</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/manage/modifyView?id={id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
         <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/privilege/deletePrivilege" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除权限</span></a></li>
       </ul>
     </div>

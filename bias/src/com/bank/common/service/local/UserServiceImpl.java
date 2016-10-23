@@ -103,7 +103,7 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     @Override
-    public List<UserSetRoleVo> userSetRole() {
-        return userDao.userSetRole();
+    public List<UserSetRoleVo> userSetRole(Integer userId) {
+        return userDao.userSetRole(userId);
     }
 }

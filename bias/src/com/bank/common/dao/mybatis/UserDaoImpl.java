@@ -88,7 +88,8 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
     }
 
     @Override
-    public List<UserSetRoleVo> userSetRole() {
-        return getSqlSession().selectList(CLASS_NAME + SQL_ID_USERSETROLE);
+    public List<UserSetRoleVo> userSetRole(Integer userId) {
+        return getSqlSession().selectList(CLASS_NAME + SQL_ID_USERSETROLE,
+                userId);
     }
 }

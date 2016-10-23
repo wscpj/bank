@@ -184,8 +184,9 @@
         </foreach>  
     </update>
     
-    <select id="userSetRole" resultMap="userSetRoleMap">
+    <select id="userSetRole" parameterType="java.lang.Integer" resultMap="userSetRoleMap">
         SELECT T1.ID AS ROLE_ID ,T1.DISPLAY_NAME AS ROLE_DISPLAY_NAME,IFNULL (T2.ID,0) AS ID FROM ROLE T1
-        LEFT JOIN MAP_USER_ROLE T2 ON T1.ID= T2.ROLE_ID AND T1.IS_DELETED = 0 AND T2.IS_DELETED = 0 ORDER BY T1.ID
+        LEFT JOIN MAP_USER_ROLE T2 ON T1.ID= T2.ROLE_ID AND T1.IS_DELETED = 0 
+        AND T2.IS_DELETED = 0 AND T2.USER_ID = #{userId} ORDER BY T1.ID
     </select>
 </mapper>
