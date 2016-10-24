@@ -7,6 +7,7 @@ import java.util.Map;
 import com.bank.common.AppConstants;
 import com.bank.common.AppContext;
 import com.bank.common.base.BaseDao;
+import com.bank.common.dao.UserDao;
 import com.bank.common.model.PaginationDTO;
 import com.bank.common.model.User;
 import com.bank.common.vo.UserSetRoleVo;
@@ -29,6 +30,7 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao{
 
     @Override
     public User getUserByNameAndPassword(String userName, String password) {
+
         Map<String, String> param = new HashMap<String, String>();
         param.put("userName", userName);
         param.put("password", password);

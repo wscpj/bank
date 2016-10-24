@@ -6,7 +6,10 @@ import java.util.Map;
 import com.bank.common.base.IBaseDao;
 import com.bank.common.model.User;
 import com.bank.common.vo.UserSetRoleVo;
-interface UserDao extends IBaseDao<User, Integer> {
+
+
+public interface UserDao extends IBaseDao<User, Integer> {
+
     User getUserByNameAndPassword(String userName, String password);
 
     Integer getCount();
