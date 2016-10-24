@@ -28,11 +28,12 @@ import com.bank.common.util.StringUtil;
 @RequestMapping("/page/privilege")
 public class PrivilegeController extends BasePageController {
 
+    @SuppressWarnings("unused")
     private final Logger logger = Logger.getLogger(PrivilegeController.class);
-    private final String LOGIN_JSP = "user/login";
     private final String LIST_JSP = "privilege/privilegeList";
     private final String ADD_JSP = "privilege/addPrivilege";
     private final String EDIT_JSP = "privilege/editPrivilege";
+    private final String PARENT_PRIVILEGTE_JSP = "privilege/parentPrivilege";
 
     @Autowired
     private PrivilegeService privilegeService;
@@ -119,5 +120,14 @@ public class PrivilegeController extends BasePageController {
         resultMsg = ResultMsg.okMsg();
         resultMsg.setCallbackType(AppConstants.EMPTY);
         return resultMsg;
+    }
+
+    @RequestMapping(value = "/searchParent")
+    public ModelAndView searchParentPrivilege() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(PARENT_PRIVILEGTE_JSP);
+        List<String> privilegeTrees = privilegeService.findPrivileges();
+        mv.addObject("privilegeTrees", privilegeTrees);
+        return mv;
     }
 }

@@ -11,6 +11,10 @@ import com.bank.common.model.Log;
 import com.bank.common.service.LogService;
 
 public class LogServiceImpl extends BaseService implements LogService {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8648289660180264572L;
     @SuppressWarnings("unused")
     private final Logger logger = Logger.getLogger(LogServiceImpl.class);
     private LogDao logDao;

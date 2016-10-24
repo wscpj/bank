@@ -70,7 +70,21 @@
 		<include refid="selectPrivilege"></include>
 		FROM PRIVILEGE P WHERE P.IS_DELETED = 0 AND P.ID = #{id}
 	</select>
-
+	
+	<select id="findPrivilegesByTree" resultMap="privilegeMap">
+        <include refid="selectPrivilege" />
+        <![CDATA[
+            FROM PRIVILEGE P WHERE FIND_IN_SET(id, getChild(0))
+        ]]>
+    </select>
+    
+    <select id="findPrivilegesByParentId" parameterType="java.lang.Integer" resultMap="privilegeMap">
+        <include refid="selectPrivilege" />
+        <![CDATA[
+            FROM PRIVILEGE P WHERE P.parent_id= #{parentId}
+        ]]>
+    </select>
+    
 	<insert id="add" parameterType="Privilege">
 		INSERT INTO PRIVILEGE
 		(DISPLAY_NAME,PRIVILEGE_NAME,PRIVILEGE_CODE,URL,PARENT_ID)

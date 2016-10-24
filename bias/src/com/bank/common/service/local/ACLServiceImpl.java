@@ -15,6 +15,10 @@ import com.bank.common.service.PrivilegeService;
 
 public class ACLServiceImpl extends BaseService implements ACLService {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1660714949772901081L;
     private static Map<String, List<Privilege>> rolePrivilegeMap;
     private RoleDao roleDao;
     private PrivilegeService privilegeService;

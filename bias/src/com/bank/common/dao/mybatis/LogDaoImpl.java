@@ -11,6 +11,10 @@ import com.bank.common.model.Log;
 import com.bank.common.model.PaginationDTO;
 
 public class LogDaoImpl extends BaseDao<Log, Integer> implements LogDao {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5566147083208420885L;
     private static final String CLASS_NAME = Log.class.getName();
     private static final String SQL_ID_LOG_GET_COUNT_BY_KEYWORDS = ".getCountByKeywords";
     private static final String SQL_ID_LOG_SEARCH_LOGS = ".searchLogs";

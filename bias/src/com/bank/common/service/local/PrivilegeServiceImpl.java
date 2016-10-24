@@ -85,4 +85,39 @@ PrivilegeService {
     public void deletePrivilegeByIds(List<Integer> listId) {
         privilegeDao.deletePrivilegeByIds(listId);
     }
+
+    @Override
+    public List<String> findPrivileges() {
+        List<Privilege> rootPrivilege = privilegeDao.findPrivilegesByParentId(0);
+        Privilege privilege = rootPrivilege.get(0);
+        List<Privilege> secondPrivileges = privilegeDao.findPrivilegesByParentId(privilege.getId());
+        List<String> trees = this.getTrees(secondPrivileges,privilege, AppContext.getContextPath() +"/");
+        return trees;
+    }
+
+    private List<String> getTrees(List<Privilege> list,Privilege rootPrivilege, String path)
+    {
+        List<String> trees=new ArrayList<String>();
+        for(Privilege privilege:list)
+        {
+            if(privilege.getParentId().intValue() == rootPrivilege.getId().intValue())
+            {
+                trees.add(getTree(list, privilege, path).toString());
+            }
+        }
+        return trees;
+    }
+    //树形菜单的数据准备
+    private StringBuffer getTree(List<Privilege> privileges,Privilege root,String path)
+    {
+        StringBuffer sb = new StringBuffer();
+        sb.append("<ul><li><a href='"+path+root.getUrl()+"' tname=" + root.getId() + ", tvalue=" + root.getId() + "target='navTab' rel='w_table'>"+root.getDisplayName()+"</a>");
+        for(Privilege privge  : privileges){
+            if(privge.getParentId().intValue()!= 0 && privge.getParentId().equals(root.getId())){
+                sb.append(getTree(privileges,privge,path));
+            }
+        }
+        sb.append("</li></ul>");
+        return sb;
+    }
 }

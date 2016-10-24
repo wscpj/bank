@@ -7,14 +7,13 @@ import java.util.Map;
 import com.bank.common.AppConstants;
 import com.bank.common.AppContext;
 import com.bank.common.base.BaseDao;
-import com.bank.common.dao.UserDao;
 import com.bank.common.model.PaginationDTO;
 import com.bank.common.model.User;
 import com.bank.common.vo.UserSetRoleVo;
 
-public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
+public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao{
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 5086990557645317290L;
 
@@ -50,6 +49,7 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
     @SuppressWarnings("unchecked")
     @Override
     public List<User> findUsers() {
+        @SuppressWarnings("unused")
         Map<String, Object> params = getParameterMap();
         PaginationDTO<User> paginationDTO = (PaginationDTO<User>) AppContext
                 .getContext().getObject(AppConstants.PAGINATION_DTO);

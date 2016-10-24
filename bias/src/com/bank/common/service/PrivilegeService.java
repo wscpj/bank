@@ -19,4 +19,6 @@ public interface PrivilegeService {
     public Boolean updatePrivilege(Privilege privilege);
 
     public void deletePrivilegeByIds(List<Integer> listId);
+
+    public List<String> findPrivileges();
 }
