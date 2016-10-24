@@ -20,6 +20,7 @@
 
     <bean id="userService" parent="baseService" class="com.bank.common.service.local.UserServiceImpl">
         <property name="userDao" ref="userDao"></property>
+        <property name="userRoleDao" ref="userRoleDao"></property>
     </bean>
     
     <bean id="roleService" parent="baseService" class="com.bank.common.service.local.RoleServiceImpl">
@@ -28,6 +29,10 @@
     
     <bean id="userRoleService" parent="baseService" class="com.bank.common.service.local.UserRoleServiceImpl">
         <property name="userRoleDao" ref="userRoleDao"></property>
+    </bean>
+    
+    <bean id="rolePrivilegeService" parent="baseService" class="com.bank.common.service.local.RolePrivilegeServiceImpl">
+        <property name="rolePrivilegeDao" ref="rolePrivilegeDao"></property>
     </bean>
     
     <bean id="privilegeService" parent="baseService" class="com.bank.common.service.local.PrivilegeServiceImpl">

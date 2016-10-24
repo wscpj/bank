@@ -133,9 +133,7 @@
                 PASSWORD,
                 GENDER,
                 EMAIL,
-                PHONE,
-                CREATED_TIME,
-                UPDATED_TIME
+                PHONE
             )
             VALUES
             (
@@ -143,9 +141,7 @@
                 md5(md5(#{password})),
                 #{gender},
                 #{email},
-                #{phone},
-                #{createdTime},
-                #{updatedTime}
+                #{phone}
             )
         ]]>
     </insert>

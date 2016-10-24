@@ -1,7 +1,5 @@
 package com.bank.common.service.local;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.bank.common.base.BaseService;
 import com.bank.common.dao.UserDao;
+import com.bank.common.dao.UserRoleDao;
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
 import com.bank.common.model.User;
@@ -23,6 +22,8 @@ public class UserServiceImpl extends BaseService implements UserService {
     private final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     private UserDao userDao;
+    
+    private UserRoleDao userRoleDao;
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
@@ -75,10 +76,6 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public Boolean addUser(User user) {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String nowDate = sf.format(new Date());
-        user.setCreatedTime(nowDate);
-        user.setUpdatedTime(nowDate);
         return userDao.add(user);
     }
 
@@ -89,11 +86,17 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public Boolean deleteUser(Integer id) {
+    	//删除用户的同时删除用户角色表数据
+    	userRoleDao.deleteUserRoleByUserId(id);
         return userDao.delete(id);
     }
 
     @Override
     public void deleteUserByIds(List<Integer> ids) {
+    	//删除用户的同时删除用户角色表数据
+    	for(Integer userId: ids){
+    		userRoleDao.deleteUserRoleByUserId(userId);
+    	}
         userDao.deleteUserByIds(ids);
     }
 
@@ -106,4 +109,13 @@ public class UserServiceImpl extends BaseService implements UserService {
     public List<UserSetRoleVo> userSetRole(Integer userId) {
         return userDao.userSetRole(userId);
     }
+
+	public UserRoleDao getUserRoleDao() {
+		return userRoleDao;
+	}
+
+	public void setUserRoleDao(UserRoleDao userRoleDao) {
+		this.userRoleDao = userRoleDao;
+	}
+    
 }

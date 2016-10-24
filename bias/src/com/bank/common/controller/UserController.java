@@ -91,13 +91,9 @@ public class UserController extends BasePageController {
             userRoleService.deleteUserRoleByUserId(userId);
 
             UserRole userRole = new UserRole();
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String nowDate = sf.format(new Date());
             for (String id : roleIdArr) {
                 userRole.setUserId(userId);
                 userRole.setRoleId(StringUtil.isNullToInt(id));
-                userRole.setCreatedTime(nowDate);
-                userRole.setUpdatedTime(nowDate);
                 userRoleService.insertUserRole(userRole);
             }
             resultMsg = ResultMsg.okMsg();

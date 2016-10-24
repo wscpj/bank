@@ -22,4 +22,5 @@
     <bean id="roleDao" parent="baseDao" class="com.bank.common.dao.mybatis.RoleDaoImpl" />
     <bean id="logDao" parent="baseDao" class="com.bank.common.dao.mybatis.LogDaoImpl" />
     <bean id="userRoleDao" parent="baseDao" class="com.bank.common.dao.mybatis.UserRoleDaoImpl" />
+    <bean id="rolePrivilegeDao" parent="baseDao" class="com.bank.common.dao.mybatis.RolePrivilegeDaoImpl" />
 </beans>

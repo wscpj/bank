@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.common.model.RolePrivilege">
+
+	<resultMap type="RolePrivilege" id="rolePrivilegeMap">
+		<id column="id" property="id" />
+		<result column="role_id" property="roleId" />
+		<result column="privilege_id" property="privilegeId" />
+		<result column="is_Deleted" property="isDeleted" />
+		<result column="created_time" property="createdTime" />
+		<result column="updated_time" property="updatedTime" />
+	</resultMap>
+	
+	<sql id="selectRolePrivilege">
+		SELECT
+		R.ID AS ID,
+		R.ROLE_ID AS ROLE_ID,
+		R.PRIVILEGE_ID AS PRIVILEGE_ID,
+		R.IS_DELETED AS IS_DELETED,
+		R.CREATED_TIME AS CREATED_TIME,
+		R.UPDATED_TIME AS UPDATED_TIME
+	</sql>
+
+	<update id="delete" parameterType="java.lang.Integer">
+	     UPDATE MAP_ROLE_PRIVILEGE MP SET MP.IS_DELETED = 1 WHERE MP.ROLE_ID = #{roleId} 
+	</update>
+</mapper>

@@ -40,6 +40,7 @@ CREATE TABLE `map_role_privilege` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NOT NULL,
   `privilege_id` int(11) NOT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -53,6 +54,7 @@ CREATE TABLE `map_user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -69,7 +71,7 @@ CREATE TABLE `privilege` (
   `privilege_code` varchar(50) NOT NULL,
   `url` varchar(500) NOT NULL,
   `parent_id` int(11) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)

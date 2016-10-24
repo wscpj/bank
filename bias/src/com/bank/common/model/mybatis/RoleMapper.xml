@@ -74,8 +74,8 @@
 
 	<insert id="add" parameterType="Role">
 		INSERT INTO
-		ROLE(ROLE_CODE,DISPLAY_NAME,ROLE_NAME,IS_DELETED,CREATED_TIME,UPDATED_TIME)
-		VALUES(#{roleCode},#{displayName},#{roleName},'0',#{createdTime},#{updatedTime})
+		ROLE(ROLE_CODE,DISPLAY_NAME,ROLE_NAME)
+		VALUES(#{roleCode},#{displayName},#{roleName})
 	</insert>
 	<update id="update" parameterType="Role">
         <![CDATA[
