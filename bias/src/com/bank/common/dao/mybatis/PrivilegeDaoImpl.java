@@ -20,6 +20,7 @@ PrivilegeDao {
     private static final String SQL_ID_UPDATE_PRIVILEGE = ".deletePrivilegeByIds";
     private static final String SQL_ID_FIND_PRIVILEGES_BY_TREE = ".findPrivilegesByTree";
     private static final String SQL_ID_FIND_PRIVILEGES_BY_PARENTID = ".findPrivilegesByParentId";
+    private static final String SQL_ID_GET_ROOT_PRIVILEGE = ".getRootPrivilege";
 
     @Override
     public List<PrivilegeDTO> findRolePrivileges() {
@@ -51,7 +52,13 @@ PrivilegeDao {
     }
 
     @Override
-    public List<Privilege> findPrivilegesByParentId(Integer parentId) {
-        return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_PRIVILEGES_BY_PARENTID, parentId);
+    public List<Privilege> findPrivilegesByParentId(Map<String, Object> paramMap) {
+        return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_PRIVILEGES_BY_PARENTID, paramMap);
+    }
+
+    @Override
+    public Privilege getRootPrivilege() {
+
+        return getSqlSession().selectOne(CLASS_NAME + SQL_ID_GET_ROOT_PRIVILEGE);
     }
 }

@@ -55,8 +55,11 @@
 	<select id="getCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
 		SELECT COUNT(ID) FROM PRIVILEGE P
 		WHERE P.IS_DELETED = 0
+		<if test="parentId != null">
+            AND P.PARENT_ID = #{parentId}
+        </if>
 		<if test="displayName != null and displayName != '' ">
-		    AND P.DISPLAY_NAME LIKE '%' #{displayName} '%'
+		    AND P.DISPLAY_NAME LIKE '%${displayName}%'
 		</if>
 		<if test="beginTime != null and beginTime != ''">
 		    AND P.CREATED_TIME > #{beginTime}
@@ -71,6 +74,11 @@
 		FROM PRIVILEGE P WHERE P.IS_DELETED = 0 AND P.ID = #{id}
 	</select>
 	
+	<select id="getRootPrivilege" resultMap="privilegeMap">
+        <include refid="selectPrivilege"></include>
+        FROM PRIVILEGE P WHERE P.IS_DELETED = 0 AND P.PARENT_ID = 0
+    </select>
+	
 	<select id="findPrivilegesByTree" resultMap="privilegeMap">
         <include refid="selectPrivilege" />
         <![CDATA[
@@ -78,11 +86,16 @@
         ]]>
     </select>
     
-    <select id="findPrivilegesByParentId" parameterType="java.lang.Integer" resultMap="privilegeMap">
+    <select id="findPrivilegesByParentId" parameterType="java.util.HashMap" resultMap="privilegeMap">
         <include refid="selectPrivilege" />
         <![CDATA[
-            FROM PRIVILEGE P WHERE P.parent_id= #{parentId}
+            FROM PRIVILEGE P WHERE P.IS_DELETED = 0 AND P.PARENT_ID= #{parentId}
         ]]>
+        <if test="displayName != null and displayName != '' ">
+            AND P.DISPLAY_NAME LIKE '%${displayName}%'
+        </if>
+        ORDER BY P.ID
+        <include refid="pagination"></include>
     </select>
     
 	<insert id="add" parameterType="Privilege">

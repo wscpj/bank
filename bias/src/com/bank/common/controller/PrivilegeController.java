@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -123,11 +124,24 @@ public class PrivilegeController extends BasePageController {
     }
 
     @RequestMapping(value = "/searchParent")
-    public ModelAndView searchParentPrivilege() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(PARENT_PRIVILEGTE_JSP);
-        List<String> privilegeTrees = privilegeService.findPrivileges();
-        mv.addObject("privilegeTrees", privilegeTrees);
-        return mv;
+    public ModelAndView searchParentPrivilege(
+            @RequestParam(value = "pageNum", defaultValue = "") Integer pageNum,
+            @RequestParam(value = "numPerPage", defaultValue = "") Integer numPerPage,
+            @RequestParam(value = "displayName", defaultValue = "") String displayName
+            ) {
+        Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
+        Integer numPerPageInt = numPerPage == null ? 5 : Integer
+                .valueOf(numPerPage);
+
+        final Map<String, Object> paramsMap = new HashMap<String, Object>();
+        paramsMap.put("displayName", displayName);
+
+        return pagination(paramsMap, pageNumInt, numPerPageInt, AppConstants.EMPTY,
+                PARENT_PRIVILEGTE_JSP, new PaginationCallBack<Privilege>() {
+            @Override
+            public List<Privilege> callBack() {
+                return privilegeService.findParentPrivileges(paramsMap);
+            }
+        });
     }
 }

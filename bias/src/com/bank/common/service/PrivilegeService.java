@@ -20,5 +20,5 @@ public interface PrivilegeService {
 
     public void deletePrivilegeByIds(List<Integer> listId);
 
-    public List<String> findPrivileges();
+    public List<Privilege> findParentPrivileges(Map<String, Object> map);
 }

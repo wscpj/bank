@@ -19,5 +19,7 @@ public interface PrivilegeDao extends IBaseDao<Privilege, Integer> {
 
     public List<Privilege> findPrivilegeByTree();
 
-    public List<Privilege> findPrivilegesByParentId(Integer parentId);
+    public List<Privilege> findPrivilegesByParentId(Map<String, Object> paramMap);
+
+    public Privilege getRootPrivilege();
 }

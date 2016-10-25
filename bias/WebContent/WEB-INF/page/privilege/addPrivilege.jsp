@@ -3,6 +3,13 @@
 <!DOCTYPE>
 <html>
   <head>
+    <script type="text/javascript">
+       $(function(){
+           $("#button").click(function(){
+             $("#parentId").val($(".parentId").val());
+           });
+       });
+    </script>
   </head>
   <body style="background-repeat: no-repeat;background-position: center;background: url('${pageContext.request.contextPath}/Images/background.jpg');">
     <div class="panelBar" style=" border-width:1px;">
@@ -31,14 +38,15 @@
           </p>
           <p>
             <label>父权限：</label>
-            <input type="hidden" name="privilege.parentId" />
+            <input type="hidden" id="parentId" name="parentId" value=""/>
+            <input type="hidden" class="parentId" name="privilege.parentId"/>
             <input type="text" readonly="readonly"  name="privilege.displayName" alt="请选择父权限" class="required" size="28" maxlength="600" /> 
             <a class="btnLook" href="${pageContext.request.contextPath}/page/privilege/searchParent?method=suggest"  lookupGroup="privilege" resizable="false" maxable="false"  width="500" height="400" lookupPk="orgNum" title="查找" ></a>
           </p>
         </div>
         <div class="formBar">
           <ul>
-            <li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+            <li><div class="buttonActive"><div class="buttonContent"><button id="button" type="submit">保存</button></div></div></li>
             <li>
                 <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
             </li>

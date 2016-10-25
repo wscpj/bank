@@ -1,48 +1,76 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-  </head>
-  <body >
-    <div class="panelBar" style=" border-width:1px;">
-      <ul class="toolBar">
-        <li><span style="margin-left:-25px;">当前位置：权限管理 >> 选择父权限</span></li>
-      </ul>
-    </div>
-    <div class="pageContent"  >
-      <form class="pageForm required-validate" method="post" action="${pageContext.request.contextPath }/JSGL/addDoRoleAuthority.action?ROLE_ID=${model.ROLE_ID}" onsubmit="return validateCallback(this, dialogAjaxDone);"  >
-        <div class="pageFormContent" style="overflow-x:hidden" layoutH="76">
-          <div id="layout" style="margin-top:-55px;margin-left:10px;" >
-            <div id="leftside" >
-              <div id="sidebar_s">
-                <div class="collapse">
-                  <div class="toggleCollapse"><div></div></div>
-                </div>
-              </div>
-              <div id="sidebar" style=" border: solid 0px ; width:400px;"class="layoutBox" >
-                <div class="accordionContent" id="t2" > 
-                  <ul class="tree treeFolder treeCheck" >
-                    <li >
-                      <a>权限类型菜单 </a>
-                        <c:forEach items="${privilegeTrees}" var="tree">
-                          ${tree}
-                        </c:forEach>
-                     </li> 
-                   </ul>
+<head>
+    <title>查找父权限</title>
+</head>
+<body>
+<form id="pagerForm" method="post" action="${pageContext.request.contextPath}/class/classView?method=suggest">
+    <input type="hidden" name="pageNum" value="${paginationDTO.currentPage}" />
+    <input type="hidden" name="numPerPage" value="${paginationDTO.pageSize}" />
+</form>
+<div class="panelBar" style=" border-width:1px;">
+  <ul class="toolBar">
+    <li><span style="margin-left:-25px; font-weight: bolder;">当前位置：添加权限 >> 查找父权限</span></li>
+  </ul>
+</div>
+<div class="pageHeader">
+  <form method="post" action="${pageContext.request.contextPath}/page/privilege/searchParent?method=suggest" onsubmit="return dwzSearch(this, 'dialog');">
+     <input type="hidden" name="pageNum" value="${paginationDTO.currentPage}" />
+     <input type="hidden" name="numPerPage" value="${paginationDTO.pageSize}" />
+     <div class="searchBar">
+       <table class="searchContent">
+         <tbody style="text-align:right;" >
+           <tr>
+             <td>
+               <label>权限名称：</label>
+             </td>
+             <td><input type="text"  name="displayName" value="${displayName}" style="width:300px;"/></td>
+             <td>
+               <div class="buttonActive">
+                 <div class="buttonContent">
+                   <button type="submit">检索</button>
                  </div>
                </div>
-             </div>
-          </div>
-        </div>
-        <div class="formBar">
-          <ul>
-            <li>
-              <div class="buttonActive"><div class="buttonContent"><button type="submit" onclick='treeclick()'>分配</button></div></div>
-            </li>
-          </ul>
-        </div>
-      </form>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+   </form>
+</div>
+<div class="pageContent">
+  <div id="w_list_print">
+    <table class="list" width="100%" layoutH="90">
+      <thead>
+        <tr height="25" style="text-align: center;">
+          <th class="center">序号</th>
+          <th class="center">权限名称</th>
+          <th class="center">请选择</th>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${paginationDTO.itemList}" var="parentPrivilege" varStatus="status">
+          <tr style="text-align: center;"height="20" rel="${parentPrivilege.id}" target="id">
+            <td>${status.index+1}</td>
+            <td>${parentPrivilege.displayName}</td>
+            <td  class="center"><a class="btnSelect" href="javascript:$.bringBack({parentId:'${parentPrivilege.id}', displayName:'${parentPrivilege.displayName}'})" title="查找带回">选择</a></td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
     </div>
-  </body>
+    <div class="panelBar" >
+      <div class="pages">
+        <span>显示</span>
+        <select name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+          <option value="5" <c:if test="${mp.numPerPage=='5' }">selected="selected"</c:if> >5</option>
+        </select>
+        <span>条,共${paginationDTO.totalRowCount}条,每页${paginationDTO.pageSize}条</span>
+      </div>
+      <div class="pagination" targetType="navTab" totalCount="${paginationDTO.totalRowCount}" numPerPage="${paginationDTO.pageSize}" pageNumShown="${paginationDTO.totalRowCount}" currentPage="${paginationDTO.currentPage}"></div>
+    </div>
+  </div>
+</body>
 </html>

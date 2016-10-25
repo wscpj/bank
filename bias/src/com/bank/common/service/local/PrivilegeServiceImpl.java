@@ -87,12 +87,21 @@ PrivilegeService {
     }
 
     @Override
-    public List<String> findPrivileges() {
-        List<Privilege> rootPrivilege = privilegeDao.findPrivilegesByParentId(0);
-        Privilege privilege = rootPrivilege.get(0);
-        List<Privilege> secondPrivileges = privilegeDao.findPrivilegesByParentId(privilege.getId());
-        List<String> trees = this.getTrees(secondPrivileges,privilege, AppContext.getContextPath() +"/");
-        return trees;
+    public List<Privilege> findParentPrivileges(Map<String, Object> paramMap) {
+        Privilege rootPrivilege = privilegeDao.getRootPrivilege();
+        paramMap.put("parentId", rootPrivilege.getId());
+        PaginationDTO<Privilege> paginationDTO = (PaginationDTO<Privilege>) AppContext
+                .getContext().getObject(AppConstants.PAGINATION_DTO);
+        if (paginationDTO != null) {
+            paginationDTO.getParameterMap().putAll(paramMap);
+            Integer count = findPrivilegeCount(paginationDTO.getParameterMap());
+            paginationDTO.setTotalRowCount(count);
+            paginationDTO.getParameterMap().put("offset", paginationDTO.getOffset());
+            paginationDTO.getParameterMap().put("rowCount", paginationDTO.getRowCount());
+        }
+        System.out.println(paginationDTO.getParameterMap());
+        List<Privilege> secondPrivileges = privilegeDao.findPrivilegesByParentId(paginationDTO.getParameterMap());
+        return secondPrivileges;
     }
 
     private List<String> getTrees(List<Privilege> list,Privilege rootPrivilege, String path)
