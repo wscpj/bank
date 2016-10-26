@@ -33,18 +33,12 @@
         INSERT INTO MAP_USER_ROLE  
             (
                 USER_ID,
-                ROLE_ID,
-                IS_DELETED,
-                CREATED_TIME,
-                UPDATED_TIME
+                ROLE_ID
             )
             VALUES
             (
                 #{userId},
-                #{roleId},
-                #{isDeleted},
-                #{createdTime},
-                #{updatedTime}
+                #{roleId}
             )
     </insert>
     <update id="deleteByUserId" parameterType="java.lang.Integer">
