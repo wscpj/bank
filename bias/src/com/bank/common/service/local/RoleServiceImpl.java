@@ -1,11 +1,14 @@
 package com.bank.common.service.local;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.bank.common.base.BaseService;
+import com.bank.common.dao.PrivilegeDao;
 import com.bank.common.dao.RoleDao;
 import com.bank.common.dao.RolePrivilegeDao;
+import com.bank.common.model.Privilege;
 import com.bank.common.model.Role;
 import com.bank.common.service.RoleService;
 
@@ -16,6 +19,8 @@ public class RoleServiceImpl extends BaseService implements RoleService {
     public RoleDao roleDao;
     
     public RolePrivilegeDao rolePrivilegeDao;
+    
+    public PrivilegeDao privilegeDao;
 
     @Override
     public List<Role> findAllRoleByParams(Map<String, Object> map) {
@@ -51,6 +56,44 @@ public class RoleServiceImpl extends BaseService implements RoleService {
     	}
         roleDao.deleteRoleByIds(ids);
     }
+    
+    @Override
+	public String roleSetPrivilegeBulidTree() {
+    	List<Privilege> list = privilegeDao.findAllPrivilege();
+    	StringBuffer tree = new StringBuffer();
+    	if(list != null && list.size() > 0){
+    		tree.append("<ul class=\"tree treeFolder treeCheck \" oncheck=\"kkk\">");
+    		for(Privilege pl: list){
+    			if(pl.getParentId() == 1){
+    				tree.append("<li><a tname=\"11\" tvalue=\"11\">"+pl.getDisplayName()+"</a>");
+    				tree.append(this.build(pl));  
+    				tree.append("</li>");
+    			}
+    		}
+    		tree.append("</ul>");  
+    	}
+		return tree.toString();
+	}
+    
+    public String build (Privilege privilege){
+    	StringBuffer html = new StringBuffer();
+    	Map<String, Object> paramMap = new HashMap<String, Object>();
+    	paramMap.put("parentId", privilege.getId());
+    	List<Privilege> list = privilegeDao.findPrivilegesByParentId(paramMap);
+    	if(list != null && list.size() > 0){
+    		html.append("<ul>");  
+    		for(Privilege pl: list){
+    			 html.append("<li><a tname=\"name\" tvalue=\"value1\" >"+pl.getDisplayName()+"</a>");  
+    			 html.append(build(pl)); 
+    			 html.append("</li>");
+    		}
+    		html.append("</ul>");  
+    	}
+    	return html.toString();
+    }
+    
+    
+    
 
     public RoleDao getRoleDao() {
         return roleDao;
@@ -59,5 +102,21 @@ public class RoleServiceImpl extends BaseService implements RoleService {
     public void setRoleDao(RoleDao roleDao) {
         this.roleDao = roleDao;
     }
+
+	public RolePrivilegeDao getRolePrivilegeDao() {
+		return rolePrivilegeDao;
+	}
+
+	public void setRolePrivilegeDao(RolePrivilegeDao rolePrivilegeDao) {
+		this.rolePrivilegeDao = rolePrivilegeDao;
+	}
+
+	public PrivilegeDao getPrivilegeDao() {
+		return privilegeDao;
+	}
+
+	public void setPrivilegeDao(PrivilegeDao privilegeDao) {
+		this.privilegeDao = privilegeDao;
+	}
 
 }

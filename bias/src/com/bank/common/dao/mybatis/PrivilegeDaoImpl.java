@@ -16,6 +16,7 @@ PrivilegeDao {
     private static final String CLASS_NAME = Privilege.class.getName();
     private static final String SQL_ID_FIND_ROLE_PRIVILEGES = ".findRolePrivileges";
     private static final String SQL_ID_FIND_ALL_PRIVILEGE_GETCOUNT = ".getCount";
+    private static final String SQL_ID_FIND_ALL_PRIVILEGE_BYPARAMS = ".findAllPrivilegeByParams";
     private static final String SQL_ID_FIND_ALL_PRIVILEGE = ".findAllPrivilege";
     private static final String SQL_ID_UPDATE_PRIVILEGE = ".deletePrivilegeByIds";
     private static final String SQL_ID_FIND_PRIVILEGES_BY_TREE = ".findPrivilegesByTree";
@@ -38,7 +39,13 @@ PrivilegeDao {
     @Override
     public List<Privilege> findAllPrivilege(Map<String, Object> map) {
         return getSqlSession().selectList(
-                CLASS_NAME + SQL_ID_FIND_ALL_PRIVILEGE, map);
+                CLASS_NAME + SQL_ID_FIND_ALL_PRIVILEGE_BYPARAMS, map);
+    }
+    
+    @Override
+    public List<Privilege> findAllPrivilege() {
+        return getSqlSession().selectList(
+                CLASS_NAME + SQL_ID_FIND_ALL_PRIVILEGE);
     }
 
     @Override

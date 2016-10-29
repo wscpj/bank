@@ -62,6 +62,11 @@ PrivilegeService {
         }
         return privilegeDao.findAllPrivilege(map);
     }
+    
+    @Override
+    public List<Privilege> findAllPrivilege() {
+        return privilegeDao.findAllPrivilege();
+    }
 
     @Override
     public Boolean addPrivilege(Privilege privilege) {
@@ -104,7 +109,7 @@ PrivilegeService {
         return secondPrivileges;
     }
 
-    private List<String> getTrees(List<Privilege> list,Privilege rootPrivilege, String path)
+    public List<String> getTrees(List<Privilege> list,Privilege rootPrivilege, String path)
     {
         List<String> trees=new ArrayList<String>();
         for(Privilege privilege:list)
@@ -117,7 +122,7 @@ PrivilegeService {
         return trees;
     }
     //树形菜单的数据准备
-    private StringBuffer getTree(List<Privilege> privileges,Privilege root,String path)
+    public StringBuffer getTree(List<Privilege> privileges,Privilege root,String path)
     {
         StringBuffer sb = new StringBuffer();
         sb.append("<ul><li><a href='"+path+root.getUrl()+"' tname=" + root.getId() + ", tvalue=" + root.getId() + "target='navTab' rel='w_table'>"+root.getDisplayName()+"</a>");
@@ -129,4 +134,9 @@ PrivilegeService {
         sb.append("</li></ul>");
         return sb;
     }
+
+	@Override
+	public Privilege getRootPrivilege() {
+		return privilegeDao.getRootPrivilege();
+	}
 }

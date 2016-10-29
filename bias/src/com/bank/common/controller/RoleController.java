@@ -22,7 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bank.common.AppConstants;
 import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
+import com.bank.common.model.Privilege;
 import com.bank.common.model.Role;
+import com.bank.common.service.PrivilegeService;
 import com.bank.common.service.RoleService;
 import com.bank.common.service.UserService;
 import com.bank.common.util.StringUtil;
@@ -44,6 +46,8 @@ public class RoleController extends BasePageController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private PrivilegeService privilegeService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
@@ -70,6 +74,8 @@ public class RoleController extends BasePageController {
     public ModelAndView roleSetPrivilege(@PathVariable Integer id) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName(ROLE_SET_PRIVILEGE);
+        String tree = roleService.roleSetPrivilegeBulidTree();
+        mv.addObject("tree", tree);
         return mv;
     }
 

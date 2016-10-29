@@ -18,5 +18,7 @@ public interface RoleService {
     public Boolean updateRole(Role role);
 
     public void deleteRoleByIds(List<Integer> ids);
+    
+    public String roleSetPrivilegeBulidTree();
 
 }
