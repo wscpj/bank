@@ -14,7 +14,6 @@ import com.bank.common.dao.PrivilegeDao;
 import com.bank.common.dto.PrivilegeDTO;
 import com.bank.common.model.PaginationDTO;
 import com.bank.common.model.Privilege;
-import com.bank.common.model.Role;
 import com.bank.common.service.PrivilegeService;
 
 public class PrivilegeServiceImpl extends BaseService implements
@@ -53,7 +52,7 @@ PrivilegeService {
     @SuppressWarnings("unchecked")
     @Override
     public List<Privilege> findAllPrivilege(Map<String, Object> map) {
-        PaginationDTO<Role> paginationDTO = (PaginationDTO<Role>) AppContext
+        PaginationDTO<Privilege> paginationDTO = (PaginationDTO<Privilege>) AppContext
                 .getContext().getObject(AppConstants.PAGINATION_DTO);
         if (paginationDTO != null) {
             map.putAll(paginationDTO.getParameterMap());
@@ -62,7 +61,7 @@ PrivilegeService {
         }
         return privilegeDao.findAllPrivilege(map);
     }
-    
+
     @Override
     public List<Privilege> findAllPrivilege() {
         return privilegeDao.findAllPrivilege();
@@ -75,7 +74,7 @@ PrivilegeService {
 
     @Override
     public Privilege selectPrivilegeById(Integer id) {
-        return privilegeDao.getById(id);
+        return privilegeDao.getPrivilegeById(id);
     }
 
     @Override
@@ -94,21 +93,33 @@ PrivilegeService {
     @Override
     public List<Privilege> findParentPrivileges(Map<String, Object> paramMap) {
         Privilege rootPrivilege = privilegeDao.getRootPrivilege();
-        paramMap.put("parentId", rootPrivilege.getId());
-        PaginationDTO<Privilege> paginationDTO = (PaginationDTO<Privilege>) AppContext
-                .getContext().getObject(AppConstants.PAGINATION_DTO);
-        if (paginationDTO != null) {
-            paginationDTO.getParameterMap().putAll(paramMap);
-            Integer count = findPrivilegeCount(paginationDTO.getParameterMap());
-            paginationDTO.setTotalRowCount(count);
-            paginationDTO.getParameterMap().put("offset", paginationDTO.getOffset());
-            paginationDTO.getParameterMap().put("rowCount", paginationDTO.getRowCount());
+        List<Privilege> secondPrivileges = null;
+        if (rootPrivilege != null) {
+            paramMap.put("parentId", rootPrivilege.getId());
+            PaginationDTO<Privilege> paginationDTO = (PaginationDTO<Privilege>) AppContext
+                    .getContext().getObject(AppConstants.PAGINATION_DTO);
+            if (paginationDTO != null) {
+                paginationDTO.getParameterMap().putAll(paramMap);
+                Integer count = findPrivilegeCount(paginationDTO.getParameterMap());
+                if (count.intValue() == 0) {//把平台根结点加进来
+                    count = 1;
+                } else {
+                    count += 1;
+                }
+                paginationDTO.setTotalRowCount(count);
+                paginationDTO.getParameterMap().put("offset", paginationDTO.getOffset());
+                paginationDTO.getParameterMap().put("rowCount", paginationDTO.getRowCount());
+            }
+            secondPrivileges = privilegeDao.findPrivilegesByParentId(paginationDTO.getParameterMap());
+            if (secondPrivileges == null) {
+                secondPrivileges = new ArrayList<Privilege>();
+            }
+            secondPrivileges.add(rootPrivilege);
         }
-        System.out.println(paginationDTO.getParameterMap());
-        List<Privilege> secondPrivileges = privilegeDao.findPrivilegesByParentId(paginationDTO.getParameterMap());
         return secondPrivileges;
     }
 
+    @Override
     public List<String> getTrees(List<Privilege> list,Privilege rootPrivilege, String path)
     {
         List<String> trees=new ArrayList<String>();
@@ -122,6 +133,7 @@ PrivilegeService {
         return trees;
     }
     //树形菜单的数据准备
+    @Override
     public StringBuffer getTree(List<Privilege> privileges,Privilege root,String path)
     {
         StringBuffer sb = new StringBuffer();
@@ -135,8 +147,8 @@ PrivilegeService {
         return sb;
     }
 
-	@Override
-	public Privilege getRootPrivilege() {
-		return privilegeDao.getRootPrivilege();
-	}
+    @Override
+    public Privilege getRootPrivilege() {
+        return privilegeDao.getRootPrivilege();
+    }
 }

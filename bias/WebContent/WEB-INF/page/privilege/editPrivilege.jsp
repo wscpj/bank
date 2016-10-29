@@ -41,7 +41,7 @@
             <label>父权限：</label>
             <input type="hidden" id="parentId" name="parentId" value=""/>
             <input type="hidden" class="parentId" name="privilege.parentId"/>
-            <input type="text" readonly="readonly"  name="privilege.displayName" alt="请选择父权限" class="required" size="28" maxlength="600" /> 
+            <input type="text" readonly="readonly" name="privilege.displayName" value="${privilege.parentName}" alt="请选择父权限" class="required" size="28" maxlength="600" /> 
             <a class="btnLook" href="${pageContext.request.contextPath}/page/privilege/searchParent?method=suggest"  lookupGroup="privilege" resizable="false" maxable="false"  width="500" height="400" lookupPk="orgNum" title="查找" ></a>
           </p>
         </div>

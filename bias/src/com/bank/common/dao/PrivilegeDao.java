@@ -14,8 +14,10 @@ public interface PrivilegeDao extends IBaseDao<Privilege, Integer> {
     public Integer findPrivilegeCount(Map<String, Object> map);
 
     public List<Privilege> findAllPrivilege(Map<String, Object> map);
-    
+
     public List<Privilege> findAllPrivilege();
+
+    public Privilege getPrivilegeById(Integer id);
 
     public void deletePrivilegeByIds(List<Integer> listId);
 

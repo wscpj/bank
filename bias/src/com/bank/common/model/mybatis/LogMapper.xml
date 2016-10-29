@@ -54,7 +54,9 @@
         <![CDATA[
             ORDER BY L.ID
         ]]>
+        
         <include refid="pagination" />
+        
     </select>
     
     <select id="getCountByKeywords" parameterType="java.util.HashMap" resultType="java.lang.Integer">

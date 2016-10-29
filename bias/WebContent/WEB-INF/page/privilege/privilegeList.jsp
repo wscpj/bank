@@ -61,7 +61,7 @@
             <td>${privilege.displayName}</td>
             <td>${privilege.privilegeCode}</td>
             <td>${privilege.url}</td>
-            <td>${privilege.parentId}</td>
+            <td>${privilege.parentName}</td>
             <td>${privilege.createdTime}</td>
             <td>${privilege.updatedTime}</td>
           </tr>

@@ -10,6 +10,7 @@
 		<result column="privilege_code" property="privilegeCode" />
 		<result column="url" property="url" />
 		<result column="parent_id" property="parentId" />
+		<result column="parent_name" property="parentName" />
 		<result column="is_deleted" property="isDeleted" />
 		<result column="created_time" property="createdTime" />
 		<result column="updated_time" property="updatedTime" />
@@ -35,10 +36,37 @@
 		P.CREATED_TIME AS CREATED_TIME,
 		P.UPDATED_TIME AS UPDATED_TIME
 	</sql>
-
+    <select id="getPrivilegeById" parameterType="java.lang.Integer" resultMap="privilegeMap">
+        <![CDATA[
+            SELECT
+            P.ID AS ID,
+            P.DISPLAY_NAME AS DISPLAY_NAME,
+            P.PRIVILEGE_NAME AS PRIVILEGE_NAME,
+            P.PRIVILEGE_CODE AS PRIVILEGE_CODE,
+            P.URL AS URL,
+            P.PARENT_ID AS PARENT_ID,
+            P.IS_DELETED AS IS_DELETED,
+            P.CREATED_TIME AS CREATED_TIME,
+            P.UPDATED_TIME AS UPDATED_TIME,
+            PP.DISPLAY_NAME AS PARENT_NAME
+            FROM PRIVILEGE P INNER JOIN PRIVILEGE PP ON P.PARENT_ID = PP.ID WHERE P.IS_DELETED = 0 and P.ID = #{id}
+        ]]>
+    </select>
 	<select id="findAllPrivilegeByParams" parameterType="java.util.HashMap" resultMap="privilegeMap">
-		<include refid="selectPrivilege"></include>
-		FROM PRIVILEGE P WHERE P.IS_DELETED = 0
+	   <![CDATA[
+			SELECT
+	        P.ID AS ID,
+	        P.DISPLAY_NAME AS DISPLAY_NAME,
+	        P.PRIVILEGE_NAME AS PRIVILEGE_NAME,
+	        P.PRIVILEGE_CODE AS PRIVILEGE_CODE,
+	        P.URL AS URL,
+	        P.PARENT_ID AS PARENT_ID,
+	        P.IS_DELETED AS IS_DELETED,
+	        P.CREATED_TIME AS CREATED_TIME,
+	        P.UPDATED_TIME AS UPDATED_TIME,
+	        PP.DISPLAY_NAME AS PARENT_NAME
+			FROM PRIVILEGE P INNER JOIN PRIVILEGE PP ON P.PARENT_ID = PP.ID WHERE P.IS_DELETED = 0
+		]]>
 		<if test="displayName != null and displayName != '' ">
 		    AND P.DISPLAY_NAME LIKE '%' #{displayName} '%'
 		</if>
@@ -81,7 +109,7 @@
 	
 	<select id="getRootPrivilege" resultMap="privilegeMap">
         <include refid="selectPrivilege"></include>
-        FROM PRIVILEGE P WHERE P.IS_DELETED = 0 AND P.PARENT_ID = 0
+        FROM PRIVILEGE P WHERE P.PARENT_ID = 0
     </select>
 	
 	<select id="findPrivilegesByTree" resultMap="privilegeMap">

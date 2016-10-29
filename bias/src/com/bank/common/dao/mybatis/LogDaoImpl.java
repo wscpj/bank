@@ -30,13 +30,14 @@ public class LogDaoImpl extends BaseDao<Log, Integer> implements LogDao {
     @SuppressWarnings("unchecked")
     @Override
     public List<Log> searchLogs(Map<String, Object> map) {
-        Map<String, Object> params = getParameterMap();
+        Map<String, Object> params = null;
         PaginationDTO<Log> paginationDTO = (PaginationDTO<Log>) AppContext
                 .getContext().getObject(AppConstants.PAGINATION_DTO);
         if (paginationDTO != null) {
-            params.putAll(map);
-            Integer count = getCountByKeywords(params);
+            Integer count = getCountByKeywords(map);
             paginationDTO.setTotalRowCount(count);
+            params = getParameterMap();
+            params.putAll(map);
         }
         return getSqlSession().selectList(
                 CLASS_NAME + SQL_ID_LOG_SEARCH_LOGS, params);
