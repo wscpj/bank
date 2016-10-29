@@ -8,12 +8,12 @@ import org.apache.log4j.Logger;
 import com.bank.common.base.BaseService;
 import com.bank.common.dao.UserDao;
 import com.bank.common.dao.UserRoleDao;
+import com.bank.common.dto.UserSetRoleDTO;
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
 import com.bank.common.model.User;
 import com.bank.common.service.UserService;
 import com.bank.common.util.StringUtil;
-import com.bank.common.vo.UserSetRoleVo;
 
 public class UserServiceImpl extends BaseService implements UserService {
 
@@ -106,7 +106,7 @@ public class UserServiceImpl extends BaseService implements UserService {
     }
 
     @Override
-    public List<UserSetRoleVo> userSetRole(Integer userId) {
+    public List<UserSetRoleDTO> userSetRole(Integer userId) {
         return userDao.userSetRole(userId);
     }
 

@@ -24,6 +24,7 @@ import com.bank.common.AppConstants;
 import com.bank.common.AppContext;
 import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
+import com.bank.common.dto.UserSetRoleDTO;
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
 import com.bank.common.model.Log;
@@ -35,7 +36,6 @@ import com.bank.common.service.UserRoleService;
 import com.bank.common.service.UserService;
 import com.bank.common.util.RequestUtil;
 import com.bank.common.util.StringUtil;
-import com.bank.common.vo.UserSetRoleVo;
 
 @Controller
 @RequestMapping("/page/user")
@@ -109,7 +109,7 @@ public class UserController extends BasePageController {
     public ModelAndView userSetRole(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(USERSETROLE);
-        List<UserSetRoleVo> list = userService.userSetRole(id);
+        List<UserSetRoleDTO> list = userService.userSetRole(id);
         modelAndView.addObject("userRoleList", list);
         modelAndView.addObject("userId", id);
         return modelAndView;

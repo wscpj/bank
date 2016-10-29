@@ -11,8 +11,8 @@
     <div class="pageContent">
       <form method="post" action="${pageContext.request.contextPath}/page/role/saveRoleSetPrivilege" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="90">
-        	<%-- ${tree } --%>
-            <ul class="tree treeFolder treeCheck " oncheck="kkk">
+        	${tree }
+            <!-- <ul class="tree treeFolder treeCheck " oncheck="kkk">
                 <li><a >系统管理</a>
                     <ul>
                         <li><a tname="name" tvalue="value1" checked="true">用户管理</a></li>
@@ -28,7 +28,7 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+            </ul> -->
         </div>
         <div class="formBar">
           <ul>

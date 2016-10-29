@@ -15,7 +15,7 @@
         <result column="updated_time" property="updatedTime"/>
     </resultMap>
 
-    <resultMap type="UserSetRoleVo" id="userSetRoleMap">
+    <resultMap type="UserSetRoleDTO" id="userSetRoleMap">
         <result column="role_id" property="roleId" />
         <result column="ROLE_DISPLAY_NAME" property="roleDisplayName" />
         <result column="id" property="id" />

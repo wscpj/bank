@@ -3,10 +3,10 @@ package com.bank.common.service;
 import java.util.List;
 import java.util.Map;
 
+import com.bank.common.dto.UserSetRoleDTO;
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
 import com.bank.common.model.User;
-import com.bank.common.vo.UserSetRoleVo;
 
 public interface UserService {
     User login(String userName, String password) throws ValidationException,
@@ -28,5 +28,5 @@ public interface UserService {
 
     User findUserById(Integer id);
 
-    List<UserSetRoleVo> userSetRole(Integer userId);
+    List<UserSetRoleDTO> userSetRole(Integer userId);
 }

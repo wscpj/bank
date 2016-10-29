@@ -8,9 +8,9 @@ import com.bank.common.AppConstants;
 import com.bank.common.AppContext;
 import com.bank.common.base.BaseDao;
 import com.bank.common.dao.UserDao;
+import com.bank.common.dto.UserSetRoleDTO;
 import com.bank.common.model.PaginationDTO;
 import com.bank.common.model.User;
-import com.bank.common.vo.UserSetRoleVo;
 
 public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao{
     /**
@@ -90,7 +90,7 @@ public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao{
     }
 
     @Override
-    public List<UserSetRoleVo> userSetRole(Integer userId) {
+    public List<UserSetRoleDTO> userSetRole(Integer userId) {
         return getSqlSession().selectList(CLASS_NAME + SQL_ID_USERSETROLE,
                 userId);
     }

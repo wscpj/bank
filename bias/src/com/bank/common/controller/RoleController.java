@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bank.common.AppConstants;
 import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
-import com.bank.common.model.Privilege;
 import com.bank.common.model.Role;
 import com.bank.common.service.PrivilegeService;
 import com.bank.common.service.RoleService;
@@ -41,7 +40,6 @@ public class RoleController extends BasePageController {
 
     private final Logger logger = Logger.getLogger(RoleController.class);
 
-    @SuppressWarnings("unused")
     @Autowired
     private UserService userService;
     @Autowired

@@ -17,9 +17,9 @@ public class RoleServiceImpl extends BaseService implements RoleService {
     private static final long serialVersionUID = -4270844451495902923L;
 
     public RoleDao roleDao;
-    
+
     public RolePrivilegeDao rolePrivilegeDao;
-    
+
     public PrivilegeDao privilegeDao;
 
     @Override
@@ -50,50 +50,52 @@ public class RoleServiceImpl extends BaseService implements RoleService {
 
     @Override
     public void deleteRoleByIds(List<Integer> ids) {
-    	//删除角色同时删除角色权限映射表
-    	for(Integer id: ids){
-    		rolePrivilegeDao.delete(id);
-    	}
+        // 删除角色同时删除角色权限映射表
+        for (Integer id : ids) {
+            rolePrivilegeDao.delete(id);
+        }
         roleDao.deleteRoleByIds(ids);
     }
-    
+
     @Override
-	public String roleSetPrivilegeBulidTree() {
-    	List<Privilege> list = privilegeDao.findAllPrivilege();
-    	StringBuffer tree = new StringBuffer();
-    	if(list != null && list.size() > 0){
-    		tree.append("<ul class=\"tree treeFolder treeCheck \" oncheck=\"kkk\">");
-    		for(Privilege pl: list){
-    			if(pl.getParentId() == 1){
-    				tree.append("<li><a tname=\"11\" tvalue=\"11\">"+pl.getDisplayName()+"</a>");
-    				tree.append(this.build(pl));  
-    				tree.append("</li>");
-    			}
-    		}
-    		tree.append("</ul>");  
-    	}
-		return tree.toString();
-	}
-    
-    public String build (Privilege privilege){
-    	StringBuffer html = new StringBuffer();
-    	Map<String, Object> paramMap = new HashMap<String, Object>();
-    	paramMap.put("parentId", privilege.getId());
-    	List<Privilege> list = privilegeDao.findPrivilegesByParentId(paramMap);
-    	if(list != null && list.size() > 0){
-    		html.append("<ul>");  
-    		for(Privilege pl: list){
-    			 html.append("<li><a tname=\"name\" tvalue=\"value1\" >"+pl.getDisplayName()+"</a>");  
-    			 html.append(build(pl)); 
-    			 html.append("</li>");
-    		}
-    		html.append("</ul>");  
-    	}
-    	return html.toString();
+    public String roleSetPrivilegeBulidTree() {
+        StringBuffer tree = new StringBuffer();
+        List<Privilege> list = privilegeDao.findAllPrivilege();
+        Privilege privilegeRoot = privilegeDao.getRootPrivilege();
+        if (privilegeRoot != null) {
+            if (list != null && list.size() > 0) {
+                tree.append("<ul class=\"tree treeFolder treeCheck \" oncheck=\"kkk\">");
+                for (Privilege pl : list) {
+                    if (pl.getParentId() == privilegeRoot.getId()) {
+                        tree.append("<li><a tname=\"11\" tvalue=\"11\" >"
+                                + pl.getDisplayName() + "</a>");
+                        tree.append(this.build(pl));
+                        tree.append("</li>");
+                    }
+                }
+                tree.append("</ul>");
+            }
+        }
+        return tree.toString();
     }
-    
-    
-    
+
+    public String build(Privilege privilege) {
+        StringBuffer html = new StringBuffer();
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("parentId", privilege.getId());
+        List<Privilege> list = privilegeDao.findPrivilegesByParentId(paramMap);
+        if (list != null && list.size() > 0) {
+            html.append("<ul>");
+            for (Privilege pl : list) {
+                html.append("<li><a tname=\"name\" tvalue=\"value1\" checked=\"true\">"
+                        + pl.getDisplayName() + "</a>");
+                html.append(build(pl));
+                html.append("</li>");
+            }
+            html.append("</ul>");
+        }
+        return html.toString();
+    }
 
     public RoleDao getRoleDao() {
         return roleDao;
@@ -103,20 +105,20 @@ public class RoleServiceImpl extends BaseService implements RoleService {
         this.roleDao = roleDao;
     }
 
-	public RolePrivilegeDao getRolePrivilegeDao() {
-		return rolePrivilegeDao;
-	}
+    public RolePrivilegeDao getRolePrivilegeDao() {
+        return rolePrivilegeDao;
+    }
 
-	public void setRolePrivilegeDao(RolePrivilegeDao rolePrivilegeDao) {
-		this.rolePrivilegeDao = rolePrivilegeDao;
-	}
+    public void setRolePrivilegeDao(RolePrivilegeDao rolePrivilegeDao) {
+        this.rolePrivilegeDao = rolePrivilegeDao;
+    }
 
-	public PrivilegeDao getPrivilegeDao() {
-		return privilegeDao;
-	}
+    public PrivilegeDao getPrivilegeDao() {
+        return privilegeDao;
+    }
 
-	public void setPrivilegeDao(PrivilegeDao privilegeDao) {
-		this.privilegeDao = privilegeDao;
-	}
+    public void setPrivilegeDao(PrivilegeDao privilegeDao) {
+        this.privilegeDao = privilegeDao;
+    }
 
 }

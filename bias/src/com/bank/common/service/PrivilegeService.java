@@ -28,5 +28,11 @@ public interface PrivilegeService {
 
     public List<String> getTrees(List<Privilege> list,Privilege rootPrivilege, String path);
 
+    /**
+     * 查询权限根目录（parent_id = 0）的权限
+     *
+     * @return Privilege
+     */
     public Privilege getRootPrivilege();
+
 }
