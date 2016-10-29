@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.bank.common.base.IBaseDao;
+import com.bank.common.dto.UserSetRoleDTO;
 import com.bank.common.model.User;
-import com.bank.common.vo.UserSetRoleVo;
 
 
 public interface UserDao extends IBaseDao<User, Integer> {
@@ -22,5 +22,5 @@ public interface UserDao extends IBaseDao<User, Integer> {
 
     User findUserById(Integer id);
 
-    List<UserSetRoleVo> userSetRole(Integer userId);
+    List<UserSetRoleDTO> userSetRole(Integer userId);
 }

@@ -11,7 +11,7 @@ public interface PrivilegeService {
     public Integer findPrivilegeCount(Map<String, Object> map);
 
     public List<Privilege> findAllPrivilege(Map<String, Object> map);
-    
+
     public List<Privilege> findAllPrivilege();
 
     public Boolean addPrivilege(Privilege privilege);
@@ -23,10 +23,18 @@ public interface PrivilegeService {
     public void deletePrivilegeByIds(List<Integer> listId);
 
     public List<Privilege> findParentPrivileges(Map<String, Object> map);
-    
-    public StringBuffer getTree(List<Privilege> privileges,Privilege root,String path);
-    
-    public List<String> getTrees(List<Privilege> list,Privilege rootPrivilege, String path);
-    
+
+    public StringBuffer getTree(List<Privilege> privileges, Privilege root,
+            String path);
+
+    public List<String> getTrees(List<Privilege> list, Privilege rootPrivilege,
+            String path);
+
+    /**
+     * 查询权限根目录（parent_id = 0）的权限
+     * 
+     * @return Privilege
+     */
     public Privilege getRootPrivilege();
+
 }

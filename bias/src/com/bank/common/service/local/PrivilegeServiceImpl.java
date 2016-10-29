@@ -18,7 +18,7 @@ import com.bank.common.model.Role;
 import com.bank.common.service.PrivilegeService;
 
 public class PrivilegeServiceImpl extends BaseService implements
-PrivilegeService {
+        PrivilegeService {
 
     private static final long serialVersionUID = -319207069173729558L;
 
@@ -62,7 +62,7 @@ PrivilegeService {
         }
         return privilegeDao.findAllPrivilege(map);
     }
-    
+
     @Override
     public List<Privilege> findAllPrivilege() {
         return privilegeDao.findAllPrivilege();
@@ -101,42 +101,51 @@ PrivilegeService {
             paginationDTO.getParameterMap().putAll(paramMap);
             Integer count = findPrivilegeCount(paginationDTO.getParameterMap());
             paginationDTO.setTotalRowCount(count);
-            paginationDTO.getParameterMap().put("offset", paginationDTO.getOffset());
-            paginationDTO.getParameterMap().put("rowCount", paginationDTO.getRowCount());
+            paginationDTO.getParameterMap().put("offset",
+                    paginationDTO.getOffset());
+            paginationDTO.getParameterMap().put("rowCount",
+                    paginationDTO.getRowCount());
         }
         System.out.println(paginationDTO.getParameterMap());
-        List<Privilege> secondPrivileges = privilegeDao.findPrivilegesByParentId(paginationDTO.getParameterMap());
+        List<Privilege> secondPrivileges = privilegeDao
+                .findPrivilegesByParentId(paginationDTO.getParameterMap());
         return secondPrivileges;
     }
 
-    public List<String> getTrees(List<Privilege> list,Privilege rootPrivilege, String path)
-    {
-        List<String> trees=new ArrayList<String>();
-        for(Privilege privilege:list)
-        {
-            if(privilege.getParentId().intValue() == rootPrivilege.getId().intValue())
-            {
+    @Override
+    public List<String> getTrees(List<Privilege> list, Privilege rootPrivilege,
+            String path) {
+        List<String> trees = new ArrayList<String>();
+        for (Privilege privilege : list) {
+            if (privilege.getParentId().intValue() == rootPrivilege.getId()
+                    .intValue()) {
                 trees.add(getTree(list, privilege, path).toString());
             }
         }
         return trees;
     }
-    //树形菜单的数据准备
-    public StringBuffer getTree(List<Privilege> privileges,Privilege root,String path)
-    {
+
+    // 树形菜单的数据准备
+    @Override
+    public StringBuffer getTree(List<Privilege> privileges, Privilege root,
+            String path) {
         StringBuffer sb = new StringBuffer();
-        sb.append("<ul><li><a href='"+path+root.getUrl()+"' tname=" + root.getId() + ", tvalue=" + root.getId() + "target='navTab' rel='w_table'>"+root.getDisplayName()+"</a>");
-        for(Privilege privge  : privileges){
-            if(privge.getParentId().intValue()!= 0 && privge.getParentId().equals(root.getId())){
-                sb.append(getTree(privileges,privge,path));
+        sb.append("<ul><li><a href='" + path + root.getUrl() + "' tname="
+                + root.getId() + ", tvalue=" + root.getId()
+                + "target='navTab' rel='w_table'>" + root.getDisplayName()
+                + "</a>");
+        for (Privilege privge : privileges) {
+            if (privge.getParentId().intValue() != 0
+                    && privge.getParentId().equals(root.getId())) {
+                sb.append(getTree(privileges, privge, path));
             }
         }
         sb.append("</li></ul>");
         return sb;
     }
 
-	@Override
-	public Privilege getRootPrivilege() {
-		return privilegeDao.getRootPrivilege();
-	}
+    @Override
+    public Privilege getRootPrivilege() {
+        return privilegeDao.getRootPrivilege();
+    }
 }

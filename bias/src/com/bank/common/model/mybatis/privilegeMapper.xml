@@ -14,6 +14,13 @@
 		<result column="created_time" property="createdTime" />
 		<result column="updated_time" property="updatedTime" />
 	</resultMap>
+	
+	<!-- <resultMap type="Privilege" id="privilegeMap">
+        <result column="privilege_Id" property="privilegeId" />
+        <result column="parent_PrivilegeId" property="parentPrivilegeId" />
+        <result column="privilege_DisplayName" property="privilegeDisplayName" />
+        <result column="id" property="id" />
+    </resultMap> -->
 
 	<sql id="pagination">
 		<if test="offset != null and rowCount != null and offset != '' and rowCount!= ''">
@@ -99,7 +106,7 @@
         <if test="displayName != null and displayName != '' ">
             AND P.DISPLAY_NAME LIKE '%${displayName}%'
         </if>
-        ORDER BY P.ID
+            ORDER BY P.ID
         <include refid="pagination"></include>
     </select>
     

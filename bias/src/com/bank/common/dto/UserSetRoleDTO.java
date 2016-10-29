@@ -1,8 +1,8 @@
-package com.bank.common.vo;
+package com.bank.common.dto;
 
 import java.io.Serializable;
 
-public class UserSetRoleVo implements Serializable {
+public class UserSetRoleDTO implements Serializable {
 
     private static final long serialVersionUID = -685880548423581225L;
 
@@ -53,7 +53,7 @@ public class UserSetRoleVo implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UserSetRoleVo other = (UserSetRoleVo) obj;
+        UserSetRoleDTO other = (UserSetRoleDTO) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
