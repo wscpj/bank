@@ -64,10 +64,10 @@ public class RoleServiceImpl extends BaseService implements RoleService {
         Privilege privilegeRoot = privilegeDao.getRootPrivilege();
         if (privilegeRoot != null) {
             if (list != null && list.size() > 0) {
-                tree.append("<ul class=\"tree treeFolder treeCheck \" oncheck=\"kkk\">");
+                tree.append("<ul class='tree treeFolder treeCheck' oncheck='kkk'>");
                 for (Privilege pl : list) {
                     if (pl.getParentId() == privilegeRoot.getId()) {
-                        tree.append("<li><a tname=\"11\" tvalue=\"11\" >"
+                        tree.append("<li><a tname='11' tvalue='11' >"
                                 + pl.getDisplayName() + "</a>");
                         tree.append(this.build(pl));
                         tree.append("</li>");
@@ -87,7 +87,7 @@ public class RoleServiceImpl extends BaseService implements RoleService {
         if (list != null && list.size() > 0) {
             html.append("<ul>");
             for (Privilege pl : list) {
-                html.append("<li><a tname=\"name\" tvalue=\"value1\" checked=\"true\">"
+                html.append("<li><a tname='name' tvalue='value1' checked='true'>"
                         + pl.getDisplayName() + "</a>");
                 html.append(build(pl));
                 html.append("</li>");

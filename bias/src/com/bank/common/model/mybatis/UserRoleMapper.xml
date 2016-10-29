@@ -41,7 +41,7 @@
                 #{roleId}
             )
     </insert>
-    <update id="deleteByUserId" parameterType="java.lang.Integer">
-        UPDATE MAP_USER_ROLE MR SET MR.IS_DELETED = 1 WHERE MR.USER_ID = #{userId}
-    </update>
+    <delete id="deleteByUserId" parameterType="java.lang.Integer">
+        DELETE FROM  MAP_USER_ROLE  WHERE USER_ID = #{userId}
+    </delete>
 </mapper>

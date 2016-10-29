@@ -12,23 +12,6 @@
       <form method="post" action="${pageContext.request.contextPath}/page/role/saveRoleSetPrivilege" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="90">
         	${tree }
-            <!-- <ul class="tree treeFolder treeCheck " oncheck="kkk">
-                <li><a >系统管理</a>
-                    <ul>
-                        <li><a tname="name" tvalue="value1" checked="true">用户管理</a></li>
-                        <li><a tname="name" tvalue="value2" checked="false">角色管理</a></li>
-                    </ul>
-                </li>
-                <li><a tname="name" tvalue="test1">存取管理</a>
-                    <ul>
-                        <li><a tname="name" tvalue="test1.1" checked="true">存帐管理</a>
-                            <ul>
-                                <li><a tname="name" tvalue="test1.1.1" checked="true">我的存帐</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul> -->
         </div>
         <div class="formBar">
           <ul>

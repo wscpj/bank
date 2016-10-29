@@ -7,7 +7,7 @@ import com.bank.common.dao.UserRoleDao;
 import com.bank.common.model.UserRole;
 
 public class UserRoleDaoImpl extends BaseDao<UserRole, Integer> implements
-        UserRoleDao {
+UserRoleDao {
 
     private static final long serialVersionUID = 4075470957177118844L;
 
@@ -23,7 +23,7 @@ public class UserRoleDaoImpl extends BaseDao<UserRole, Integer> implements
 
     @Override
     public void deleteUserRoleByUserId(Integer userId) {
-        getSqlSession().update(CLASS_NAME + SQL_ID_DELETE_USERROLE_BYUSERID,
+        getSqlSession().delete(CLASS_NAME + SQL_ID_DELETE_USERROLE_BYUSERID,
                 userId);
     }
 
