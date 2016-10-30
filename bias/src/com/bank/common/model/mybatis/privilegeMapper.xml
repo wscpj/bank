@@ -24,7 +24,7 @@
     </resultMap> -->
 
 	<sql id="pagination">
-		<if test="offset != null and rowCount != null and offset != '' and rowCount!= ''">
+		<if test="offset != null and rowCount != null ">
             <![CDATA[
                 LIMIT #{offset},#{rowCount}
             ]]>

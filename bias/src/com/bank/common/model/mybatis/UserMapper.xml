@@ -17,12 +17,12 @@
 
     <resultMap type="UserSetRoleDTO" id="userSetRoleMap">
         <result column="role_id" property="roleId" />
-        <result column="ROLE_DISPLAY_NAME" property="roleDisplayName" />
+        <result column="role_display_name" property="roleDisplayName" />
         <result column="id" property="id" />
     </resultMap>
     
     <sql id="pagination">
-        <if test="offset != null and rowCount!= null and offset != '' and rowCount!= ''">
+        <if test="offset != null and rowCount != null">
             <![CDATA[
                 LIMIT #{offset},#{rowCount}
             ]]>
