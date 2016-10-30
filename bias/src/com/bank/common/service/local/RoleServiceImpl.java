@@ -10,6 +10,7 @@ import com.bank.common.dao.RoleDao;
 import com.bank.common.dao.RolePrivilegeDao;
 import com.bank.common.model.Privilege;
 import com.bank.common.model.Role;
+import com.bank.common.model.RolePrivilege;
 import com.bank.common.service.RoleService;
 
 public class RoleServiceImpl extends BaseService implements RoleService {
@@ -58,18 +59,33 @@ public class RoleServiceImpl extends BaseService implements RoleService {
     }
 
     @Override
-    public String roleSetPrivilegeBulidTree() {
+    public String roleSetPrivilegeBulidTree(Integer roleId) {
         StringBuffer tree = new StringBuffer();
         List<Privilege> list = privilegeDao.findAllPrivilege();
+        List<RolePrivilege> rolePrivileges = rolePrivilegeDao.findRolePrivilege(roleId);
         Privilege privilegeRoot = privilegeDao.getRootPrivilege();
+        Boolean flag = Boolean.FALSE;
         if (privilegeRoot != null) {
             if (list != null && list.size() > 0) {
-                tree.append("<ul class='tree treeFolder treeCheck' oncheck='kkk'>");
+                tree.append("<ul class='tree treeFolder treeCheck'>");
                 for (Privilege pl : list) {
                     if (pl.getParentId() == privilegeRoot.getId()) {
-                        tree.append("<li><a tname='11' tvalue='11' >"
-                                + pl.getDisplayName() + "</a>");
-                        tree.append(this.build(pl));
+                        for (RolePrivilege rolePrivilege : rolePrivileges) {
+                            if (rolePrivilege.getPrivilegeId() != null && rolePrivilege.getPrivilegeId().intValue() == pl.getId()) {
+                                flag = Boolean.TRUE;
+                                break;
+                            } else {
+                                flag = Boolean.FALSE;
+                            }
+                        }
+                        if (flag) {
+                            tree.append("<li><a tname='name' tvalue='"+ pl.getId() +"' checked='true'>"
+                                    + pl.getDisplayName() + "</a>");
+                        } else {
+                            tree.append("<li><a tname='name' tvalue='"+ pl.getId() +"' >"
+                                    + pl.getDisplayName() + "</a>");
+                        }
+                        tree.append(this.build(pl, rolePrivileges));
                         tree.append("</li>");
                     }
                 }
@@ -79,17 +95,31 @@ public class RoleServiceImpl extends BaseService implements RoleService {
         return tree.toString();
     }
 
-    public String build(Privilege privilege) {
+    public String build(Privilege privilege, List<RolePrivilege> rolePrivileges) {
         StringBuffer html = new StringBuffer();
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("parentId", privilege.getId());
         List<Privilege> list = privilegeDao.findPrivilegesByParentId(paramMap);
+        Boolean flag = Boolean.FALSE;
         if (list != null && list.size() > 0) {
             html.append("<ul>");
             for (Privilege pl : list) {
-                html.append("<li><a tname='name' tvalue='value1' checked='true'>"
-                        + pl.getDisplayName() + "</a>");
-                html.append(build(pl));
+                for (RolePrivilege rolePrivilege : rolePrivileges) {
+                    if (rolePrivilege.getPrivilegeId() != null && rolePrivilege.getPrivilegeId().intValue() == pl.getId()) {
+                        flag = Boolean.TRUE;
+                        break;
+                    } else {
+                        flag = Boolean.FALSE;
+                    }
+                }
+                if (flag) {
+                    html.append("<li><a tname='name' tvalue='"+ pl.getId() +"' checked='true'>"
+                            + pl.getDisplayName() + "</a>");
+                } else {
+                    html.append("<li><a tname='name' tvalue='" + pl.getId() + "'>"
+                            + pl.getDisplayName() + "</a>");
+                }
+                html.append(build(pl,rolePrivileges));
                 html.append("</li>");
             }
             html.append("</ul>");

@@ -14,15 +14,37 @@
 	
 	<sql id="selectRolePrivilege">
 		SELECT
-		R.ID AS ID,
-		R.ROLE_ID AS ROLE_ID,
-		R.PRIVILEGE_ID AS PRIVILEGE_ID,
-		R.IS_DELETED AS IS_DELETED,
-		R.CREATED_TIME AS CREATED_TIME,
-		R.UPDATED_TIME AS UPDATED_TIME
+		MRP.ID AS ID,
+		MRP.ROLE_ID AS ROLE_ID,
+		MRP.PRIVILEGE_ID AS PRIVILEGE_ID,
+		MRP.IS_DELETED AS IS_DELETED,
+		MRP.CREATED_TIME AS CREATED_TIME,
+		MRP.UPDATED_TIME AS UPDATED_TIME
 	</sql>
-
-	<update id="delete" parameterType="java.lang.Integer">
-	     UPDATE MAP_ROLE_PRIVILEGE MP SET MP.IS_DELETED = 1 WHERE MP.ROLE_ID = #{roleId} 
-	</update>
+	
+    <select id="findRolePrivilegeByRoleId" parameterType="java.lang.Integer" resultMap="rolePrivilegeMap">
+        <include refid="selectRolePrivilege" />
+        FROM MAP_ROLE_PRIVILEGE MRP WHERE MRP.ROLE_ID = #{roleId}
+    </select>
+    
+    <insert id="addRolePrivilege" parameterType="java.util.List">
+        <![CDATA[
+           INSERT INTO MAP_ROLE_PRIVILEGE
+           (
+               ROLE_ID, 
+               PRIVILEGE_ID
+           )
+           VALUES
+        ]]>
+        <foreach item="item" index="index" collection="list" separator=",">
+        (
+            #{item.roleId},
+            #{item.privilegeId}
+        )
+        </foreach>  
+    </insert>
+    
+	<delete id="delete" parameterType="java.lang.Integer">
+	     DELETE FROM  MAP_ROLE_PRIVILEGE WHERE ROLE_ID = #{roleId} 
+	</delete>
 </mapper>

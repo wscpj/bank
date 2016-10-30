@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>资金互助合作社业务管理平台</title>
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon"/>
+<%-- <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon"/> --%>
 <link href="${pageContext.request.contextPath}/static/js/lib/dwz/themes/green/style.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="${pageContext.request.contextPath}/static/js/lib/dwz/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="${pageContext.request.contextPath}/static/js/lib/dwz/themes/css/print.css" rel="stylesheet" type="text/css" media="print"/>

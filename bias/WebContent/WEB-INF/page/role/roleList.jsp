@@ -36,7 +36,7 @@
       <ul class="toolBar">
         <li><a class="add" href="${pageContext.request.contextPath}/page/role/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加角色</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/page/role/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改角色</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/page/role/roleSetPrivilege/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="300" height="400"><span>设置角色权限</span></a></li>
+        <li><a class="edit" href="${pageContext.request.contextPath}/page/role/roleSetPrivilege/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="500" height="400"><span>设置角色权限</span></a></li>
         <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/role/deleteRole" target="selectedTodo" title="确定要删除吗"><span>删除角色</span></a></li>
       </ul>
     </div>

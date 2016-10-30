@@ -1,6 +1,7 @@
 package com.bank.common.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,7 +25,9 @@ import com.bank.common.AppConstants;
 import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
 import com.bank.common.model.Role;
+import com.bank.common.model.RolePrivilege;
 import com.bank.common.service.PrivilegeService;
+import com.bank.common.service.RolePrivilegeService;
 import com.bank.common.service.RoleService;
 import com.bank.common.service.UserService;
 import com.bank.common.util.StringUtil;
@@ -46,6 +50,8 @@ public class RoleController extends BasePageController {
     private RoleService roleService;
     @Autowired
     private PrivilegeService privilegeService;
+    @Autowired
+    private RolePrivilegeService rolePrivilegeService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
@@ -72,17 +78,32 @@ public class RoleController extends BasePageController {
     public ModelAndView roleSetPrivilege(@PathVariable Integer id) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName(ROLE_SET_PRIVILEGE);
-        String tree = roleService.roleSetPrivilegeBulidTree();
+        String tree = roleService.roleSetPrivilegeBulidTree(id);
         mv.addObject("tree", tree);
+        mv.addObject("roleId", id);
         return mv;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/saveRoleSetPrivilege", method = RequestMethod.POST)
-    public ModelAndView saveRoleSetPrivilege(HttpServletRequest request) {
-        ModelAndView mv = new ModelAndView();
-        String[] a = request.getParameterValues("name");
-        mv.setViewName(ROLE_SET_PRIVILEGE);
-        return mv;
+    public ResultMsg saveRoleSetPrivilege(
+            @RequestParam(value = "roleId", defaultValue = "") Integer roleId,
+            @RequestParam(value = "privilegeIds", defaultValue = "") String privilegeIds) {
+        if (roleId != null) {
+            rolePrivilegeService.deleteRolePrivilege(roleId);
+        }
+        if (!privilegeIds.isEmpty()) {
+            List<RolePrivilege> rolePrivileges = new ArrayList<RolePrivilege>();
+            String [] ids = privilegeIds.split(",");
+            for (String id : ids) {
+                RolePrivilege rolePrivilege = new RolePrivilege();
+                rolePrivilege.setRoleId(roleId);
+                rolePrivilege.setPrivilegeId(Integer.parseInt(id));
+                rolePrivileges.add(rolePrivilege);
+            }
+            rolePrivilegeService.addRolePrivilege(rolePrivileges);
+        }
+        return ResultMsg.okMsg();
     }
 
     @ResponseBody
@@ -167,11 +188,11 @@ public class RoleController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<Role>() {
-                    @Override
-                    public List<Role> callBack() {
-                        return roleService.findAllRoleByParams(paramsMap);
-                    }
-                });
+            @Override
+            public List<Role> callBack() {
+                return roleService.findAllRoleByParams(paramsMap);
+            }
+        });
     }
 
 }
