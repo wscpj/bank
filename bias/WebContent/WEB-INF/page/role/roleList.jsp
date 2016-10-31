@@ -45,7 +45,7 @@
         <thead>
           <tr height="25" style="text-align: center;">
           	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-            <th class="center" >序号</th>
+            <th class="center" >角色ID</th>
             <th class="center">角色号</th>
             <th class="center">展示名称</th>
             <th class="center">角色名称</th>

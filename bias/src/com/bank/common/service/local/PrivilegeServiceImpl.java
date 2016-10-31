@@ -17,7 +17,7 @@ import com.bank.common.model.Privilege;
 import com.bank.common.service.PrivilegeService;
 
 public class PrivilegeServiceImpl extends BaseService implements
-PrivilegeService {
+        PrivilegeService {
 
     private static final long serialVersionUID = -319207069173729558L;
 
@@ -52,13 +52,6 @@ PrivilegeService {
     @SuppressWarnings("unchecked")
     @Override
     public List<Privilege> findAllPrivilege(Map<String, Object> map) {
-        PaginationDTO<Privilege> paginationDTO = (PaginationDTO<Privilege>) AppContext
-                .getContext().getObject(AppConstants.PAGINATION_DTO);
-        if (paginationDTO != null) {
-            map.putAll(paginationDTO.getParameterMap());
-            Integer count = findPrivilegeCount(map);
-            paginationDTO.setTotalRowCount(count);
-        }
         return privilegeDao.findAllPrivilege(map);
     }
 
@@ -100,17 +93,21 @@ PrivilegeService {
                     .getContext().getObject(AppConstants.PAGINATION_DTO);
             if (paginationDTO != null) {
                 paginationDTO.getParameterMap().putAll(paramMap);
-                Integer count = findPrivilegeCount(paginationDTO.getParameterMap());
-                if (count.intValue() == 0) {//把平台根结点加进来
+                Integer count = findPrivilegeCount(paginationDTO
+                        .getParameterMap());
+                if (count.intValue() == 0) {// 把平台根结点加进来
                     count = 1;
                 } else {
                     count += 1;
                 }
                 paginationDTO.setTotalRowCount(count);
-                paginationDTO.getParameterMap().put("offset", paginationDTO.getOffset());
-                paginationDTO.getParameterMap().put("rowCount", paginationDTO.getRowCount());
+                paginationDTO.getParameterMap().put("offset",
+                        paginationDTO.getOffset());
+                paginationDTO.getParameterMap().put("rowCount",
+                        paginationDTO.getRowCount());
             }
-            secondPrivileges = privilegeDao.findPrivilegesByParentId(paginationDTO.getParameterMap());
+            secondPrivileges = privilegeDao
+                    .findPrivilegesByParentId(paginationDTO.getParameterMap());
             if (secondPrivileges == null) {
                 secondPrivileges = new ArrayList<Privilege>();
             }

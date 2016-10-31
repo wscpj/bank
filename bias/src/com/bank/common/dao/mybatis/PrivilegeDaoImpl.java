@@ -3,13 +3,16 @@ package com.bank.common.dao.mybatis;
 import java.util.List;
 import java.util.Map;
 
+import com.bank.common.AppConstants;
+import com.bank.common.AppContext;
 import com.bank.common.base.BaseDao;
 import com.bank.common.dao.PrivilegeDao;
 import com.bank.common.dto.PrivilegeDTO;
+import com.bank.common.model.PaginationDTO;
 import com.bank.common.model.Privilege;
 
 public class PrivilegeDaoImpl extends BaseDao<Privilege, Integer> implements
-PrivilegeDao {
+        PrivilegeDao {
 
     private static final long serialVersionUID = -2578792430404200927L;
 
@@ -38,8 +41,17 @@ PrivilegeDao {
                 CLASS_NAME + SQL_ID_FIND_ALL_PRIVILEGE_GETCOUNT, map);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Privilege> findAllPrivilege(Map<String, Object> map) {
+        PaginationDTO<Privilege> paginationDTO = (PaginationDTO<Privilege>) AppContext
+                .getContext().getObject(AppConstants.PAGINATION_DTO);
+        Map<String, Object> params = getParameterMap();
+        if (paginationDTO != null) {
+            map.putAll(params);
+            Integer count = findPrivilegeCount(map);
+            paginationDTO.setTotalRowCount(count);
+        }
         return getSqlSession().selectList(
                 CLASS_NAME + SQL_ID_FIND_ALL_PRIVILEGE_BYPARAMS, map);
     }
@@ -57,23 +69,27 @@ PrivilegeDao {
 
     @Override
     public List<Privilege> findPrivilegeByTree() {
-        return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_PRIVILEGES_BY_TREE);
+        return getSqlSession().selectList(
+                CLASS_NAME + SQL_ID_FIND_PRIVILEGES_BY_TREE);
     }
 
     @Override
     public List<Privilege> findPrivilegesByParentId(Map<String, Object> paramMap) {
-        return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_PRIVILEGES_BY_PARENTID, paramMap);
+        return getSqlSession().selectList(
+                CLASS_NAME + SQL_ID_FIND_PRIVILEGES_BY_PARENTID, paramMap);
     }
 
     @Override
     public Privilege getRootPrivilege() {
 
-        return getSqlSession().selectOne(CLASS_NAME + SQL_ID_GET_ROOT_PRIVILEGE);
+        return getSqlSession()
+                .selectOne(CLASS_NAME + SQL_ID_GET_ROOT_PRIVILEGE);
     }
 
     @Override
     public Privilege getPrivilegeById(Integer id) {
-        return getSqlSession().selectOne(CLASS_NAME + SQL_ID_GET_PRIVILEGE_BY_ID,id);
+        return getSqlSession().selectOne(
+                CLASS_NAME + SQL_ID_GET_PRIVILEGE_BY_ID, id);
     }
 
     @Override
