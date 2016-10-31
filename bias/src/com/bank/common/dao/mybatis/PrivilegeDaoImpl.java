@@ -23,6 +23,7 @@ PrivilegeDao {
     private static final String SQL_ID_FIND_PRIVILEGES_BY_PARENTID = ".findPrivilegesByParentId";
     private static final String SQL_ID_GET_ROOT_PRIVILEGE = ".getRootPrivilege";
     private static final String SQL_ID_GET_PRIVILEGE_BY_ID = ".getPrivilegeById";
+    private static final String SQL_ID_FIND_PRIVILEGE_BY_USER_ID = ".findPrivilegesByUserId";
 
     @Override
     public List<PrivilegeDTO> findRolePrivileges() {
@@ -73,5 +74,10 @@ PrivilegeDao {
     @Override
     public Privilege getPrivilegeById(Integer id) {
         return getSqlSession().selectOne(CLASS_NAME + SQL_ID_GET_PRIVILEGE_BY_ID,id);
+    }
+
+    @Override
+    public List<Privilege> findPrivilegeByUserId(Map<String, Object> paramMap) {
+        return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_PRIVILEGE_BY_USER_ID, paramMap);
     }
 }

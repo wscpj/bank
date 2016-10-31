@@ -31,6 +31,7 @@ import com.bank.common.model.Log;
 import com.bank.common.model.User;
 import com.bank.common.model.UserRole;
 import com.bank.common.service.LogService;
+import com.bank.common.service.PrivilegeService;
 import com.bank.common.service.RoleService;
 import com.bank.common.service.UserRoleService;
 import com.bank.common.service.UserService;
@@ -58,6 +59,8 @@ public class UserController extends BasePageController {
     private RoleService roleService;
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private PrivilegeService privilegeService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
@@ -130,6 +133,8 @@ public class UserController extends BasePageController {
             log.setRoleName(AppConstants.EMPTY);
             log.setIp(RequestUtil.getIpAddr(request));
             logService.addLog(log);
+            String privileges = privilegeService.findPrivilegeByUserId(user.getId());
+            this.addSession("trees", privileges);
             this.addSession(AppConstants.USER, user);
             this.addSession(AppConstants.ROLES, AppConstants.ROLES);
             modelAndView.setView(new RedirectView(AppContext.getContextPath()
@@ -172,11 +177,11 @@ public class UserController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<User>() {
-                    @Override
-                    public List<User> callBack() {
-                        return userService.searchUsers(paramsMap);
-                    }
-                });
+            @Override
+            public List<User> callBack() {
+                return userService.searchUsers(paramsMap);
+            }
+        });
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)

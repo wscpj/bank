@@ -126,6 +126,24 @@
         ]]>
     </select>
     
+    <select id="findPrivilegesByUserId" parameterType="java.util.HashMap" resultMap="privilegeMap">
+        <include refid="selectPrivilege" />
+        <![CDATA[
+            FROM PRIVILEGE P 
+            WHERE FIND_IN_SET(id, getChild(#{parentId})) 
+            AND P.ID IN
+            (
+                SELECT MRP.PRIVILEGE_ID AS ID
+                FROM MAP_ROLE_PRIVILEGE MRP 
+                LEFT JOIN MAP_USER_ROLE MUR 
+                ON MRP.ROLE_ID = MUR.ROLE_ID 
+                LEFT JOIN `USER` U
+                ON MUR.USER_ID = U.ID
+                and U.ID=#{userId}
+            )
+        ]]>
+    </select>
+    
     <select id="findPrivilegesByParentId" parameterType="java.util.HashMap" resultMap="privilegeMap">
         <include refid="selectPrivilege" />
         <![CDATA[

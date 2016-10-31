@@ -43,6 +43,7 @@ public class AppConstants {
     public static final String ORGANIZATION_ID = "organizationId";
     public static final String IN_ORG_ID = "inOrgId";
     public static final String USER_ID = "userId";
+    public static final String PARENT_ID = "parentId";
     public static final String ROLE_ID = "roleId";
     public static final String PREVIOUS_ROLE_ID = "previousRoleId";
     public static final String CURRENT_ROLE_ID = "currentRoleId";
