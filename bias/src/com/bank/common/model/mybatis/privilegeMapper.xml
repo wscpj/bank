@@ -24,12 +24,12 @@
     </resultMap> -->
 
 	<sql id="pagination">
-		<if test="offset != null and rowCount != null ">
+        <if test="offset != null and rowCount != null">
             <![CDATA[
                 LIMIT #{offset},#{rowCount}
             ]]>
-		</if>
-	</sql>
+        </if>
+    </sql>
 
 	<sql id="selectPrivilege">
 		SELECT
@@ -83,7 +83,7 @@
 		<if test="endTime != null and endTime != ''">
 		    AND #{endTime} > P.CREATED_TIME
 		</if>
-		 ORDER BY P.ID
+		    ORDER BY P.ID
 		<include refid="pagination"></include>
 	</select>
 	

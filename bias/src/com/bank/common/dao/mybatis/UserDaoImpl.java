@@ -12,7 +12,7 @@ import com.bank.common.dto.UserSetRoleDTO;
 import com.bank.common.model.PaginationDTO;
 import com.bank.common.model.User;
 
-public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao{
+public class UserDaoImpl extends BaseDao<User, Integer> implements UserDao {
     /**
      *
      */

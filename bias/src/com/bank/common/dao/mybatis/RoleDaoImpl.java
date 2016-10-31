@@ -49,12 +49,11 @@ public class RoleDaoImpl extends BaseDao<Role, Integer> implements RoleDao {
     @SuppressWarnings("unchecked")
     @Override
     public List<Role> findAllRoleByParams(Map<String, Object> map) {
-        @SuppressWarnings("unused")
         Map<String, Object> params = getParameterMap();
         PaginationDTO<Role> paginationDTO = (PaginationDTO<Role>) AppContext
                 .getContext().getObject(AppConstants.PAGINATION_DTO);
         if (paginationDTO != null) {
-            map.putAll(paginationDTO.getParameterMap());
+            map.putAll(params);
             Integer count = getCount(map);
             paginationDTO.setTotalRowCount(count);
         }
