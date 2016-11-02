@@ -17,7 +17,7 @@ import com.bank.common.model.Privilege;
 import com.bank.common.service.PrivilegeService;
 
 public class PrivilegeServiceImpl extends BaseService implements
-        PrivilegeService {
+PrivilegeService {
 
     private static final long serialVersionUID = -319207069173729558L;
 
