@@ -110,13 +110,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `user`
--- ----------------------------
-BEGIN;
-INSERT INTO `user` VALUES ('1', 'admin', '0', 'admin@dev.com', '18236916020', 'c3284d0f94606de1fd2af172aba15bf3', '0', '2016-10-16 20:44:51', '2016-10-16 20:44:51');
-COMMIT;
-
--- ----------------------------
 --  Function structure for `getChild`
 -- ----------------------------
 DROP FUNCTION IF EXISTS `getChild`;
@@ -159,5 +152,53 @@ BEGIN
  END
  ;;
 delimiter ;
+
+-- ----------------------------
+--  Records of `user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES ('1', 'admin', '0', 'admin@dev.com', '18236916020', 'c3284d0f94606de1fd2af172aba15bf3', '0', '2016-10-16 20:44:51', '2016-10-16 20:44:51');
+COMMIT;
+
+-- ----------------------------
+--  Records of `role`
+-- ----------------------------
+BEGIN;
+INSERT INTO `role` VALUES ('1', '系统管理', 'SystemManage', 'JS1001', '0', '2016-10-31 21:14:17', '2016-10-31 21:14:17');
+COMMIT;
+
+-- ----------------------------
+--  Records of `privilege`
+-- ----------------------------
+BEGIN;
+INSERT INTO `privilege` VALUES ('1', '平台权限', 'SystemPrivilege', '0000', '#', '0', '1', '2016-10-23 20:04:33', '2016-10-25 22:06:00');
+INSERT INTO `privilege` VALUES ('2', '系统管理', 'systemManage', '1000', '#', '1', '0', '2016-10-22 20:01:54', '2016-10-30 00:15:11');
+INSERT INTO `privilege` VALUES ('3', '用户管理', 'UserManage', '1006', '/page/user/search', '2', '0', '2016-11-01 00:33:31', '2016-11-01 00:33:31');
+INSERT INTO `privilege` VALUES ('4', '角色管理', 'RoleManage', '1001', '/page/role/search', '2', '0', '2016-10-23 19:31:20', '2016-10-23 19:31:24');
+INSERT INTO `privilege` VALUES ('5', '权限管理', 'PrivilegeManage', '1002', '/page/privilege/search', '2', '0', '2016-10-23 19:32:42', '2016-10-23 19:32:42');
+INSERT INTO `privilege` VALUES ('6', '数据库备份', 'DataBackup', '1003', '/page/backup/database', '2', '0', '2016-10-23 19:33:26', '2016-10-23 19:33:26');
+INSERT INTO `privilege` VALUES ('7', '登录日志', 'LogManage', '1004', '/page/log/search', '2', '0', '2016-10-23 19:34:36', '2016-10-23 19:34:36');
+INSERT INTO `privilege` VALUES ('8', '退出系统', 'ExitSystem', '1005', '#', '2', '0', '2016-10-23 19:35:24', '2016-10-23 19:35:24');
+COMMIT;
+
+-- ----------------------------
+--  Records of `map_user_role`
+-- ----------------------------
+BEGIN;
+INSERT INTO `map_user_role` VALUES ('1', '1', '1', '0', '2016-11-02 21:59:35', '2016-11-02 21:59:38');
+COMMIT;
+
+-- ----------------------------
+--  Records of `map_role_privilege`
+-- ----------------------------
+BEGIN;
+INSERT INTO `map_role_privilege` VALUES ('1', '1', '2', '0', '2016-10-31 21:14:24', '2016-10-31 21:14:24');
+INSERT INTO `map_role_privilege` VALUES ('2', '1', '3', '0', '2016-10-31 21:14:24', '2016-10-31 21:14:24');
+INSERT INTO `map_role_privilege` VALUES ('3', '1', '4', '0', '2016-10-31 21:14:24', '2016-10-31 21:14:24');
+INSERT INTO `map_role_privilege` VALUES ('4', '1', '5', '0', '2016-10-31 21:14:24', '2016-10-31 21:14:24');
+INSERT INTO `map_role_privilege` VALUES ('5', '1', '6', '0', '2016-10-31 21:14:24', '2016-10-31 21:14:24');
+INSERT INTO `map_role_privilege` VALUES ('6', '1', '7', '0', '2016-10-31 21:14:24', '2016-10-31 21:14:24');
+INSERT INTO `map_role_privilege` VALUES ('7', '1', '8', '0', '2016-11-01 00:34:04', '2016-11-01 00:34:04');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
