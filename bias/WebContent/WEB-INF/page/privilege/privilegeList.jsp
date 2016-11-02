@@ -4,6 +4,11 @@
 <html>
 <head>
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon"/>
+  <script type="text/javascript">
+    $("#cleanButton").click(function(){
+        $(".searchBar input").val("");
+    });
+  </script>
 </head>
 <body>
   <div class="panelBar" style=" border-width:1px;">
@@ -25,6 +30,7 @@
         </table>
         <div class="subBar" style="margin-top:-25px;">
           <ul>
+            <li><div class="buttonActive"><div class="buttonContent"><button type="button" id="cleanButton">清空</button></div></div></li>
             <li><div class="buttonActive"><div class="buttonContent"><button type="submit">高级检索</button></div></div></li>
           </ul>
         </div>

@@ -4,6 +4,11 @@
 <html>
 <head>
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon"/>
+  <script type="text/javascript">
+    $("#cleanButton").click(function(){
+        $(".searchBar input").val("");
+    });
+  </script>
 </head>
 <body>
   <div class="panelBar" style=" border-width:1px;">
@@ -25,6 +30,7 @@
         </table>
         <div class="subBar" style="margin-top:-25px;">
           <ul>
+            <li><div class="buttonActive"><div class="buttonContent"><button type="button" id="cleanButton">清空</button></div></div></li>
             <li><div class="buttonActive"><div class="buttonContent"><button type="submit">高级检索</button></div></div></li>
           </ul>
         </div>
@@ -51,7 +57,6 @@
             <th class="center">性别</th>
             <th class="center">邮箱</th>
             <th class="center">手机</th>
-            <th class="center">角色</th>
           </tr>
         </thead>
         <tbody>
@@ -63,7 +68,6 @@
             <td><input type="password" value="${user.password}" style="border:0px;background-color: white" readonly="readonly"/></td>
             <td>${user.gender}</td>
             <td>${user.email}</td>
-            <td>${user.phone}</td>
             <td>${user.phone}</td>
           </tr>
         </c:forEach>
