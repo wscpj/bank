@@ -199,4 +199,24 @@ public class AppConstants {
     public static final String APP_URL_PREFIX = "page";
     public static final String CURRENT_DATE = "date";
     public static final String CURRENT_WEEK = "week";
+
+    //Email constants
+    public static final String ENCODING_UTF = "utf-8";
+    public static final String ENCODING_GBK = "gb2312";
+    public static final String ENCODING_ISO = "iso-8859-1";
+    public static final String EMAIL_ENCODE = "B";
+    public static final String MAIL_SMTP_HOST = "mail.smtp.host";
+    public static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
+    public static final String MAIL_AUTH_RESULT = "true";
+    public static final String MAIL_HOST = "mail.host";
+    public static final String MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol";
+    public static final String MAIL_SMTP_VALUE = "smtp";
+
+    //email properties
+    public static final String EMAIL_HOST ="email.host";
+    public static final String EMAIL_SENDER ="email.sender";
+    public static final String EMAIL_RECEIVER ="email.receiver";
+    public static final String EMAIL_PASSWORD ="email.password";
+    public static final String EMAIL_SUBJECT ="email.subject";
+    public static final String EMAIL_ATTACHMENT ="email.attachment";
 }
