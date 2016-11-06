@@ -27,4 +27,10 @@ UserRoleDao {
                 userId);
     }
 
+    @Override
+    public void deleteUserToleByRoleId(Integer roleId) {
+        getSqlSession().delete(CLASS_NAME , roleId);
+
+    }
+
 }

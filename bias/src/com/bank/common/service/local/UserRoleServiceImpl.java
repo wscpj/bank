@@ -50,7 +50,10 @@ public class UserRoleServiceImpl extends BaseService implements UserRoleService 
         }
         return Boolean.TRUE;
     }
-
+    @Override
+    public void deleteUserToleByRoleId(Integer roleId){
+        userRoleDao.deleteUserToleByRoleId(roleId);
+    }
     public UserRoleDao getUserRoleDao() {
         return userRoleDao;
     }

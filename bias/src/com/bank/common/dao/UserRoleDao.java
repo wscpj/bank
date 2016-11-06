@@ -11,4 +11,6 @@ public interface UserRoleDao extends IBaseDao<UserRole, Integer> {
 
     public void deleteUserRoleByUserId(Integer userId);
 
+    public void deleteUserToleByRoleId(Integer roleId);
+
 }
