@@ -168,17 +168,16 @@ PrivilegeService {
         return secondPrivileges;
     }
 
-    private String buildTree(List<Privilege> userPrivileges, Privilege rootPrivilege) {
+    private String buildTree(List<Privilege> userPrivileges, Privilege rootPrivilege,Integer userId) {
         StringBuffer tree = new StringBuffer();
-        List<Privilege> list = privilegeDao.findAllPrivilege();
         if (rootPrivilege != null) {
             if (userPrivileges != null && userPrivileges.size() > 0) {
                 tree.append("<ul class=\"tree\">");
-                for (Privilege pl : list) {
+                for (Privilege pl : userPrivileges) {
                     if (pl.getParentId() == rootPrivilege.getId()) {
                         tree.append("<li><a>"
                                 + "<i class=\"fa fa-sitemap fa-lg fa-fw\"></i>" + pl.getDisplayName() + "</a>");
-                        tree.append(this.build(pl));
+                        tree.append(this.build(pl,userId));
                         tree.append("</li>");
                     }
                 }
@@ -188,11 +187,12 @@ PrivilegeService {
         return tree.toString();
     }
 
-    public String build(Privilege privilege) {
+    public String build(Privilege privilege,Integer userId) {
         StringBuffer html = new StringBuffer();
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("parentId", privilege.getId());
-        List<Privilege> list = privilegeDao.findPrivilegesByParentId(paramMap);
+        paramMap.put(AppConstants.PARENT_ID, privilege.getId());
+        paramMap.put(AppConstants.USER_ID, userId);
+        List<Privilege> list = privilegeDao.findUserRolePrivilegeByParentId(paramMap);
         if (list != null && list.size() > 0) {
             html.append("<ul>");
             for (Privilege pl : list) {
@@ -206,7 +206,7 @@ PrivilegeService {
                     html.append("<li><a href=\""+ AppContext.getContextPath() + "/" + pl.getUrl().trim() +"\" target=\"navTab\" rel=\"w_table\"" +" >"
                             + "<i class=\"fa fa-user fa-lg fa-fw\"></i>" +  pl.getDisplayName() + "</a>");
                 }
-                html.append(build(pl));
+                html.append(build(pl,userId));
                 html.append("</li>");
             }
             html.append("</ul>");
@@ -243,7 +243,7 @@ PrivilegeService {
                 }
                 privileges.add(rootPrivilege);
             }
-            trees = this.buildTree(privileges, rootPrivilege);
+            trees = this.buildTree(privileges, rootPrivilege,userId);
         } catch (Exception e) {
             logger.error("findPrivilegeByUserId error" + e);
         }

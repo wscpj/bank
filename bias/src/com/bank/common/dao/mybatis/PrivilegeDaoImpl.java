@@ -12,7 +12,7 @@ import com.bank.common.model.PaginationDTO;
 import com.bank.common.model.Privilege;
 
 public class PrivilegeDaoImpl extends BaseDao<Privilege, Integer> implements
-        PrivilegeDao {
+PrivilegeDao {
 
     private static final long serialVersionUID = -2578792430404200927L;
 
@@ -27,6 +27,7 @@ public class PrivilegeDaoImpl extends BaseDao<Privilege, Integer> implements
     private static final String SQL_ID_GET_ROOT_PRIVILEGE = ".getRootPrivilege";
     private static final String SQL_ID_GET_PRIVILEGE_BY_ID = ".getPrivilegeById";
     private static final String SQL_ID_FIND_PRIVILEGE_BY_USER_ID = ".findPrivilegesByUserId";
+    private static final String SQL_ID_FIND_USER_ROLES_PRIVILEGE_BY_PARENT_ID = ".findUserRolesPrivilegesByParentId";
 
     @Override
     public List<PrivilegeDTO> findRolePrivileges() {
@@ -95,5 +96,11 @@ public class PrivilegeDaoImpl extends BaseDao<Privilege, Integer> implements
     @Override
     public List<Privilege> findPrivilegeByUserId(Map<String, Object> paramMap) {
         return getSqlSession().selectList(CLASS_NAME + SQL_ID_FIND_PRIVILEGE_BY_USER_ID, paramMap);
+    }
+
+    @Override
+    public List<Privilege> findUserRolePrivilegeByParentId(Map<String, Object> paramMap) {
+        return getSqlSession().selectList(
+                CLASS_NAME + SQL_ID_FIND_USER_ROLES_PRIVILEGE_BY_PARENT_ID, paramMap);
     }
 }

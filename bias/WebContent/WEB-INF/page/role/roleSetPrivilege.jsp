@@ -5,11 +5,15 @@
 <script type="text/javascript">
     $("#submit").click(function(){
         var str="";
-        $("#tree input:checked").each(function(i,a){
+        var rootStr ="";
+        $("#tree div.checked input").each(function(i,a){
             str += a.value + ",";
         });
+        $("#tree div.indeterminate input").each(function(i,a){
+            rootStr += a.value + ",";
+        });
         str = str.substring(0,str.length-1);
-        $(".privilegeIds").val(str);
+        $(".privilegeIds").val(rootStr + str);
     });
 </script>
   <body >
