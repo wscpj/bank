@@ -23,20 +23,21 @@ public class BackupController extends BasePageController {
     @RequestMapping(value = "/database", method = RequestMethod.POST)
     @ResponseBody
     public ResultMsg backup() {
+        logger.info("backup parameters:{}");
         Boolean result = null;
+        ResultMsg resultMsg = null;
         try {
             result= backupService.backupDataBase();
+            if (result) {
+                resultMsg = ResultMsg.okMsg();
+            } else {
+                resultMsg = ResultMsg.errorMsg();
+            }
+            resultMsg.setCallbackType(AppConstants.EMPTY);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error("backup error " + e);
             throw e;
         }
-        ResultMsg resultMsg = null;
-        if (result) {
-            resultMsg = ResultMsg.okMsg();
-        } else {
-            resultMsg = ResultMsg.errorMsg();
-        }
-        resultMsg.setCallbackType(AppConstants.EMPTY);
         return resultMsg;
     }
 

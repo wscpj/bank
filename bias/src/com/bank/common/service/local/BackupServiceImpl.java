@@ -19,11 +19,12 @@ public class BackupServiceImpl extends BaseService implements BackupService {
     private Logger logger = Logger.getLogger(BackupServiceImpl.class);
     @Override
     public Boolean backupDataBase() {
+        logger.info("backupDataBase paramters : {}");
         try {
             this.export();
             return Boolean.TRUE;
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            logger.error("backupDataBase error" + e);
             e.printStackTrace();
         }
         return Boolean.FALSE;

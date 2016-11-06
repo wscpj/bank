@@ -25,17 +25,38 @@ public class LogServiceImpl extends BaseService implements LogService {
 
     @Override
     public List<Log> searchLogs(Map<String, Object> map) {
-        return logDao.searchLogs(map);
+        logger.info("searchLogs map:{}" + map);
+        List<Log> result = null;
+        try {
+            result = logDao.searchLogs(map);
+        } catch(Exception e) {
+            logger.error("searchLogs error" + e);
+        }
+        return result;
     }
 
     @Override
     public Boolean addLog(Log log) {
-        return logDao.add(log);
+        logger.info("addLog log:{}" + log);
+        Boolean result = null;
+        try {
+            result = logDao.add(log);
+        } catch(Exception e) {
+            logger.error("addLog error" + e);
+        }
+        return result;
     }
 
     @Override
     public Boolean deleteLogByIds(List<Integer> ids) {
-        return logDao.deleteLogByIds(ids);
+        logger.info("deleteLogByIds ids:{}" + ids);
+        Boolean result = null;
+        try {
+            result = logDao.deleteLogByIds(ids);
+        } catch(Exception e) {
+            logger.error("deleteLogByIds error" + e);
+        }
+        return result;
     }
 
 }

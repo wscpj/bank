@@ -39,34 +39,45 @@ public class LogController extends BasePageController {
             @RequestParam(value = "beginTime", defaultValue = "") String beginTime,
             @RequestParam(value = "endTime", defaultValue = "") String endTime
             ) {
+        logger.info("findRole pageNum:{};numPerPage:{};userName:{};beginTime:{};endTime:{};" + pageNum + ":" + numPerPage + ":" +userName + ":" + beginTime + ":" + endTime);
+        ModelAndView result = null;
+        try {
+            Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
+            Integer numPerPageInt = numPerPage == null ? 10 : Integer
+                    .valueOf(numPerPage);
 
-        Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
-        Integer numPerPageInt = numPerPage == null ? 10 : Integer
-                .valueOf(numPerPage);
+            final Map<String, Object> paramsMap = new HashMap<String, Object>();
+            paramsMap.put("userName", userName);
+            paramsMap.put("beginTime", beginTime);
+            paramsMap.put("endTime", endTime);
 
-        final Map<String, Object> paramsMap = new HashMap<String, Object>();
-        paramsMap.put("userName", userName);
-        paramsMap.put("beginTime", beginTime);
-        paramsMap.put("endTime", endTime);
-
-        return pagination(paramsMap, pageNumInt, numPerPageInt, AppConstants.EMPTY,
-                LIST_JSP, new PaginationCallBack<Log>() {
-            @Override
-            public List<Log> callBack() {
-                return logService.searchLogs(paramsMap);
-            }
-        });
+            result =  pagination(paramsMap, pageNumInt, numPerPageInt, AppConstants.EMPTY,
+                    LIST_JSP, new PaginationCallBack<Log>() {
+                @Override
+                public List<Log> callBack() {
+                    return logService.searchLogs(paramsMap);
+                }
+            });
+        } catch (Exception e) {
+            logger.error("findRole error " + e);
+        }
+        return result;
     }
 
 
     @ResponseBody
     @RequestMapping(value = "/delete")
     public ResultMsg delete(@RequestParam(value = "ids", defaultValue = "") String ids) {
+        logger.info("delete ids:{}" + ids);
         ResultMsg resultMsg = null;
-        List<Integer> list = StringUtil.StringToList(ids);
-        logService.deleteLogByIds(list);
-        resultMsg = ResultMsg.okMsg();
-        resultMsg.setCallbackType(AppConstants.EMPTY);
+        try {
+            List<Integer> list = StringUtil.StringToList(ids);
+            logService.deleteLogByIds(list);
+            resultMsg = ResultMsg.okMsg();
+            resultMsg.setCallbackType(AppConstants.EMPTY);
+        } catch (Exception e) {
+            logger.error("delete error" + e);
+        }
         return resultMsg;
     }
 }
