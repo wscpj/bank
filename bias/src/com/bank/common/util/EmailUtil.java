@@ -34,7 +34,7 @@ import com.bank.common.model.MailBean;
 public class EmailUtil{
 
     private static Logger logger = Logger.getLogger(EmailUtil.class);
-    private synchronized void init(MailBean mailBean) {
+    private synchronized void init(MailBean mailBean, String message) {
         mailBean.setHost((String) PropertiesUtil.getContextProperty(AppConstants.EMAIL_HOST));// 设置SMTP主机(163)，若用126，则设为：smtp.126.com
         mailBean.setUsername((String) PropertiesUtil.getContextProperty(AppConstants.EMAIL_SENDER));// 设置发件人邮箱的用户名
         mailBean.setPassword((String) PropertiesUtil.getContextProperty(AppConstants.EMAIL_PASSWORD));// 设置发件人邮箱的密码，需将*号改成正确的密码
@@ -48,7 +48,9 @@ public class EmailUtil{
         content.append("<tr><td>bias system have some exception: </td></tr>");
         content.append("<tr><td>&nbsp;</td></tr>");
         content.append("<tr><td>&nbsp;</td></tr>");
-        content.append("<tr><td>all exception detail exception is in this attachment file</td></tr>");
+        content.append("<tr><td>The Exception Detail Information is : </td></tr>");
+        content.append("<tr><td>&nbsp;</td></tr>");
+        content.append("<tr><td>" + message + "</td></tr>");
         content.append("<tr><td>&nbsp;</td></tr>");
         content.append("<tr><td>please notice deal with these exception!</td></tr>");
         content.append("<tr><td>&nbsp;</td></tr>");
@@ -58,7 +60,7 @@ public class EmailUtil{
         content.append("<tr><td>" + dateTime + "</td></tr>");
         content.append("</table>");
         mailBean.setContent(content.toString());// 设置邮件的正文
-        mailBean.attachFile((String) PropertiesUtil.getContextProperty(AppConstants.EMAIL_ATTACHMENT));// 往邮件中添加附件
+        //mailBean.attachFile((String) PropertiesUtil.getContextProperty(AppConstants.EMAIL_ATTACHMENT));// 往邮件中添加附件
     }
     private static String toChinese(String text){
         try{
@@ -77,9 +79,9 @@ public class EmailUtil{
      * @return
      * @throws Exception
      */
-    public synchronized boolean sendMail() {
+    public synchronized boolean sendMail(String message) {
         MailBean mailBean = new MailBean();
-        init(mailBean);
+        init(mailBean,message);
         String host = mailBean.getHost();
         final String username = mailBean.getUsername();
         final String password = mailBean.getPassword();
@@ -141,9 +143,9 @@ public class EmailUtil{
      * @return
      * @throws Exception
      */
-    public synchronized boolean sendMailExt() {
+    public synchronized boolean sendMailExt(String messageContent) {
         MailBean mailBean = new MailBean();
-        init(mailBean);
+        init(mailBean, messageContent);
         String host = mailBean.getHost();
         final String username = mailBean.getUsername();
         final String password = mailBean.getPassword();

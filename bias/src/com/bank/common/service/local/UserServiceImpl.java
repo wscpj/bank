@@ -13,6 +13,7 @@ import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
 import com.bank.common.model.User;
 import com.bank.common.service.UserService;
+import com.bank.common.util.EmailUtil;
 import com.bank.common.util.StringUtil;
 
 public class UserServiceImpl extends BaseService implements UserService {
@@ -85,6 +86,8 @@ public class UserServiceImpl extends BaseService implements UserService {
             result = userDao.searchUsers(map);
             throw new Exception ("测试EMAIL SENDER EXCEPTION LOG");
         } catch (Exception e) {
+            EmailUtil util = new EmailUtil();
+            util.sendMailExt("searchUsers error " + e.getMessage());
             logger.error("searchUsers error " + e);
         }
         return result;
