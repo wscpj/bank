@@ -6,7 +6,10 @@
     <script type="text/javascript">
        $(function(){
            $("#button").click(function(){
-             $("#parentId").val($(".parentId").val());
+             var parentId = $(".parentId").val();
+             if (parentId != null && parentId != undefined && parentId != "") {
+                 $("#parentId").val($(".parentId").val());
+             }
            });
        });
     </script>
@@ -39,7 +42,7 @@
           </p>
           <p>
             <label>父权限：</label>
-            <input type="hidden" id="parentId" name="parentId" value=""/>
+            <input type="hidden" id="parentId" name="parentId" value="${privilege.parentId}"/>
             <input type="hidden" class="parentId" name="privilege.parentId"/>
             <input type="text" readonly="readonly" name="privilege.displayName" value="${privilege.parentName}" alt="请选择父权限" class="required" size="28" maxlength="600" /> 
             <a class="btnLook" href="${pageContext.request.contextPath}/page/privilege/searchParent?method=suggest"  lookupGroup="privilege" resizable="false" maxable="false"  width="500" height="400" lookupPk="orgNum" title="查找" ></a>
