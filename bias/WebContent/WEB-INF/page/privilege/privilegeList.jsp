@@ -50,7 +50,7 @@
         <thead>
           <tr height="25" style="text-align: center;">
           	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-            <th class="center" >权限ID</th>
+            <th class="center" >序号</th>
             <th class="center">权限名称</th>
             <th class="center">权限代码</th>
             <th class="center">URL</th>

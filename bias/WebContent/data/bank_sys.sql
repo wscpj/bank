@@ -110,6 +110,20 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `organization`
+-- ----------------------------
+DROP TABLE IF EXISTS `organization`;
+CREATE TABLE `organization` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `organization_name` text NOT NULL,
+  `organization_code` varchar(300) NOT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Function structure for `getChild`
 -- ----------------------------
 DROP FUNCTION IF EXISTS `getChild`;
@@ -179,6 +193,10 @@ INSERT INTO `privilege` VALUES ('5', '权限管理', 'PrivilegeManage', '1002', 
 INSERT INTO `privilege` VALUES ('6', '数据库备份', 'DataBackup', '1003', '/page/backup/database', '2', '0', '2016-10-23 19:33:26', '2016-10-23 19:33:26');
 INSERT INTO `privilege` VALUES ('7', '登录日志', 'LogManage', '1004', '/page/log/search', '2', '0', '2016-10-23 19:34:36', '2016-10-23 19:34:36');
 INSERT INTO `privilege` VALUES ('8', '退出系统', 'ExitSystem', '1005', '#', '2', '0', '2016-10-23 19:35:24', '2016-10-23 19:35:24');
+INSERT INTO `privilege` VALUES ('9', '平台用户管理', 'PlatformUserManage', '2000', '#', '1', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
+INSERT INTO `privilege` VALUES ('10', '社员管理', 'DepositorManage', '2001', '#', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
+INSERT INTO `privilege` VALUES ('11', '帐户管理', 'AccountManage', '2002', '#', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
+INSERT INTO `privilege` VALUES ('12', '组织管理', 'OrganizationManage', '2003', '/page/org/search', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
 COMMIT;
 
 -- ----------------------------
@@ -199,6 +217,11 @@ INSERT INTO `map_role_privilege` VALUES ('4', '1', '5', '0', '2016-10-31 21:14:2
 INSERT INTO `map_role_privilege` VALUES ('5', '1', '6', '0', '2016-10-31 21:14:24', '2016-10-31 21:14:24');
 INSERT INTO `map_role_privilege` VALUES ('6', '1', '7', '0', '2016-10-31 21:14:24', '2016-10-31 21:14:24');
 INSERT INTO `map_role_privilege` VALUES ('7', '1', '8', '0', '2016-11-01 00:34:04', '2016-11-01 00:34:04');
+
+INSERT INTO `map_role_privilege` VALUES ('8', '1', '9', '0', '2016-11-13 00:34:04', '2016-11-13 00:34:04');
+INSERT INTO `map_role_privilege` VALUES ('9', '1', '10', '0', '2016-11-13 00:34:04', '2016-11-13 00:34:04');
+INSERT INTO `map_role_privilege` VALUES ('10', '1', '11', '0', '2016-11-13 00:34:04', '2016-11-13 00:34:04');
+INSERT INTO `map_role_privilege` VALUES ('11', '1', '12', '0', '2016-11-13 00:34:04', '2016-11-13 00:34:04');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

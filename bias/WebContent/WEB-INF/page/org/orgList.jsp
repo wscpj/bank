@@ -13,17 +13,17 @@
 <body>
   <div class="panelBar" style=" border-width:1px;">
     <ul class="toolBar">
-      <li><span style="margin-left:-25px;">当前位置：系统管理 >> 管理员列表</span></li>
+      <li><span style="margin-left:-25px;">当前位置：组织管理 >> 组织列表</span></li>
     </ul>
   </div>
   <div class="pageHeader">
-    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="${pageContext.request.contextPath}/page/user/search" method="post">
+    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="${pageContext.request.contextPath}/page/org/search" method="post">
       <input type="hidden" name="pageNum" value="${paginationDTO.currentPage}" />
       <input type="hidden" name="numPerPage" value="${paginationDTO.pageSize}" />
       <div class="searchBar" >
         <table class="searchContent">
           <tr>
-            <td>用户名称：<input type="text" name="userName" value="${paramsMap.userName }"/></td>
+            <td>组织名称：<input type="text" name="organizationName" value="${paramsMap.organizationName }"/></td>
             <td>开始日期：<input type="text" name="beginTime" class="date" readonly="true" value="${paramsMap.beginTime }"/></td>
             <td>结束日期：<input type="text" name="endTime" class="date" readonly="true" value="${paramsMap.endTime }"/></td>
           </tr>
@@ -40,10 +40,9 @@
   <div class="pageContent">
     <div class="panelBar">
       <ul class="toolBar">
-        <li><a class="add" href="${pageContext.request.contextPath}/page/user/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加管理员</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/page/user/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改管理员</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/page/user/userSetRole/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
-        <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/user/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除管理员</span></a></li>
+        <li><a class="add" href="${pageContext.request.contextPath}/page/org/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加组织</span></a></li>
+        <li><a class="edit" href="${pageContext.request.contextPath}/page/org/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改组织</span></a></li>
+        <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/org/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除组织</span></a></li>
       </ul>
     </div>
     <div id="w_list_print">
@@ -52,23 +51,19 @@
           <tr height="25" style="text-align: center;">
           	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
             <th class="center">序号</th>
-            <th class="center">姓名</th>
-            <th class="center">密码</th>
-            <th class="center">性别</th>
-            <th class="center">邮箱</th>
-            <th class="center">手机</th>
+            <th class="center">组织名称</th>
+            <th class="center">组织代码</th>
+            <th class="center">创建日期</th>
           </tr>
         </thead>
         <tbody>
-        <c:forEach items="${paginationDTO.itemList}" var="user" varStatus="status">
+        <c:forEach items="${paginationDTO.itemList}" var="org" varStatus="status">
           <tr style="text-align: center;"height="20" rel="${user.id}" target="id">
           	<td><input name="ids" type="checkbox" value="${user.id}"></td>
             <td>${status.count+mp.flag}</td>
-            <td>${user.userName}</td>
-            <td><input type="password" value="${user.password}" style="border:0px;background-color: white" readonly="readonly"/></td>
-            <td>${user.gender}</td>
-            <td>${user.email}</td>
-            <td>${user.phone}</td>
+            <td>${org.organizationName}</td>
+            <td>${org.organizationCode}</td>
+            <td>${user.createdTime}</td>
           </tr>
         </c:forEach>
         </tbody>

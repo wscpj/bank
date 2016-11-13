@@ -71,7 +71,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         List<User> result = null;
         try {
             result = userDao.findUsers();
-            throw new Exception ("测试EMAIL SENDER EXCEPTION LOG");
         } catch (Exception e) {
             logger.error("findUsers error " + e);
         }
@@ -84,7 +83,6 @@ public class UserServiceImpl extends BaseService implements UserService {
         List<User> result = null;
         try {
             result = userDao.searchUsers(map);
-            throw new Exception ("测试EMAIL SENDER EXCEPTION LOG");
         } catch (Exception e) {
             EmailUtil util = new EmailUtil();
             util.sendMailExt("searchUsers error " + e.getMessage());
