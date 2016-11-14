@@ -7,13 +7,14 @@ import com.bank.common.dao.UserRoleDao;
 import com.bank.common.model.UserRole;
 
 public class UserRoleDaoImpl extends BaseDao<UserRole, Integer> implements
-UserRoleDao {
+        UserRoleDao {
 
     private static final long serialVersionUID = 4075470957177118844L;
 
     private static final String CLASS_NAME = UserRole.class.getName();
     private static final String SQL_ID_FIND_USER_BYID = ".findByUserId";
     private static final String SQL_ID_DELETE_USERROLE_BYUSERID = ".deleteByUserId";
+    private static final String SQL_ID_DELETE_USERROLE_BYROLEID = ".deleteByRoleId";
 
     @Override
     public List<UserRole> findByUserId(Integer id) {
@@ -29,8 +30,8 @@ UserRoleDao {
 
     @Override
     public void deleteUserToleByRoleId(Integer roleId) {
-        getSqlSession().delete(CLASS_NAME , roleId);
+        getSqlSession().delete(CLASS_NAME + SQL_ID_DELETE_USERROLE_BYROLEID,
+                roleId);
 
     }
-
 }

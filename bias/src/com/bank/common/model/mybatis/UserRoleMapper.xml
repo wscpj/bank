@@ -29,6 +29,7 @@
             WHERE U.USER_ID = #{id} AND IS_DELETED = 0
         ]]>
     </select>
+    
     <insert id="add" parameterType="UserRole">
         INSERT INTO MAP_USER_ROLE  
             (
@@ -41,7 +42,12 @@
                 #{roleId}
             )
     </insert>
+    
     <delete id="deleteByUserId" parameterType="java.lang.Integer">
         DELETE FROM  MAP_USER_ROLE  WHERE USER_ID = #{userId}
+    </delete>
+    
+    <delete id="deleteByRoleId" parameterType="java.lang.Integer">
+        DELETE FROM  MAP_USER_ROLE  WHERE ROLE_ID = #{roleId}
     </delete>
 </mapper>

@@ -94,7 +94,7 @@ public class RoleController extends BasePageController {
         }
         if (!privilegeIds.isEmpty()) {
             List<RolePrivilege> rolePrivileges = new ArrayList<RolePrivilege>();
-            String [] ids = privilegeIds.split(",");
+            String[] ids = privilegeIds.split(",");
             for (String id : ids) {
                 RolePrivilege rolePrivilege = new RolePrivilege();
                 rolePrivilege.setRoleId(roleId);
@@ -159,9 +159,8 @@ public class RoleController extends BasePageController {
     @ResponseBody
     @RequestMapping(value = "deleteRole")
     public ResultMsg deleteRole(HttpServletRequest request,
-            HttpServletResponse response) {
+            @RequestParam(value = "ids", defaultValue = "") String ids) {
         ResultMsg resultMsg = null;
-        String ids = request.getParameter("ids");
         List<Integer> list = StringUtil.StringToList(ids);
         roleService.deleteRoleByIds(list);
         resultMsg = ResultMsg.okMsg();
@@ -170,17 +169,19 @@ public class RoleController extends BasePageController {
     }
 
     @RequestMapping(value = "/search")
-    public ModelAndView findRole(HttpServletRequest request) {
+    public ModelAndView findRole(
+            HttpServletRequest request,
+            @RequestParam(value = "pageNum", defaultValue = "") String pageNum,
+            @RequestParam(value = "numPerPage", defaultValue = "") String numPerPage,
+            @RequestParam(value = "userName", defaultValue = "") String userName,
+            @RequestParam(value = "beginTime", defaultValue = "") String beginTime,
+            @RequestParam(value = "endTime", defaultValue = "") String endTime) {
 
-        String pageNum = request.getParameter("pageNum");
-        String numPerPage = request.getParameter("numPerPage");
-        Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
-        Integer numPerPageInt = numPerPage == null ? 10 : Integer
+        Integer pageNumInt = "".equals(pageNum) ? 1 : Integer.valueOf(pageNum);
+        Integer numPerPageInt = "".equals(numPerPage) ? 10 : Integer
                 .valueOf(numPerPage);
 
         String roleName = request.getParameter("roleName");
-        String beginTime = request.getParameter("beginTime");
-        String endTime = request.getParameter("endTime");
         final Map<String, Object> paramsMap = new HashMap<String, Object>();
         paramsMap.put("roleName", roleName);
         paramsMap.put("beginTime", beginTime);
@@ -188,11 +189,11 @@ public class RoleController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<Role>() {
-            @Override
-            public List<Role> callBack() {
-                return roleService.findAllRoleByParams(paramsMap);
-            }
-        });
+                    @Override
+                    public List<Role> callBack() {
+                        return roleService.findAllRoleByParams(paramsMap);
+                    }
+                });
     }
 
 }

@@ -90,8 +90,6 @@ public class UserController extends BasePageController {
             HttpServletRequest request,
             @RequestParam(value = "userId", defaultValue = "") Integer userId,
             @RequestParam(value = "roleId", defaultValue = "") String[] roleIdArr) {
-        // Integer userId = StringUtil.isNullToInt(userId);
-        // String[] roleIdArr = request.getParameterValues("roleId");
         ResultMsg resultMsg = null;
         logger.info("saveUserSetRole, userId:{}" + userId + ";roleIdArr:{}"
                 + roleIdArr.toString());

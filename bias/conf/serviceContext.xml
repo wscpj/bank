@@ -27,6 +27,7 @@
         <property name="roleDao" ref="roleDao"></property>
         <property name="rolePrivilegeDao" ref="rolePrivilegeDao"></property>
         <property name="privilegeDao" ref="privilegeDao"></property>
+        <property name="userRoleDao" ref="userRoleDao"></property>
     </bean>
     
     <bean id="userRoleService" parent="baseService" class="com.bank.common.service.local.UserRoleServiceImpl">
