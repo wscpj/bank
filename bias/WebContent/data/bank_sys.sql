@@ -27,7 +27,7 @@ CREATE TABLE `log` (
   `user_name` varchar(100) NOT NULL,
   `role_name` varchar(50) NOT NULL,
   `ip` varchar(100) NOT NULL,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -40,7 +40,7 @@ CREATE TABLE `map_role_privilege` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NOT NULL,
   `privilege_id` int(11) NOT NULL,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -54,7 +54,7 @@ CREATE TABLE `map_user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -117,7 +117,31 @@ CREATE TABLE `organization` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `organization_name` text NOT NULL,
   `organization_code` varchar(300) NOT NULL,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `organization`
+-- ----------------------------
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE `account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_num` varchar(100) NOT NULL,
+  `open_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `opener` int(11) NOT NULL,
+  `card_type` int(11) NOT NULL,
+  `bank_book` varchar(100) NOT NULL,
+  `account_type` int(11) NOT NULL,
+  `card_mark` int(11) NOT NULL,
+  `pay_passsword` varchar(100) NOT NULL,
+  `account_status` int(11) NOT NULL,
+  `depositor_id` int(11) NOT NULL,
+  `account_num` text varchar(100) NOT NULL,
+  `remain_money` varchar(100) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)

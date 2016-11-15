@@ -15,7 +15,7 @@ public class Account implements Serializable {
     private Integer accountType;// 账户类型(一般账户和股东账户)
     private Integer cardMark;// 卡标志
     private String payPasssWord;// 支付密码
-    private final Boolean isDeleted = false;
+    private Boolean isDeleted = false;
     private Integer accountStatus;//
     private String createdTime;//
     private String updatedTime;//
