@@ -124,7 +124,7 @@ CREATE TABLE `organization` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `organization`
+--  Table structure for `account`
 -- ----------------------------
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
@@ -139,8 +139,11 @@ CREATE TABLE `account` (
   `pay_passsword` varchar(100) NOT NULL,
   `account_status` int(11) NOT NULL,
   `depositor_id` int(11) NOT NULL,
-  `account_num` text varchar(100) NOT NULL,
-  `remain_money` varchar(100) NOT NULL,
+  `remain_money` decimal(14,4) NOT NULL DEFAULT '0.0000',
+  `interest_start_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `interest_stop_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `rate_id` int(11) NOT NULL,
+  `constant_code` varchar(100) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
