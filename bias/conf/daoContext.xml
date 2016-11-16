@@ -30,4 +30,6 @@
     <bean id="rolePrivilegeDao" parent="baseDao" class="com.bank.common.dao.mybatis.RolePrivilegeDaoImpl" />
     
     <bean id="orgDao" parent="baseDao" class="com.bank.common.dao.mybatis.OrgDaoImpl" />
+    
+    <bean id="accountDao" parent="baseDao" class="com.bank.common.dao.mybatis.AccountDaoImpl" />
 </beans>

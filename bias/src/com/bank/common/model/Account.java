@@ -8,23 +8,23 @@ public class Account implements Serializable {
     private static final long serialVersionUID = -8536544572064446926L;
     private Integer id;
     private String accountNum;// 卡号
-    private String openTime;
     private Integer opener;// 开户人
     private Integer cardType;// 卡类型
+    private String openTime;
     private String bankBook;// 存折号
     private Integer accountType;// 账户类型(一般账户和股东账户)
     private Integer cardMark;// 卡标志
     private String payPasssWord;// 支付密码
-    private Boolean isDeleted = false;
     private Integer accountStatus;//
-    private String createdTime;//
-    private String updatedTime;//
     private Integer depositorId;// 储户ID
     private BigDecimal remainMoney;// 账户余额
     private String interestStartTime;// 起息日期
     private String interestStopTime;// 结息日期
     private Integer rateId;// 利率ID（由账户类型，类型，存钱时间决定）
     private String constantCode;// 存款定期编号
+    private final Boolean isDeleted = false;
+    private String createdTime;//
+    private String updatedTime;//
 
     public Integer getId() {
         return id;

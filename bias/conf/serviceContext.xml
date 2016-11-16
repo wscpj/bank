@@ -56,4 +56,8 @@
     <bean id="orgService" parent="baseService" class="com.bank.common.service.local.OrgServiceImpl">
         <property name="orgDao" ref="orgDao"></property>
     </bean>
+    
+    <bean id="accountService" parent="baseService" class="com.bank.common.service.local.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
 </beans>
