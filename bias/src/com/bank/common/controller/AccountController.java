@@ -5,16 +5,23 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bank.common.base.BasePageController;
+import com.bank.common.base.ResultMsg;
 import com.bank.common.model.Account;
+import com.bank.common.model.Role;
 import com.bank.common.service.AccountService;
 
 @Controller
@@ -23,8 +30,8 @@ public class AccountController extends BasePageController {
     private final String LOGIN_JSP = "user/login";
     private final String MAIN_JSP = "user/main";
     private final String LIST_JSP = "account/accountList";
-    private final String ADD_JSP = "role/addRole";
-    private final String EDIT_JSP = "role/editRole";
+    private final String ADD_JSP = "account/addAccount";
+    private final String EDIT_JSP = "account/editAccount";
     private final String ROLE_SET_PRIVILEGE = "role/roleSetPrivilege";
 
     private final Logger logger = Logger.getLogger(AccountController.class);
@@ -59,6 +66,41 @@ public class AccountController extends BasePageController {
                 });
     }
 
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addRole() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(ADD_JSP);
+        return mv;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResultMsg saveRole(@ModelAttribute Account account,
+            HttpServletRequest request, HttpServletResponse response) {
+        ResultMsg resultMsg = null;
+        try {
+            Boolean bl = accountService.saveAccount(account);
+
+            if (bl) {
+                resultMsg = ResultMsg.okMsg();
+            } else {
+                resultMsg = ResultMsg.errorMsg();
+            }
+        } catch (Exception e) {
+            logger.error("save role error", e);
+        }
+        return resultMsg;
+    }
+    
+    @RequestMapping(value = "edit/{id}")
+    public ModelAndView editRole(@PathVariable Integer id,
+            HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(EDIT_JSP);
+        Account account = accountService.findByAccountId(id);
+        mv.addObject("account", account);
+        return mv;
+    }
     public AccountService getAccountService() {
         return accountService;
     }

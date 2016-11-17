@@ -77,7 +77,55 @@
             AND #{endTime} > AC.CREATED_TIME
         </if>
     </select>
-
+	<insert id="add" parameterType="Account">
+        <![CDATA[
+            INSERT INTO ACCOUNT  
+            (
+		       ACCOUNT_NUM,
+		       OPEN_TIME,
+		       OPENER,
+		       CARD_TYPE,
+		       BANK_BOOK,
+		       ACCOUNT_TYPE,
+		       CARD_MARK,
+		       PAY_PASSSWORD,
+		       ACCOUNT_STATUS,
+		       DEPOSITOR_ID,
+		       REMAIN_MONEY,
+		       INTEREST_START_TIME,
+		       INTEREST_STOP_TIME, 
+		       RATE_ID,
+		       CONSTANT_CODE
+            )
+            VALUES
+            (
+                #{accountNum},
+                #{openTime},
+                #{opener},
+                #{cardType},
+                #{bankBook},
+                #{accountType},
+                #{cardMark},
+                #{payPasssWord},
+                #{accountStatus},
+                #{depositorId},
+                #{remainMoney},
+                #{interestStartTime},
+                #{interestStopTime},
+                #{rateId},
+                #{constantCode}
+            )
+        ]]>
+    </insert>
+    
+     <select id="getById" parameterType="java.lang.Integer" resultMap="accountMap">
+        <include refid="selectAccount" />
+        <![CDATA[
+            FROM ACCOUNT AC
+            WHERE AC.ID = #{id} AND IS_DELETED = 0
+        ]]>
+    </select>
+    
     <!-- <sql id="selectUser">
         SELECT
             u.id AS id,

@@ -20,6 +20,18 @@ public class AccountServiceImpl extends BaseService implements AccountService {
         return accountDao.findAllAccountByParams(map);
     }
 
+    @Override
+	public Boolean saveAccount(Account accout) {
+		// TODO Auto-generated method stub
+		return accountDao.add(accout);
+	}
+    
+    @Override
+	public Account findByAccountId(Integer id) {
+		return accountDao.getById(id);
+	}
+    
+    
     public AccountDao getAccountDao() {
         return accountDao;
     }
@@ -27,5 +39,6 @@ public class AccountServiceImpl extends BaseService implements AccountService {
     public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
+
 
 }

@@ -13,7 +13,7 @@
 <body>
   <div class="panelBar" style=" border-width:1px;">
     <ul class="toolBar">
-      <li><span style="margin-left:-25px;">当前位置：系统管理 >> 管理员列表</span></li>
+      <li><span style="margin-left:-25px;">当前位置：平台用户管理 >> 账户列表</span></li>
     </ul>
   </div>
   <div class="pageHeader">
@@ -40,10 +40,9 @@
   <div class="pageContent">
     <div class="panelBar">
       <ul class="toolBar">
-        <li><a class="add" href="${pageContext.request.contextPath}/page/user/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加管理员</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/page/user/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改管理员</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/page/user/userSetRole/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
-        <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/user/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除管理员</span></a></li>
+        <li><a class="add" href="${pageContext.request.contextPath}/page/account/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加账户</span></a></li>
+        <li><a class="edit" href="${pageContext.request.contextPath}/page/account/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改账户</span></a></li>
+        <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/user/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除账户</span></a></li>
       </ul>
     </div>
     <div id="w_list_print">
@@ -51,7 +50,7 @@
         <thead>
           <tr height="25" style="text-align: center;">
           	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-            <th class="center">序号</th>
+            <!-- <th class="center">序号</th> -->
             <th class="center">卡号</th>
             <th class="center">开户人</th>
             <th class="center">卡类型</th>
