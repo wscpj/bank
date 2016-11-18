@@ -22,7 +22,7 @@ public class AccountDaoImpl extends BaseDao<Account, Integer>
     private static final String SQL_ID_FIND_ROLE_CODE = ".findRoleCodes";
     private static final String SQL_ID_FIND_ALL_ACCOUNT_BY_PARAMS = ".findAllAccountByParams";
     private static final String SQL_ID_FIND_ALL_ACCOUNT_GETCOUNT = ".getCount";
-    private static final String SQL_ID_DELETE_ROLE_BYIDS = ".deleteRoleByIds";
+    private static final String SQL_ID_DELETE_ACCOUNT_BYIDS = ".deleteAccountByIds";
     private static final String SQL_ID_FIND_ALL_ROLE = ".findAllRole";
 
     @Override
@@ -44,6 +44,12 @@ public class AccountDaoImpl extends BaseDao<Account, Integer>
         }
         return getSqlSession().selectList(
                 CLASS_NAME + SQL_ID_FIND_ALL_ACCOUNT_BY_PARAMS, map);
+    }
+
+    @Override
+    public void deleteAccountByIds(List<Integer> ids) {
+        // TODO Auto-generated method stub
+        getSqlSession().update(CLASS_NAME + SQL_ID_DELETE_ACCOUNT_BYIDS, ids);
     }
 
 }

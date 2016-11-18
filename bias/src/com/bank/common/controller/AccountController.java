@@ -18,11 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bank.common.AppConstants;
 import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
 import com.bank.common.model.Account;
-import com.bank.common.model.Role;
 import com.bank.common.service.AccountService;
+import com.bank.common.util.StringUtil;
 
 @Controller
 @RequestMapping("/page/account")
@@ -72,7 +73,7 @@ public class AccountController extends BasePageController {
         mv.setViewName(ADD_JSP);
         return mv;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResultMsg saveRole(@ModelAttribute Account account,
@@ -91,7 +92,7 @@ public class AccountController extends BasePageController {
         }
         return resultMsg;
     }
-    
+
     @RequestMapping(value = "edit/{id}")
     public ModelAndView editRole(@PathVariable Integer id,
             HttpServletRequest request, HttpServletResponse response) {
@@ -101,6 +102,19 @@ public class AccountController extends BasePageController {
         mv.addObject("account", account);
         return mv;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "delete")
+    public ResultMsg deleteRole(HttpServletRequest request,
+            @RequestParam(value = "ids", defaultValue = "") String ids) {
+        ResultMsg resultMsg = null;
+        List<Integer> list = StringUtil.StringToList(ids);
+        accountService.deleteAccountByIds(list);
+        resultMsg = ResultMsg.okMsg();
+        resultMsg.setCallbackType(AppConstants.EMPTY);
+        return resultMsg;
+    }
+
     public AccountService getAccountService() {
         return accountService;
     }

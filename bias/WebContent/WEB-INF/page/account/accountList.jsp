@@ -17,7 +17,7 @@
     </ul>
   </div>
   <div class="pageHeader">
-    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="${pageContext.request.contextPath}/page/user/search" method="post">
+    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="${pageContext.request.contextPath}/page/account/search" method="post">
       <input type="hidden" name="pageNum" value="${paginationDTO.currentPage}" />
       <input type="hidden" name="numPerPage" value="${paginationDTO.pageSize}" />
       <div class="searchBar" >
@@ -42,7 +42,7 @@
       <ul class="toolBar">
         <li><a class="add" href="${pageContext.request.contextPath}/page/account/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加账户</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/page/account/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改账户</span></a></li>
-        <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/user/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除账户</span></a></li>
+        <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/account/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除账户</span></a></li>
       </ul>
     </div>
     <div id="w_list_print">

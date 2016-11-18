@@ -21,17 +21,21 @@ public class AccountServiceImpl extends BaseService implements AccountService {
     }
 
     @Override
-	public Boolean saveAccount(Account accout) {
-		// TODO Auto-generated method stub
-		return accountDao.add(accout);
-	}
-    
+    public Boolean saveAccount(Account accout) {
+        // TODO Auto-generated method stub
+        return accountDao.add(accout);
+    }
+
     @Override
-	public Account findByAccountId(Integer id) {
-		return accountDao.getById(id);
-	}
-    
-    
+    public Account findByAccountId(Integer id) {
+        return accountDao.getById(id);
+    }
+
+    @Override
+    public void deleteAccountByIds(List<Integer> ids) {
+        accountDao.deleteAccountByIds(ids);
+    }
+
     public AccountDao getAccountDao() {
         return accountDao;
     }
@@ -39,6 +43,5 @@ public class AccountServiceImpl extends BaseService implements AccountService {
     public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
-
 
 }

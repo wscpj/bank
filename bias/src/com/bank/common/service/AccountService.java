@@ -8,9 +8,11 @@ import com.bank.common.model.Account;
 public interface AccountService {
 
     public List<Account> findAllAccountByParams(Map<String, Object> map);
-    
+
     public Boolean saveAccount(Account accout);
-    
+
     public Account findByAccountId(Integer id);
+
+    public void deleteAccountByIds(List<Integer> ids);
 
 }

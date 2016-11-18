@@ -224,6 +224,7 @@ INSERT INTO `privilege` VALUES ('9', '平台用户管理', 'PlatformUserManage',
 INSERT INTO `privilege` VALUES ('10', '社员管理', 'DepositorManage', '2001', '#', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
 INSERT INTO `privilege` VALUES ('11', '帐户管理', 'AccountManage', '2002', '#', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
 INSERT INTO `privilege` VALUES ('12', '组织管理', 'OrganizationManage', '2003', '/page/org/search', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
+INSERT INTO `privilege` VALUES ('13', '账户管理', 'AccountManage', '2004', '/page/account/search', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
 COMMIT;
 
 -- ----------------------------
