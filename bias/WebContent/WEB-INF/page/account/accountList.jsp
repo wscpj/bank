@@ -91,7 +91,6 @@
             <td>${account.constantCode}</td>
             <td>${account.createdTime}</td>
             <td>${account.updatedTime}</td>
-            
           </tr>
         </c:forEach>
         </tbody>

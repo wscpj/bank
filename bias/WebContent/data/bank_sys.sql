@@ -151,6 +151,34 @@ CREATE TABLE `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `account`
+-- ----------------------------
+DROP TABLE IF EXISTS `depositor`;
+CREATE TABLE `depositor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `depositor_name` varchar(100) NOT NULL,
+  `card_num` varchar(100) NOT NULL,
+  `depositor_code` varchar(100) NOT NULL,
+  `gender` int(1) NOT NULL,
+  `birthday` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `join_time` varchar(100) ,
+  `political_status` int(5) NOT NULL,
+  `duty` int(5),
+  `work_time` int(11),
+  `credit_level` int(10) NOT NULL,
+  `telephone` varchar(50) NOT NULL,
+  `mobile_phone` varchar(50) NOT NULL,
+  `introducer` int(11) NOT NULL,,
+  `address` varchar(500) NOT NULL,
+  `image` varchar(100),
+  `org_id` int(11) NOT NULL,,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Function structure for `getChild`
 -- ----------------------------
 DROP FUNCTION IF EXISTS `getChild`;
