@@ -2,9 +2,8 @@
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-	<classPathEntry location="D:/jarPackage/mysqljar/mysql-connector-java-5.1.18-bin.jar" />
-	<context id="tms-webR7" targetRuntime="MyBatis3"
-		defaultModelType="conditional">
+	<classPathEntry location="D:/JarPackage/mysqljar/mysql/mysql-connector-java-5.1.8-bin.jar" />
+	<context id="tms-webR7" targetRuntime="MyBatis3" defaultModelType="conditional">
 		
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />

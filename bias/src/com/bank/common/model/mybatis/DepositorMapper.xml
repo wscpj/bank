@@ -82,29 +82,69 @@
 	      #{image,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER})
    </insert>
    <update id="update" parameterType="Role">
-        <![CDATA[
-            UPDATE DEPOSITOR DT 
-            SET 
-                DT.DEPOSITOR_NAME = #{depositorName},
-                DT.CARD_NUM = #{cardNum},
-                DT.DEPOSITOR_CODE = #{depositorCode},
-                DT.GENDER = #{gender},
-                DT.BIRTHDAY = #{birthday},
-                DT.JOIN_TIME = #{joinTime},
-                DT.POLITICAL_STATUS = #{politicalStatus},
-                DT.DUTY = #{duty},
-                DT.WORK_TIME = #{workTime},
-                DT.CREDIT_LEVEL = #{creditLevel},
-                DT.TELEPHONE = #{telephone},
-                DT.MOBILE_PHONE = #{mobilePhone},
-                DT.INTRODUCER = #{introducer},
-                DT.ADDRESS = #{address},
-                DT.IMAGE = #{image},
-                DT.ORG_ID = #{orgId},
-                DT.CREATED_TIME = #{createTime},
-                DT.UPDATED_TIME = #{updatedTime}
-            WHERE R.ID = #{id}
-        ]]>
+        
+     update depositor
+	    <set>
+	      <if test="depositorName != null">
+	        depositor_name = #{depositorName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="cardNum != null">
+	        card_num = #{cardNum,jdbcType=VARCHAR},
+	      </if>
+	      <if test="depositorCode != null">
+	        depositor_code = #{depositorCode,jdbcType=VARCHAR},
+	      </if>
+	      <if test="gender != null">
+	        gender = #{gender,jdbcType=INTEGER},
+	      </if>
+	      <if test="birthday != null">
+	        birthday = #{birthday,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="joinTime != null">
+	        join_time = #{joinTime,jdbcType=VARCHAR},
+	      </if>
+	      <if test="politicalStatus != null">
+	        political_status = #{politicalStatus,jdbcType=INTEGER},
+	      </if>
+	      <if test="duty != null">
+	        duty = #{duty,jdbcType=INTEGER},
+	      </if>
+	      <if test="workTime != null">
+	        work_time = #{workTime,jdbcType=INTEGER},
+	      </if>
+	      <if test="creditLevel != null">
+	        credit_level = #{creditLevel,jdbcType=INTEGER},
+	      </if>
+	      <if test="telephone != null">
+	        telephone = #{telephone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="mobilePhone != null">
+	        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+	      </if>
+	      <if test="introducer != null">
+	        introducer = #{introducer,jdbcType=INTEGER},
+	      </if>
+	      <if test="address != null">
+	        address = #{address,jdbcType=VARCHAR},
+	      </if>
+	      <if test="image != null">
+	        image = #{image,jdbcType=VARCHAR},
+	      </if>
+	      <if test="orgId != null">
+	        org_id = #{orgId,jdbcType=INTEGER},
+	      </if>
+	      <if test="isDeleted != null">
+	        is_deleted = #{isDeleted,jdbcType=BIT},
+	      </if>
+	      <if test="createdTime != null">
+	        created_time = #{createdTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="updatedTime != null">
+	        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+	      </if>
+	    </set>
+	    where id = #{id,jdbcType=INTEGER}
+    
    </update>
    <update id="deleteDepositorByIds" parameterType="java.util.List">
          <![CDATA[
