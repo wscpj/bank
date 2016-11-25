@@ -1,34 +1,53 @@
 package com.bank.common.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
-public class Depositor implements Serializable {
-
+public class Depositor implements Serializable{
     /**
-     * 储户表
-     */
-    private static final long serialVersionUID = -5018682264953580170L;
+	 * 储户表
+	 */
+	private static final long serialVersionUID = 3085123657410621407L;
 
-    private Integer id;//
+	private Integer id;
+
     private String depositorName;// 储户姓名
+
     private String cardNum;// 身份证号
+
     private String depositorCode;// 储户编号
+
     private Integer gender;// 储户性别
+
     private String birthday;// 储户生日
+
     private String joinTime;// 加入时间
+
     private Integer politicalStatus;// 政治面貌
+
     private Integer duty;// 担当职务
-    private String workTime;// 任职时间
+
+    private Integer workTime;// 任职时间
+
     private Integer creditLevel;// 信用等级
+
     private String telephone;// 固定电话
+
     private String mobilePhone;// 手机
+
     private Integer introducer;// 介绍人
+
     private String address;// 成员住址
+
     private String image;// 储户个人照片
+
     private Integer orgId;// 机构ID
-    private final Boolean isDeleted = false;//
-    private String createdTime;//
-    private String updatedTime;//
+
+    private Boolean isDeleted = false;
+
+    private String createdTime;
+
+    private String updatedTime;
 
     public Integer getId() {
         return id;
@@ -43,7 +62,7 @@ public class Depositor implements Serializable {
     }
 
     public void setDepositorName(String depositorName) {
-        this.depositorName = depositorName;
+        this.depositorName = depositorName == null ? null : depositorName.trim();
     }
 
     public String getCardNum() {
@@ -51,7 +70,7 @@ public class Depositor implements Serializable {
     }
 
     public void setCardNum(String cardNum) {
-        this.cardNum = cardNum;
+        this.cardNum = cardNum == null ? null : cardNum.trim();
     }
 
     public String getDepositorCode() {
@@ -59,7 +78,7 @@ public class Depositor implements Serializable {
     }
 
     public void setDepositorCode(String depositorCode) {
-        this.depositorCode = depositorCode;
+        this.depositorCode = depositorCode == null ? null : depositorCode.trim();
     }
 
     public Integer getGender() {
@@ -83,7 +102,7 @@ public class Depositor implements Serializable {
     }
 
     public void setJoinTime(String joinTime) {
-        this.joinTime = joinTime;
+        this.joinTime = joinTime == null ? null : joinTime.trim();
     }
 
     public Integer getPoliticalStatus() {
@@ -102,11 +121,11 @@ public class Depositor implements Serializable {
         this.duty = duty;
     }
 
-    public String getWorkTime() {
+    public Integer getWorkTime() {
         return workTime;
     }
 
-    public void setWorkTime(String workTime) {
+    public void setWorkTime(Integer workTime) {
         this.workTime = workTime;
     }
 
@@ -123,7 +142,7 @@ public class Depositor implements Serializable {
     }
 
     public void setTelephone(String telephone) {
-        this.telephone = telephone;
+        this.telephone = telephone == null ? null : telephone.trim();
     }
 
     public String getMobilePhone() {
@@ -131,7 +150,7 @@ public class Depositor implements Serializable {
     }
 
     public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
+        this.mobilePhone = mobilePhone == null ? null : mobilePhone.trim();
     }
 
     public Integer getIntroducer() {
@@ -147,7 +166,7 @@ public class Depositor implements Serializable {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = address == null ? null : address.trim();
     }
 
     public String getImage() {
@@ -155,7 +174,7 @@ public class Depositor implements Serializable {
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.image = image == null ? null : image.trim();
     }
 
     public Integer getOrgId() {
@@ -164,6 +183,14 @@ public class Depositor implements Serializable {
 
     public void setOrgId(Integer orgId) {
         this.orgId = orgId;
+    }
+
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public String getCreatedTime() {
@@ -181,9 +208,4 @@ public class Depositor implements Serializable {
     public void setUpdatedTime(String updatedTime) {
         this.updatedTime = updatedTime;
     }
-
-    public Boolean getIsDeleted() {
-        return isDeleted;
-    }
-
 }

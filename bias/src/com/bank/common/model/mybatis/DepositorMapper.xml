@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bank.common.model.Depositor" >
+  <resultMap id="depositorMap" type="Depositor" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="depositor_name" property="depositorName" jdbcType="VARCHAR" />
+    <result column="card_num" property="cardNum" jdbcType="VARCHAR" />
+    <result column="depositor_code" property="depositorCode" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="join_time" property="joinTime" jdbcType="VARCHAR" />
+    <result column="political_status" property="politicalStatus" jdbcType="INTEGER" />
+    <result column="duty" property="duty" jdbcType="INTEGER" />
+    <result column="work_time" property="workTime" jdbcType="INTEGER" />
+    <result column="credit_level" property="creditLevel" jdbcType="INTEGER" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="introducer" property="introducer" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="pagination">
+      <if test="offset != null and rowCount != null">
+          <![CDATA[
+              LIMIT #{offset},#{rowCount}
+          ]]>
+      </if>
+  </sql>
+  
+  <sql id="selectAccount">
+      SELECT
+      ID, DEPOSITOR_NAME, CARD_NUM, DEPOSITOR_CODE, GENDER, BIRTHDAY, JOIN_TIME, POLITICAL_STATUS, 
+  	  DUTY, WORK_TIME, CREDIT_LEVEL, TELEPHONE, MOBILE_PHONE, INTRODUCER, ADDRESS, IMAGE, 
+  	  ORG_ID, IS_DELETED, CREATED_TIME, UPDATED_TIME
+  </sql>
+  <select id="findAllDepositorByParams" parameterType="java.util.HashMap" resultMap="depositorMap">
+       <include refid="selectAccount"></include>
+       FROM DEPOSITOR DT WHERE DT.IS_DELETED = 0
+       <if test="beginTime != null and beginTime != ''">
+           AND DT.CREATED_TIME > #{beginTime}
+       </if>
+       <if test="endTime != null and endTime != ''">
+           AND #{endTime} > DT.CREATED_TIME
+       </if>
+        ORDER BY DT.ID
+       <include refid="pagination"></include>
+   </select>
+   <select id="getCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT COUNT(ID) FROM DEPOSITOR DT
+        WHERE DT.IS_DELETED = 0
+        <if test="beginTime != null and beginTime != ''">
+            AND DT.CREATED_TIME > #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND #{endTime} > DT.CREATED_TIME
+        </if>
+   </select>
+    <select id="getById" parameterType="java.lang.Integer" resultMap="depositorMap">
+        <include refid="selectAccount" />
+        <![CDATA[
+            FROM DEPOSITOR DT
+            WHERE DT.ID = #{id} AND IS_DELETED = 0
+        ]]>
+    </select>
+   <insert id="add" parameterType="Depositor" >
+	    insert into depositor ( depositor_name, card_num, 
+	      depositor_code, gender, birthday, 
+	      join_time, political_status, duty, 
+	      work_time, credit_level, telephone, 
+	      mobile_phone, introducer, address, 
+	      image, org_id)
+	    values (#{depositorName,jdbcType=VARCHAR}, #{cardNum,jdbcType=VARCHAR}, 
+	      #{depositorCode,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{birthday,jdbcType=TIMESTAMP}, 
+	      #{joinTime,jdbcType=VARCHAR}, #{politicalStatus,jdbcType=INTEGER}, #{duty,jdbcType=INTEGER}, 
+	      #{workTime,jdbcType=INTEGER}, #{creditLevel,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR}, 
+	      #{mobilePhone,jdbcType=VARCHAR}, #{introducer,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+	      #{image,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER})
+   </insert>
+   <update id="update" parameterType="Role">
+        <![CDATA[
+            UPDATE DEPOSITOR DT 
+            SET 
+                DT.DEPOSITOR_NAME = #{depositorName},
+                DT.CARD_NUM = #{cardNum},
+                DT.DEPOSITOR_CODE = #{depositorCode},
+                DT.GENDER = #{gender},
+                DT.BIRTHDAY = #{birthday},
+                DT.JOIN_TIME = #{joinTime},
+                DT.POLITICAL_STATUS = #{politicalStatus},
+                DT.DUTY = #{duty},
+                DT.WORK_TIME = #{workTime},
+                DT.CREDIT_LEVEL = #{creditLevel},
+                DT.TELEPHONE = #{telephone},
+                DT.MOBILE_PHONE = #{mobilePhone},
+                DT.INTRODUCER = #{introducer},
+                DT.ADDRESS = #{address},
+                DT.IMAGE = #{image},
+                DT.ORG_ID = #{orgId},
+                DT.CREATED_TIME = #{createTime},
+                DT.UPDATED_TIME = #{updatedTime}
+            WHERE R.ID = #{id}
+        ]]>
+   </update>
+   <update id="deleteDepositorByIds" parameterType="java.util.List">
+         <![CDATA[
+           UPDATE DEPOSITOR DT SET DT.IS_DELETED = 1 WHERE DT.ID IN
+        ]]>
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+          #{item}  
+        </foreach>  
+    </update>
+  
+</mapper>

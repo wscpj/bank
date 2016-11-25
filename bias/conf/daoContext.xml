@@ -32,4 +32,6 @@
     <bean id="orgDao" parent="baseDao" class="com.bank.common.dao.mybatis.OrgDaoImpl" />
     
     <bean id="accountDao" parent="baseDao" class="com.bank.common.dao.mybatis.AccountDaoImpl" />
+    
+    <bean id="depositorDao" parent="baseDao" class="com.bank.common.dao.mybatis.DepositorDaoImpl" />
 </beans>

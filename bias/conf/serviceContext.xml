@@ -60,4 +60,8 @@
     <bean id="accountService" parent="baseService" class="com.bank.common.service.local.AccountServiceImpl">
         <property name="accountDao" ref="accountDao"></property>
     </bean>
+    
+    <bean id="depositorService" parent="baseService" class="com.bank.common.service.local.DepositorServiceImpl">
+        <property name="depositorDao" ref="depositorDao"></property>
+    </bean>
 </beans>
