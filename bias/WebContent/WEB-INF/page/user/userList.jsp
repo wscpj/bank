@@ -4,6 +4,11 @@
 <html>
 <head>
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon"/>
+  <script type="text/javascript">
+    $("#cleanButton").click(function(){
+        $(".searchBar input").val("");
+    });
+  </script>
 </head>
 <body>
   <div class="panelBar" style=" border-width:1px;">
@@ -25,6 +30,7 @@
         </table>
         <div class="subBar" style="margin-top:-25px;">
           <ul>
+            <li><div class="buttonActive"><div class="buttonContent"><button type="button" id="cleanButton">清空</button></div></div></li>
             <li><div class="buttonActive"><div class="buttonContent"><button type="submit">高级检索</button></div></div></li>
           </ul>
         </div>
@@ -36,7 +42,7 @@
       <ul class="toolBar">
         <li><a class="add" href="${pageContext.request.contextPath}/page/user/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加管理员</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/page/user/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改管理员</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/manage/modifyView?id={id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
+        <li><a class="edit" href="${pageContext.request.contextPath}/page/user/userSetRole/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
         <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/user/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除管理员</span></a></li>
       </ul>
     </div>
@@ -45,13 +51,12 @@
         <thead>
           <tr height="25" style="text-align: center;">
           	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-            <th class="center" >序号</th>
+            <th class="center">序号</th>
             <th class="center">姓名</th>
             <th class="center">密码</th>
-            <th class="center" >性别</th>
+            <th class="center">性别</th>
             <th class="center">邮箱</th>
             <th class="center">手机</th>
-            <th class="center">角色</th>
           </tr>
         </thead>
         <tbody>
@@ -63,7 +68,6 @@
             <td><input type="password" value="${user.password}" style="border:0px;background-color: white" readonly="readonly"/></td>
             <td>${user.gender}</td>
             <td>${user.email}</td>
-            <td>${user.phone}</td>
             <td>${user.phone}</td>
           </tr>
         </c:forEach>

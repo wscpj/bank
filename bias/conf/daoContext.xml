@@ -18,7 +18,18 @@
         http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
     <bean id="userDao" parent="baseDao" class="com.bank.common.dao.mybatis.UserDaoImpl" />
+    
     <bean id="privilegeDao" parent="baseDao" class="com.bank.common.dao.mybatis.PrivilegeDaoImpl" />
+    
     <bean id="roleDao" parent="baseDao" class="com.bank.common.dao.mybatis.RoleDaoImpl" />
+    
     <bean id="logDao" parent="baseDao" class="com.bank.common.dao.mybatis.LogDaoImpl" />
+    
+    <bean id="userRoleDao" parent="baseDao" class="com.bank.common.dao.mybatis.UserRoleDaoImpl" />
+    
+    <bean id="rolePrivilegeDao" parent="baseDao" class="com.bank.common.dao.mybatis.RolePrivilegeDaoImpl" />
+    
+    <bean id="orgDao" parent="baseDao" class="com.bank.common.dao.mybatis.OrgDaoImpl" />
+    
+    <bean id="accountDao" parent="baseDao" class="com.bank.common.dao.mybatis.AccountDaoImpl" />
 </beans>

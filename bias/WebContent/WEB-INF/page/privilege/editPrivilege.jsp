@@ -3,6 +3,16 @@
 <!DOCTYPE>
 <html>
   <head>
+    <script type="text/javascript">
+       $(function(){
+           $("#button").click(function(){
+             var parentId = $(".parentId").val();
+             if (parentId != null && parentId != undefined && parentId != "") {
+                 $("#parentId").val($(".parentId").val());
+             }
+           });
+       });
+    </script>
   </head>
   <body style="background-repeat: no-repeat;background-position: center;background: url('${pageContext.request.contextPath}/Images/background.jpg');">
     <div class="panelBar" style=" border-width:1px;">
@@ -13,6 +23,7 @@
     <div class="pageContent">
       <form method="post" action="${pageContext.request.contextPath}/page/privilege/updatePrivilege" class="pageForm required-validate"   onsubmit="return validateCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="90">
+        	<input type="hidden" name="id" value="${privilege.id }"/>
           <p>
             <label>权限名称：</label>
             <input name="displayName" class="required" type="text" size="30" value="${privilege.displayName }" alt="请输入权限名称" />
@@ -30,13 +41,16 @@
             <input name="url" class="required" type="text" size="30" value="${privilege.url }" alt="请输入权限URL" />
           </p>
           <p>
-            <label>父权限ID：</label>
-            <input name="parentId" class="required" type="text" size="30" value="${privilege.parentId }" alt="请输入父权限ID" />
+            <label>父权限：</label>
+            <input type="hidden" id="parentId" name="parentId" value="${privilege.parentId}"/>
+            <input type="hidden" class="parentId" name="privilege.parentId"/>
+            <input type="text" readonly="readonly" name="privilege.displayName" value="${privilege.parentName}" alt="请选择父权限" class="required" size="28" maxlength="600" /> 
+            <a class="btnLook" href="${pageContext.request.contextPath}/page/privilege/searchParent?method=suggest"  lookupGroup="privilege" resizable="false" maxable="false"  width="500" height="400" lookupPk="orgNum" title="查找" ></a>
           </p>
         </div>
         <div class="formBar">
           <ul>
-            <li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+            <li><div class="buttonActive"><div class="buttonContent"><button id="button" type="submit">保存</button></div></div></li>
             <li>
                 <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
             </li>

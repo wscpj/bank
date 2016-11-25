@@ -1,7 +1,5 @@
 package com.bank.common.service.local;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -9,19 +7,24 @@ import org.apache.log4j.Logger;
 
 import com.bank.common.base.BaseService;
 import com.bank.common.dao.UserDao;
+import com.bank.common.dao.UserRoleDao;
+import com.bank.common.dto.UserSetRoleDTO;
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
 import com.bank.common.model.User;
 import com.bank.common.service.UserService;
+import com.bank.common.util.EmailUtil;
 import com.bank.common.util.StringUtil;
 
 public class UserServiceImpl extends BaseService implements UserService {
-	
-	private static final long serialVersionUID = 7440921737614461773L;
 
-	private final Logger logger = Logger.getLogger(UserServiceImpl.class);
+    private static final long serialVersionUID = 7440921737614461773L;
+
+    private final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     private UserDao userDao;
+
+    private UserRoleDao userRoleDao;
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
@@ -64,20 +67,32 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public List<User> findUsers() {
-        return userDao.findUsers();
+        logger.info("findUsers paramters:{}");
+        List<User> result = null;
+        try {
+            result = userDao.findUsers();
+        } catch (Exception e) {
+            logger.error("findUsers error " + e);
+        }
+        return result;
     }
 
     @Override
     public List<User> searchUsers(Map<String, Object> map) {
-        return userDao.searchUsers(map);
+        logger.info("searchUsers paramters:{}");
+        List<User> result = null;
+        try {
+            result = userDao.searchUsers(map);
+        } catch (Exception e) {
+            EmailUtil util = new EmailUtil();
+            util.sendMailExt("searchUsers error " + e.getMessage());
+            logger.error("searchUsers error " + e);
+        }
+        return result;
     }
 
     @Override
     public Boolean addUser(User user) {
-    	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String nowDate = sf.format(new Date());
-        user.setCreatedTime(nowDate);
-        user.setUpdatedTime(nowDate);
         return userDao.add(user);
     }
 
@@ -88,11 +103,17 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public Boolean deleteUser(Integer id) {
+        //删除用户的同时删除用户角色表数据
+        userRoleDao.deleteUserRoleByUserId(id);
         return userDao.delete(id);
     }
 
     @Override
     public void deleteUserByIds(List<Integer> ids) {
+        //删除用户的同时删除用户角色表数据
+        for(Integer userId: ids){
+            userRoleDao.deleteUserRoleByUserId(userId);
+        }
         userDao.deleteUserByIds(ids);
     }
 
@@ -100,4 +121,18 @@ public class UserServiceImpl extends BaseService implements UserService {
     public User findUserById(Integer id) {
         return userDao.findUserById(id);
     }
+
+    @Override
+    public List<UserSetRoleDTO> userSetRole(Integer userId) {
+        return userDao.userSetRole(userId);
+    }
+
+    public UserRoleDao getUserRoleDao() {
+        return userRoleDao;
+    }
+
+    public void setUserRoleDao(UserRoleDao userRoleDao) {
+        this.userRoleDao = userRoleDao;
+    }
+
 }

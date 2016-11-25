@@ -12,7 +12,7 @@
 		<result column="created_time" property="createdTime" />
 		<result column="updated_time" property="updatedTime" />
 	</resultMap>
-
+	
 	<sql id="pagination">
 		<if test="offset != null and rowCount != null">
             <![CDATA[
@@ -32,7 +32,7 @@
 		R.UPDATED_TIME AS UPDATED_TIME
 	</sql>
 
-	<select id="findAllRole" parameterType="java.util.HashMap" resultMap="roleMap">
+	<select id="findAllRoleByParams" parameterType="java.util.HashMap" resultMap="roleMap">
 		<include refid="selectRole"></include>
 		FROM ROLE R WHERE R.IS_DELETED = 0
 		<if test="roleName != null and roleName != '' ">
@@ -46,6 +46,11 @@
 		</if>
 		 ORDER BY R.ID
 		<include refid="pagination"></include>
+	</select>
+	
+	<select id="findAllRole" resultMap="roleMap">
+		<include refid="selectRole"></include>
+		FROM ROLE R WHERE R.IS_DELETED = 0 ORDER BY R.ID
 	</select>
 
 	<select id="getCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
@@ -69,8 +74,8 @@
 
 	<insert id="add" parameterType="Role">
 		INSERT INTO
-		ROLE(ROLE_CODE,DISPLAY_NAME,ROLE_NAME,IS_DELETED,CREATED_TIME,UPDATED_TIME)
-		VALUES(#{roleCode},#{displayName},#{roleName},'0',#{createdTime},#{updatedTime})
+		ROLE(ROLE_CODE,DISPLAY_NAME,ROLE_NAME)
+		VALUES(#{roleCode},#{displayName},#{roleName})
 	</insert>
 	<update id="update" parameterType="Role">
         <![CDATA[

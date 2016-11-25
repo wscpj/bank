@@ -4,6 +4,11 @@
 <html>
 <head>
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon"/>
+  <script type="text/javascript">
+    $("#cleanButton").click(function(){
+        $(".searchBar input").val("");
+    });
+  </script>
 </head>
 <body>
   <div class="panelBar" style=" border-width:1px;">
@@ -25,6 +30,7 @@
         </table>
         <div class="subBar" style="margin-top:-25px;">
           <ul>
+            <li><div class="buttonActive"><div class="buttonContent"><button type="button" id="cleanButton">清空</button></div></div></li>
             <li><div class="buttonActive"><div class="buttonContent"><button type="submit">高级检索</button></div></div></li>
           </ul>
         </div>
@@ -36,7 +42,7 @@
       <ul class="toolBar">
         <li><a class="add" href="${pageContext.request.contextPath}/page/role/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加角色</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/page/role/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改角色</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/manage/modifyView?id={id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
+        <li><a class="edit" href="${pageContext.request.contextPath}/page/role/roleSetPrivilege/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="500" height="400"><span>设置角色权限</span></a></li>
         <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/role/deleteRole" target="selectedTodo" title="确定要删除吗"><span>删除角色</span></a></li>
       </ul>
     </div>

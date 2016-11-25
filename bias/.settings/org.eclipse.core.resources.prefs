@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
+encoding//dev-conf/bias.properties=UTF-8
 encoding//src/com/bank/common/convert/DateConvert.java=UTF-8
+encoding//src/com/bank/common/model/MailBean.java=UTF-8
+encoding//src/com/bank/common/util/EmailUtil.java=UTF-8
 encoding/<project>=UTF-8

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.common.model.Organization">
+
+    <resultMap type="Organization" id="orgMap">
+        <id column="id" property="id"/>
+        <result column="organization_name" property="organizationName"/>
+        <result column="organization_code" property="organizationCode"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+
+    <sql id="pagination">
+        <if test="offset != null and rowCount != null">
+            <![CDATA[
+                LIMIT #{offset},#{rowCount}
+            ]]>
+        </if>
+    </sql>
+
+    <sql id="selectOrg">
+        SELECT
+            org.id AS id,
+            org.organization_name AS organization_name,
+            org.organization_code AS organization_code,
+            org.created_time AS created_time,
+            org.updated_time AS updated_time,
+            org.is_deleted AS is_deleted
+    </sql>
+    
+    <select id="getById" parameterType="java.lang.Integer" resultMap="orgMap">
+        <include refid="selectOrg" />
+        <![CDATA[
+            FROM organization org
+            WHERE org.id = #{id} and org.is_deleted = 0
+        ]]>
+    </select>
+    
+    <select id="searchOrgs" parameterType="java.util.HashMap" resultMap="orgMap">
+        <include refid="selectOrg" />
+        <![CDATA[
+            FROM organization org
+            WHERE org.IS_DELETED = 0
+        ]]>
+        <if test="organizationName != null and organizationName != ''">
+            <![CDATA[
+                AND org.organization_name LIKE '%${organizationName}%'
+            ]]>
+        </if>
+        <if test="beginTime != null and beginTime != ''">
+            <![CDATA[
+              AND org.CREATED_TIME > #{beginTime}
+            ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <![CDATA[
+              AND #{endTime} > org.CREATED_TIME
+            ]]>
+        </if>
+        <![CDATA[
+            ORDER BY org.ID
+        ]]>
+        <include refid="pagination" />
+    </select>
+    
+    <select id="getCountByKeywords" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT COUNT(org.ID)
+            FROM organization org
+            WHERE org.IS_DELETED = 0
+        ]]>
+        <if test="organizationName != null and organizationName !=''">
+            <![CDATA[
+                AND org.organization_name LIKE '%${organizationName}%'
+            ]]>
+        </if>
+        <if test="beginTime != null and beginTime != ''">
+            <![CDATA[
+              AND org.CREATED_TIME > #{beginTime}
+            ]]>
+        </if>
+        <if test="endTime != null and endTime != ''">
+            <![CDATA[
+              AND #{endTime} > org.CREATED_TIME
+            ]]>
+        </if>
+    </select>
+
+   <insert id="add" parameterType="Organization">
+        <![CDATA[
+            INSERT INTO organization  
+            (
+                ORGANIZATION_NAME,
+                ORGANIZATION_CODE
+            )
+            VALUES
+            (
+                #{organizationName},
+                #{organizationCode}
+            )
+        ]]>
+    </insert>
+    
+   <update id="update" parameterType="Organization">
+        <![CDATA[
+            UPDATE ORGANIZATION org
+            SET 
+                org.organization_name = #{organizationName},
+                org.organization_code = #{organizationCode},
+                org.updated_time = #{updatedTime}
+            WHERE org.id = #{id}
+        ]]>
+    </update>
+    
+    <update id="deleteOrgByIds" parameterType="java.util.List">
+         <![CDATA[
+           UPDATE ORGANIZATION org SET org.is_deleted = 1 WHERE org.id IN
+        ]]>
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+          #{item}  
+        </foreach>  
+    </update>
+</mapper>

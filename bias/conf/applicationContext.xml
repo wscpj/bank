@@ -20,6 +20,7 @@
         <property name="locations">
            <list>
                 <value>classpath:jdbc.properties</value>
+                <value>classpath:bias.properties</value>
            </list>
         </property>
     </bean>
@@ -97,7 +98,7 @@
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="typeAliasesPackage" value="com.bank.common.model;com.bank.bias.model;com.bank.report.model;"></property>
+        <property name="typeAliasesPackage" value="com.bank.common.model;com.bank.common.dto;com.bank.bias.model;com.bank.report.model;"></property>
         <property name="mapperLocations" value="classpath*:com/bank/**/model/mybatis/*Mapper.xml" />
     </bean>
 

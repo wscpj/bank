@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>资金互助合作社业务管理平台</title>
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon"/>
+<%-- <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon"/> --%>
 <link href="${pageContext.request.contextPath}/static/js/lib/dwz/themes/green/style.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="${pageContext.request.contextPath}/static/js/lib/dwz/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="${pageContext.request.contextPath}/static/js/lib/dwz/themes/css/print.css" rel="stylesheet" type="text/css" media="print"/>
@@ -146,62 +146,7 @@ $(function(){
             <h2><span>Folder</span>资金互助合作社管理平台</h2>
           </div>
           <div class="accordionContent">
-            <ul class="tree">
-              <!--<li><a>公司基本信息管理</a>
-                <ul>
-                  <li><a href="${pageContext.request.contextPath}/company/companyView" target="navTab" rel="w_table">基本信息管理</a></li>
-                  <li><a href="${pageContext.request.contextPath}/link/linkView" target="navTab" rel="w_table">友情链接管理</a></li>
-                  <li><a href="${pageContext.request.contextPath}/brochure/brochureView" target="navTab" rel="w_table">宣传册管理</a></li>
-                  <li><a href="${pageContext.request.contextPath}/movie/movieView" target="navTab" rel="w_table">视频管理</a></li>
-                </ul>
-              </li>
-              <li><a>新闻动态管理</a>
-                <ul>
-                  <li><a href="${pageContext.request.contextPath}/news/newsView" target="navTab" rel="w_table">新闻动态管理</a></li>
-                </ul>
-              </li>
-              <li><a>产品信息管理</a>
-                <ul>
-                  <li><a href="${pageContext.request.contextPath}/class/classView" target="navTab" rel="w_table">产品类别管理</a></li>
-                  <li><a href="${pageContext.request.contextPath}/product/productView" target="navTab" rel="w_table">产品信息管理</a></li>
-                </ul>
-              </li>
-              <li><a>纹绣技术管理</a>
-                <ul>
-                  <li><a href="${pageContext.request.contextPath}/knowledge/knowledgeView" target="navTab" rel="w_table">纹绣技术管理</a></li>
-                </ul> 
-              </li>
-              <li><a>精英团队管理</a>
-                <ul>
-                  <li><a href="${pageContext.request.contextPath}/team/teamView" target="navTab" rel="w_table">精英团队管理</a></li>
-                </ul>
-              </li>
-              <li><a>培训加盟管理</a>
-                <ul>
-                  <li><a href="${pageContext.request.contextPath}/join/joinView" target="navTab" rel="w_table">培训加盟管理</a></li>
-                </ul>
-              </li>
-              <li><a>学员风采管理</a>
-                <ul>
-                  <li><a href="${pageContext.request.contextPath}/student/studentView" target="navTab" rel="w_table">学员风采管理</a></li>
-                </ul>
-              </li>
-              <li><a>技术收费管理</a>
-                <ul>
-                  <li><a href="${pageContext.request.contextPath}/technology/technologyView" target="navTab" rel="w_table">技术收费管理</a></li>
-                </ul>
-              </li>-->
-              <li><a><i class="fa fa-sitemap fa-lg fa-fw"></i>系统管理</a>
-                <ul>
-                  <li><a href="${pageContext.request.contextPath}/page/user/search" target="navTab" rel="w_table"><i class="fa fa-users fa-lg fa-fw"></i>用户管理</a></li>
-                  <li><a href="${pageContext.request.contextPath}/page/role/search" target="navTab" rel="w_table"><i class="fa fa-user fa-lg fa-fw"></i>角色管理</a></li>
-                  <li><a href="${pageContext.request.contextPath}/page/privilege/search" target="navTab" rel="w_table"><i class="fa fa-user fa-lg fa-fw"></i>权限管理</a></li>
-                  <li><a href="${pageContext.request.contextPath}/page/backup/database" target="ajaxTodo" rel="w_table" title="确定进行数据库备份吗?"><i class="fa fa-database fa-lg fa-fw"></i>数据库备份</a></li>
-                  <li><a href="${pageContext.request.contextPath}/page/log/search" target="navTab" rel="w_table"><i class="fa fa-file fa-lg fa-fw"></i>登陆日志</a></li>
-                  <li><a id="mid" href="#" ><i class="fa fa-user fa-lg fa-fw"></i>退出系统</a></li>
-                </ul>
-              </li>
-           </ul>
+            ${trees}
          </div>
        </div>
      </div>

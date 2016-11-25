@@ -9,7 +9,7 @@ public class Role implements Serializable {
     private String displayName;
     private String roleCode;
     private String roleName;
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
     private String createdTime;
     private String updatedTime;
 

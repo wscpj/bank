@@ -12,14 +12,19 @@ import com.bank.common.service.BackupService;
 import com.bank.common.util.PropertiesUtil;
 
 public class BackupServiceImpl extends BaseService implements BackupService {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7214532142690758512L;
     private Logger logger = Logger.getLogger(BackupServiceImpl.class);
     @Override
     public Boolean backupDataBase() {
+        logger.info("backupDataBase paramters : {}");
         try {
             this.export();
             return Boolean.TRUE;
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            logger.error("backupDataBase error" + e);
             e.printStackTrace();
         }
         return Boolean.FALSE;

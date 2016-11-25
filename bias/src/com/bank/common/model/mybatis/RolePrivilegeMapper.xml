@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bank.common.model.RolePrivilege">
+
+	<resultMap type="RolePrivilege" id="rolePrivilegeMap">
+		<id column="id" property="id" />
+		<result column="role_id" property="roleId" />
+		<result column="privilege_id" property="privilegeId" />
+		<result column="is_Deleted" property="isDeleted" />
+		<result column="created_time" property="createdTime" />
+		<result column="updated_time" property="updatedTime" />
+	</resultMap>
+	
+	<sql id="selectRolePrivilege">
+		SELECT
+		MRP.ID AS ID,
+		MRP.ROLE_ID AS ROLE_ID,
+		MRP.PRIVILEGE_ID AS PRIVILEGE_ID,
+		MRP.IS_DELETED AS IS_DELETED,
+		MRP.CREATED_TIME AS CREATED_TIME,
+		MRP.UPDATED_TIME AS UPDATED_TIME
+	</sql>
+	
+    <select id="findRolePrivilegeByRoleId" parameterType="java.lang.Integer" resultMap="rolePrivilegeMap">
+        <include refid="selectRolePrivilege" />
+        FROM MAP_ROLE_PRIVILEGE MRP WHERE MRP.ROLE_ID = #{roleId}
+    </select>
+    
+    <insert id="addRolePrivilege" parameterType="java.util.List">
+        <![CDATA[
+           INSERT INTO MAP_ROLE_PRIVILEGE
+           (
+               ROLE_ID, 
+               PRIVILEGE_ID
+           )
+           VALUES
+        ]]>
+        <foreach item="item" index="index" collection="list" separator=",">
+        (
+            #{item.roleId},
+            #{item.privilegeId}
+        )
+        </foreach>  
+    </insert>
+    
+	<delete id="delete" parameterType="java.lang.Integer">
+	     DELETE FROM  MAP_ROLE_PRIVILEGE WHERE ROLE_ID = #{roleId} 
+	</delete>
+</mapper>

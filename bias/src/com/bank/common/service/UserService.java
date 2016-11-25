@@ -3,6 +3,7 @@ package com.bank.common.service;
 import java.util.List;
 import java.util.Map;
 
+import com.bank.common.dto.UserSetRoleDTO;
 import com.bank.common.exception.BusinessException;
 import com.bank.common.exception.ValidationException;
 import com.bank.common.model.User;
@@ -26,4 +27,6 @@ public interface UserService {
     void deleteUserByIds(List<Integer> ids);
 
     User findUserById(Integer id);
+
+    List<UserSetRoleDTO> userSetRole(Integer userId);
 }

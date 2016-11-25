@@ -88,8 +88,6 @@ public abstract class BasePageController extends BaseController {
                 Integer currentPage, Integer pageSize, String relativeUrl,
                 String jspPage) {
             PaginationDTO<T> paginationDTO = new PaginationDTO<T>();
-            AppContext.getContext().addObject(AppConstants.PAGINATION_DTO,
-                    paginationDTO);
             if (currentPage != null) {
                 paginationDTO.setCurrentPage(currentPage);
             }
@@ -97,6 +95,8 @@ public abstract class BasePageController extends BaseController {
                 paginationDTO.setPageSize(pageSize);
             }
             paginationDTO.setRelativeUrl(relativeUrl);
+            AppContext.getContext().addObject(AppConstants.PAGINATION_DTO,
+                    paginationDTO);
             ModelAndView modelAndView = new ModelAndView(jspPage);
             List<T> itemList = callBack();
             paginationDTO.setItemList(itemList);

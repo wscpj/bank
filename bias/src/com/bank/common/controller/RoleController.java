@@ -1,6 +1,7 @@
 package com.bank.common.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +25,9 @@ import com.bank.common.AppConstants;
 import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
 import com.bank.common.model.Role;
+import com.bank.common.model.RolePrivilege;
+import com.bank.common.service.PrivilegeService;
+import com.bank.common.service.RolePrivilegeService;
 import com.bank.common.service.RoleService;
 import com.bank.common.service.UserService;
 import com.bank.common.util.StringUtil;
@@ -35,6 +40,7 @@ public class RoleController extends BasePageController {
     private final String LIST_JSP = "role/roleList";
     private final String ADD_JSP = "role/addRole";
     private final String EDIT_JSP = "role/editRole";
+    private final String ROLE_SET_PRIVILEGE = "role/roleSetPrivilege";
 
     private final Logger logger = Logger.getLogger(RoleController.class);
 
@@ -42,6 +48,10 @@ public class RoleController extends BasePageController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private PrivilegeService privilegeService;
+    @Autowired
+    private RolePrivilegeService rolePrivilegeService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
@@ -62,6 +72,38 @@ public class RoleController extends BasePageController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName(ADD_JSP);
         return mv;
+    }
+
+    @RequestMapping(value = "/roleSetPrivilege/{id}", method = RequestMethod.GET)
+    public ModelAndView roleSetPrivilege(@PathVariable Integer id) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(ROLE_SET_PRIVILEGE);
+        String tree = roleService.roleSetPrivilegeBulidTree(id);
+        mv.addObject("tree", tree);
+        mv.addObject("roleId", id);
+        return mv;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/saveRoleSetPrivilege", method = RequestMethod.POST)
+    public ResultMsg saveRoleSetPrivilege(
+            @RequestParam(value = "roleId", defaultValue = "") Integer roleId,
+            @RequestParam(value = "privilegeIds", defaultValue = "") String privilegeIds) {
+        if (roleId != null) {
+            rolePrivilegeService.deleteRolePrivilege(roleId);
+        }
+        if (!privilegeIds.isEmpty()) {
+            List<RolePrivilege> rolePrivileges = new ArrayList<RolePrivilege>();
+            String[] ids = privilegeIds.split(",");
+            for (String id : ids) {
+                RolePrivilege rolePrivilege = new RolePrivilege();
+                rolePrivilege.setRoleId(roleId);
+                rolePrivilege.setPrivilegeId(Integer.parseInt(id));
+                rolePrivileges.add(rolePrivilege);
+            }
+            rolePrivilegeService.addRolePrivilege(rolePrivileges);
+        }
+        return ResultMsg.okMsg();
     }
 
     @ResponseBody
@@ -117,9 +159,8 @@ public class RoleController extends BasePageController {
     @ResponseBody
     @RequestMapping(value = "deleteRole")
     public ResultMsg deleteRole(HttpServletRequest request,
-            HttpServletResponse response) {
+            @RequestParam(value = "ids", defaultValue = "") String ids) {
         ResultMsg resultMsg = null;
-        String ids = request.getParameter("ids");
         List<Integer> list = StringUtil.StringToList(ids);
         roleService.deleteRoleByIds(list);
         resultMsg = ResultMsg.okMsg();
@@ -128,17 +169,19 @@ public class RoleController extends BasePageController {
     }
 
     @RequestMapping(value = "/search")
-    public ModelAndView findRole(HttpServletRequest request) {
+    public ModelAndView findRole(
+            HttpServletRequest request,
+            @RequestParam(value = "pageNum", defaultValue = "") String pageNum,
+            @RequestParam(value = "numPerPage", defaultValue = "") String numPerPage,
+            @RequestParam(value = "userName", defaultValue = "") String userName,
+            @RequestParam(value = "beginTime", defaultValue = "") String beginTime,
+            @RequestParam(value = "endTime", defaultValue = "") String endTime) {
 
-        String pageNum = request.getParameter("pageNum");
-        String numPerPage = request.getParameter("numPerPage");
-        Integer pageNumInt = pageNum == null ? 1 : Integer.valueOf(pageNum);
-        Integer numPerPageInt = numPerPage == null ? 10 : Integer
+        Integer pageNumInt = "".equals(pageNum) ? 1 : Integer.valueOf(pageNum);
+        Integer numPerPageInt = "".equals(numPerPage) ? 10 : Integer
                 .valueOf(numPerPage);
 
         String roleName = request.getParameter("roleName");
-        String beginTime = request.getParameter("beginTime");
-        String endTime = request.getParameter("endTime");
         final Map<String, Object> paramsMap = new HashMap<String, Object>();
         paramsMap.put("roleName", roleName);
         paramsMap.put("beginTime", beginTime);
@@ -146,11 +189,11 @@ public class RoleController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<Role>() {
-            @Override
-            public List<Role> callBack() {
-                return roleService.findAllRole(paramsMap);
-            }
-        });
+                    @Override
+                    public List<Role> callBack() {
+                        return roleService.findAllRoleByParams(paramsMap);
+                    }
+                });
     }
 
 }

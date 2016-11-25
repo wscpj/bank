@@ -13,6 +13,7 @@ public class Privilege implements Serializable{
     private String privilegeCode;
     private String url;
     private Integer parentId;
+    private String parentName;
     private Boolean isDeleted;
     private String createdTime;
     private String updatedTime;
@@ -69,6 +70,13 @@ public class Privilege implements Serializable{
     }
     public void setUpdatedTime(String updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
     @Override
     public int hashCode() {

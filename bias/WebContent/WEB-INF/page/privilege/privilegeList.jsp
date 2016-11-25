@@ -4,6 +4,11 @@
 <html>
 <head>
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" type="image/x-icon"/>
+  <script type="text/javascript">
+    $("#cleanButton").click(function(){
+        $(".searchBar input").val("");
+    });
+  </script>
 </head>
 <body>
   <div class="panelBar" style=" border-width:1px;">
@@ -25,6 +30,7 @@
         </table>
         <div class="subBar" style="margin-top:-25px;">
           <ul>
+            <li><div class="buttonActive"><div class="buttonContent"><button type="button" id="cleanButton">清空</button></div></div></li>
             <li><div class="buttonActive"><div class="buttonContent"><button type="submit">高级检索</button></div></div></li>
           </ul>
         </div>
@@ -36,7 +42,6 @@
       <ul class="toolBar">
         <li><a class="add" href="${pageContext.request.contextPath}/page/privilege/addPrivilege" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加权限</span></a></li>
         <li><a class="edit" href="${pageContext.request.contextPath}/page/privilege/editPrivilege/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改权限</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/manage/modifyView?id={id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>设置管理员角色</span></a></li>
         <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/privilege/deletePrivilege" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除权限</span></a></li>
       </ul>
     </div>
@@ -45,7 +50,7 @@
         <thead>
           <tr height="25" style="text-align: center;">
           	<th width="5%" align="center" ><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-            <th class="center" >权限ID</th>
+            <th class="center" >序号</th>
             <th class="center">权限名称</th>
             <th class="center">权限代码</th>
             <th class="center">URL</th>
@@ -62,7 +67,7 @@
             <td>${privilege.displayName}</td>
             <td>${privilege.privilegeCode}</td>
             <td>${privilege.url}</td>
-            <td>${privilege.parentId}</td>
+            <td>${privilege.parentName}</td>
             <td>${privilege.createdTime}</td>
             <td>${privilege.updatedTime}</td>
           </tr>

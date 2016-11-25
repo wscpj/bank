@@ -12,6 +12,8 @@ public interface PrivilegeService {
 
     public List<Privilege> findAllPrivilege(Map<String, Object> map);
 
+    public List<Privilege> findAllPrivilege();
+
     public Boolean addPrivilege(Privilege privilege);
 
     public Privilege selectPrivilegeById(Integer id);
@@ -19,4 +21,16 @@ public interface PrivilegeService {
     public Boolean updatePrivilege(Privilege privilege);
 
     public void deletePrivilegeByIds(List<Integer> listId);
+
+    public List<Privilege> findParentPrivileges(Map<String, Object> map);
+
+    /**
+     * 查询权限根目录（parent_id = 0）的权限
+     *
+     * @return Privilege
+     */
+    public Privilege getRootPrivilege();
+
+    public String findPrivilegeByUserId(Integer userId);
+
 }

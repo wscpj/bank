@@ -13,6 +13,7 @@
     <div class="pageContent">
       <form method="post" action="${pageContext.request.contextPath}/page/user/update" class="pageForm required-validate"   onsubmit="return validateCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="90">
+          <input type="hidden" name="id" value="${user.id}" />
           <p>
             <label>管理员名称：</label>
             <input name="userName" class="required" type="text" size="30" value="${user.userName }" alt="请输入管理员名称" />

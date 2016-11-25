@@ -2,7 +2,7 @@ package com.bank.common.model;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User implements Serializable {
 
     /**
      *
@@ -14,11 +14,10 @@ public class User implements Serializable{
     private String email;
     private String phone;
     private String password;
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
     private String salt;
     private String createdTime;
     private String updatedTime;
-
 
     public Integer getId() {
         return id;
@@ -183,7 +182,5 @@ public class User implements Serializable{
             return false;
         return true;
     }
-
-
 
 }
