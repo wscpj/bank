@@ -135,6 +135,61 @@
         </foreach>  
     </update>
     
+    <update id="update" parameterType="Account">
+     update ACCOUNT
+        <set>
+          <if test="accountNum != null">
+            ACCOUNT_NUM = #{accountNum},
+          </if>
+          <if test="openTime != null">
+            OPEN_TIME = #{openTime},
+          </if>
+          <if test="opener != null">
+            OPENER = #{opener},
+          </if>
+          <if test="cardType != null">
+            CARD_TYPE = #{cardType},
+          </if>
+          <if test="bankBook != null">
+            BANK_BOOK = #{bankBook},
+          </if>
+          <if test="accountType != null">
+            ACCOUNT_TYPE = #{accountType},
+          </if>
+          <if test="cardMark != null">
+            CARD_MARK = #{cardMark},
+          </if>
+          <if test="payPasssWord != null">
+            PAY_PASSSWORD = #{payPasssWord},
+          </if>
+          <if test="accountStatus != null">
+            ACCOUNT_STATUS = #{accountStatus},
+          </if>
+          <if test="depositorId != null">
+            DEPOSITOR_ID = #{depositorId},
+          </if>
+          <if test="remainMoney != null">
+            REMAIN_MONEY = #{remainMoney},
+          </if>
+          <if test="interestStartTime != null">
+            INTEREST_START_TIME = #{interestStartTime},
+          </if>
+          <if test="interestStopTime != null">
+            INTEREST_STOP_TIME = #{interestStopTime},
+          </if>
+          <if test="rateId != null">
+            RATE_ID = #{rateId},
+          </if>
+          <if test="constantCode != null">
+            CONSTANT_CODE = #{constantCode},
+          </if>
+          <if test="updatedTime != null">
+            updated_time = #{updatedTime},
+          </if>
+        </set>
+        where id = #{id}
+   </update>
+    
     <!-- <sql id="selectUser">
         SELECT
             u.id AS id,

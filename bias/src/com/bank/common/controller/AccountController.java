@@ -1,5 +1,7 @@
 package com.bank.common.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +84,27 @@ public class AccountController extends BasePageController {
         try {
             Boolean bl = accountService.saveAccount(account);
 
+            if (bl) {
+                resultMsg = ResultMsg.okMsg();
+            } else {
+                resultMsg = ResultMsg.errorMsg();
+            }
+        } catch (Exception e) {
+            logger.error("save account error", e);
+        }
+        return resultMsg;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "update")
+    public ResultMsg updateRole(@ModelAttribute Account account,
+            HttpServletRequest request, HttpServletResponse response) {
+        ResultMsg resultMsg = null;
+        try {
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String nowDate = sf.format(new Date());
+            account.setUpdatedTime(nowDate);
+            Boolean bl = accountService.updateAcount(account);
             if (bl) {
                 resultMsg = ResultMsg.okMsg();
             } else {

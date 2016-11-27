@@ -36,6 +36,12 @@ public class AccountServiceImpl extends BaseService implements AccountService {
         accountDao.deleteAccountByIds(ids);
     }
 
+    @Override
+    public Boolean updateAcount(Account account) {
+        // TODO Auto-generated method stub
+        return accountDao.update(account);
+    }
+
     public AccountDao getAccountDao() {
         return accountDao;
     }

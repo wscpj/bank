@@ -24,14 +24,13 @@ import com.bank.common.AppConstants;
 import com.bank.common.base.BasePageController;
 import com.bank.common.base.ResultMsg;
 import com.bank.common.model.Depositor;
-import com.bank.common.model.Role;
 import com.bank.common.service.DepositorService;
 import com.bank.common.util.StringUtil;
 
 @Controller
 @RequestMapping("/page/depositor")
 public class DepositorController extends BasePageController {
-	private final String LOGIN_JSP = "user/login";
+    private final String LOGIN_JSP = "user/login";
     private final String MAIN_JSP = "user/main";
     private final String LIST_JSP = "depositor/depositorList";
     private final String ADD_JSP = "depositor/addDepositor";
@@ -65,7 +64,8 @@ public class DepositorController extends BasePageController {
                 LIST_JSP, new PaginationCallBack<Depositor>() {
                     @Override
                     public List<Depositor> callBack() {
-                        return depositorService.findAllDepositorByParams(paramsMap);
+                        return depositorService
+                                .findAllDepositorByParams(paramsMap);
                     }
                 });
     }
@@ -91,11 +91,11 @@ public class DepositorController extends BasePageController {
                 resultMsg = ResultMsg.errorMsg();
             }
         } catch (Exception e) {
-            logger.error("save role error", e);
+            logger.error("save depositor error", e);
         }
         return resultMsg;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "update")
     public ResultMsg update(@ModelAttribute Depositor depositor,
@@ -112,11 +112,11 @@ public class DepositorController extends BasePageController {
                 resultMsg = ResultMsg.errorMsg();
             }
         } catch (Exception e) {
-            logger.error("save role error", e);
+            logger.error("update depositor error", e);
         }
         return resultMsg;
     }
-    
+
     @RequestMapping(value = "edit/{id}")
     public ModelAndView editRole(@PathVariable Integer id,
             HttpServletRequest request, HttpServletResponse response) {

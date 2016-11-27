@@ -11,7 +11,7 @@
       </ul>
     </div>
     <div class="pageContent">
-      <form method="post" action="${pageContext.request.contextPath}/page/account/save" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
+      <form method="post" action="${pageContext.request.contextPath}/page/account/update" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone);">
       	<input type="hidden" name="id" value="${account.id}" />
         <div class="pageFormContent" layoutH="90">
           <p>

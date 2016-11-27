@@ -78,15 +78,22 @@
 		VALUES(#{roleCode},#{displayName},#{roleName})
 	</insert>
 	<update id="update" parameterType="Role">
-        <![CDATA[
-            UPDATE ROLE R 
-            SET 
-                R.ROLE_CODE = #{roleCode},
-                R.ROLE_NAME = #{roleName},
-                R.DISPLAY_NAME = #{displayName},
-                R.UPDATED_TIME = #{updatedTime}
-            WHERE R.ID = #{id}
-        ]]>
+         update ROLE
+        <set>
+          <if test="roleCode != null">
+            ROLE_CODE = #{roleCode},
+          </if>
+          <if test="roleName != null">
+            ROLE_NAME = #{roleName},
+          </if>
+          <if test="displayName != null">
+            DISPLAY_NAME = #{displayName},
+          </if>
+          <if test="updatedTime != null">
+            UPDATED_TIME = #{updatedTime},
+          </if>
+        </set>
+        where id = #{id}
 	</update>
 	<update id="deleteRoleByIds" parameterType="java.util.List">
 	     UPDATE ROLE R SET R.IS_DELETED = 1 WHERE R.ID IN

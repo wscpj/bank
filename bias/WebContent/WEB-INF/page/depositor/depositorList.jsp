@@ -67,6 +67,7 @@
         <c:forEach items="${paginationDTO.itemList}" var="depositor" varStatus="status">
           <tr style="text-align: center;"height="20" rel="${depositor.id}" target="id">
           	<td><input name="ids" type="checkbox" value="${depositor.id}"></td>
+            <td>${depositor.id}</td>
             <td>${depositor.depositorName}</td>
             <td>${depositor.cardNum}</td>
             <td>${depositor.depositorCode}</td>

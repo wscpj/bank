@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bank.common.model.Depositor" >
   <resultMap id="depositorMap" type="Depositor" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="depositor_name" property="depositorName" jdbcType="VARCHAR" />
-    <result column="card_num" property="cardNum" jdbcType="VARCHAR" />
-    <result column="depositor_code" property="depositorCode" jdbcType="VARCHAR" />
-    <result column="gender" property="gender" jdbcType="INTEGER" />
-    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
-    <result column="join_time" property="joinTime" jdbcType="VARCHAR" />
-    <result column="political_status" property="politicalStatus" jdbcType="INTEGER" />
-    <result column="duty" property="duty" jdbcType="INTEGER" />
-    <result column="work_time" property="workTime" jdbcType="INTEGER" />
-    <result column="credit_level" property="creditLevel" jdbcType="INTEGER" />
-    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
-    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
-    <result column="introducer" property="introducer" jdbcType="INTEGER" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="image" property="image" jdbcType="VARCHAR" />
-    <result column="org_id" property="orgId" jdbcType="INTEGER" />
-    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
-    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
-    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <id column="id" property="id" />
+    <result column="depositor_name" property="depositorName" />
+    <result column="card_num" property="cardNum" />
+    <result column="depositor_code" property="depositorCode"/>
+    <result column="gender" property="gender" />
+    <result column="birthday" property="birthday" />
+    <result column="join_time" property="joinTime" />
+    <result column="political_status" property="politicalStatus" />
+    <result column="duty" property="duty" />
+    <result column="work_time" property="workTime" />
+    <result column="credit_level" property="creditLevel" />
+    <result column="telephone" property="telephone" />
+    <result column="mobile_phone" property="mobilePhone" />
+    <result column="introducer" property="introducer" />
+    <result column="address" property="address" />
+    <result column="image" property="image" />
+    <result column="org_id" property="orgId" />
+    <result column="is_deleted" property="isDeleted" />
+    <result column="created_time" property="createdTime" />
+    <result column="updated_time" property="updatedTime" />
   </resultMap>
   
   <sql id="pagination">
@@ -74,77 +74,75 @@
 	      work_time, credit_level, telephone, 
 	      mobile_phone, introducer, address, 
 	      image, org_id)
-	    values (#{depositorName,jdbcType=VARCHAR}, #{cardNum,jdbcType=VARCHAR}, 
-	      #{depositorCode,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{birthday,jdbcType=TIMESTAMP}, 
-	      #{joinTime,jdbcType=VARCHAR}, #{politicalStatus,jdbcType=INTEGER}, #{duty,jdbcType=INTEGER}, 
-	      #{workTime,jdbcType=INTEGER}, #{creditLevel,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR}, 
-	      #{mobilePhone,jdbcType=VARCHAR}, #{introducer,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
-	      #{image,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER})
+	    values (#{depositorName}, #{cardNum}, 
+	      #{depositorCode}, #{gender}, #{birthday}, 
+	      #{joinTime}, #{politicalStatus}, #{duty}, 
+	      #{workTime}, #{creditLevel}, #{telephone}, 
+	      #{mobilePhone}, #{introducer}, #{address}, 
+	      #{image}, #{orgId})
    </insert>
    <update id="update" parameterType="Role">
-        
      update depositor
 	    <set>
 	      <if test="depositorName != null">
-	        depositor_name = #{depositorName,jdbcType=VARCHAR},
+	        depositor_name = #{depositorName},
 	      </if>
 	      <if test="cardNum != null">
-	        card_num = #{cardNum,jdbcType=VARCHAR},
+	        card_num = #{cardNum},
 	      </if>
 	      <if test="depositorCode != null">
-	        depositor_code = #{depositorCode,jdbcType=VARCHAR},
+	        depositor_code = #{depositorCode},
 	      </if>
 	      <if test="gender != null">
-	        gender = #{gender,jdbcType=INTEGER},
+	        gender = #{gender},
 	      </if>
 	      <if test="birthday != null">
-	        birthday = #{birthday,jdbcType=TIMESTAMP},
+	        birthday = #{birthday},
 	      </if>
 	      <if test="joinTime != null">
-	        join_time = #{joinTime,jdbcType=VARCHAR},
+	        join_time = #{joinTime},
 	      </if>
 	      <if test="politicalStatus != null">
-	        political_status = #{politicalStatus,jdbcType=INTEGER},
+	        political_status = #{politicalStatus},
 	      </if>
 	      <if test="duty != null">
-	        duty = #{duty,jdbcType=INTEGER},
+	        duty = #{duty},
 	      </if>
 	      <if test="workTime != null">
-	        work_time = #{workTime,jdbcType=INTEGER},
+	        work_time = #{workTime},
 	      </if>
 	      <if test="creditLevel != null">
-	        credit_level = #{creditLevel,jdbcType=INTEGER},
+	        credit_level = #{creditLevel},
 	      </if>
 	      <if test="telephone != null">
-	        telephone = #{telephone,jdbcType=VARCHAR},
+	        telephone = #{telephone},
 	      </if>
 	      <if test="mobilePhone != null">
-	        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+	        mobile_phone = #{mobilePhone},
 	      </if>
 	      <if test="introducer != null">
-	        introducer = #{introducer,jdbcType=INTEGER},
+	        introducer = #{introducer},
 	      </if>
 	      <if test="address != null">
-	        address = #{address,jdbcType=VARCHAR},
+	        address = #{address},
 	      </if>
 	      <if test="image != null">
-	        image = #{image,jdbcType=VARCHAR},
+	        image = #{image},
 	      </if>
 	      <if test="orgId != null">
-	        org_id = #{orgId,jdbcType=INTEGER},
+	        org_id = #{orgId},
 	      </if>
 	      <if test="isDeleted != null">
-	        is_deleted = #{isDeleted,jdbcType=BIT},
+	        is_deleted = #{isDeleted},
 	      </if>
 	      <if test="createdTime != null">
-	        created_time = #{createdTime,jdbcType=TIMESTAMP},
+	        created_time = #{createdTime},
 	      </if>
 	      <if test="updatedTime != null">
-	        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+	        updated_time = #{updatedTime},
 	      </if>
 	    </set>
-	    where id = #{id,jdbcType=INTEGER}
-    
+	    where id = #{id}
    </update>
    <update id="deleteDepositorByIds" parameterType="java.util.List">
          <![CDATA[

@@ -153,16 +153,25 @@
        ]]>
    </select>
    <update id="update" parameterType="User">
-        <![CDATA[
-            UPDATE USER U 
-            SET 
-                u.user_name = #{userName},
-                u.password = #{password},
-                u.gender = #{gender},
-                u.email = #{email},
-                u.phone = #{phone}
-            WHERE u.id = #{id}
-        ]]>
+        update USER
+        <set>
+          <if test="userName != null">
+            user_name = #{userName},
+          </if>
+          <if test="password != null">
+            password = #{password},
+          </if>
+          <if test="gender != null">
+            gender = #{gender},
+          </if>
+          <if test="email != null">
+            email = #{email},
+          </if>
+          <if test="phone != null">
+            phone = #{phone},
+          </if>
+        </set>
+        where id = #{id}
     </update>
     
     <update id="delete" parameterType="java.lang.Integer">

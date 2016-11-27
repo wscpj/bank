@@ -173,17 +173,28 @@
 		VALUES(#{displayName},#{privilegeName},#{privilegeCode},#{url},#{parentId})
 	</insert>
 	<update id="update" parameterType="Privilege">
-        <![CDATA[
-            UPDATE PRIVILEGE P 
-            SET 
-                P.DISPLAY_NAME = #{displayName},
-                P.PRIVILEGE_NAME = #{privilegeName},
-                P.PRIVILEGE_CODE = #{privilegeCode},
-                P.URL = #{url},
-                P.PARENT_ID = #{parentId},
-                P.UPDATED_TIME = #{updatedTime}
-            WHERE P.ID = #{id}
-        ]]>
+        update PRIVILEGE
+        <set>
+          <if test="displayName != null">
+            DISPLAY_NAME = #{displayName},
+          </if>
+          <if test="privilegeName != null">
+            PRIVILEGE_NAME = #{privilegeName},
+          </if>
+          <if test="privilegeCode != null">
+            PRIVILEGE_CODE = #{privilegeCode},
+          </if>
+          <if test="url != null">
+            url = #{url},
+          </if>
+          <if test="parentId != null">
+            PARENT_ID = #{parentId},
+          </if>
+          <if test="updatedTime != null">
+            UPDATED_TIME = #{updatedTime},
+          </if>
+        </set>
+        where id = #{id}
 	</update>
 	<update id="deletePrivilegeByIds" parameterType="java.util.List">
 	     UPDATE PRIVILEGE P SET P.IS_DELETED = 1 WHERE P.ID IN

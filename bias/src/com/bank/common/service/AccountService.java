@@ -15,4 +15,6 @@ public interface AccountService {
 
     public void deleteAccountByIds(List<Integer> ids);
 
+    public Boolean updateAcount(Account accout);
+
 }
