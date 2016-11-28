@@ -81,7 +81,7 @@
 	      #{mobilePhone}, #{introducer}, #{address}, 
 	      #{image}, #{orgId})
    </insert>
-   <update id="update" parameterType="Role">
+   <update id="update" parameterType="Depositor">
      update depositor
 	    <set>
 	      <if test="depositorName != null">

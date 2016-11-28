@@ -58,12 +58,12 @@
         </thead>
         <tbody>
         <c:forEach items="${paginationDTO.itemList}" var="org" varStatus="status">
-          <tr style="text-align: center;"height="20" rel="${user.id}" target="id">
-          	<td><input name="ids" type="checkbox" value="${user.id}"></td>
+          <tr style="text-align: center;"height="20" rel="${org.id}" target="id">
+          	<td><input name="ids" type="checkbox" value="${org.id}"></td>
             <td>${status.count+mp.flag}</td>
             <td>${org.organizationName}</td>
             <td>${org.organizationCode}</td>
-            <td>${user.createdTime}</td>
+            <td>${org.createdTime}</td>
           </tr>
         </c:forEach>
         </tbody>

@@ -1,7 +1,6 @@
 package com.bank.common.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Depositor implements Serializable{
     /**
