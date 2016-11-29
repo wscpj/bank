@@ -33,8 +33,8 @@
 		P.URL AS URL,
 		P.PARENT_ID AS PARENT_ID,
 		P.IS_DELETED AS IS_DELETED,
-		P.CREATED_TIME AS CREATED_TIME,
-		P.UPDATED_TIME AS UPDATED_TIME
+		date_format(P.created_time, '%Y-%m-%d %H:%i:%s') AS CREATED_TIME,
+		date_format(P.UPDATED_TIME, '%Y-%m-%d %H:%i:%s') AS UPDATED_TIME
 	</sql>
     <select id="getPrivilegeById" parameterType="java.lang.Integer" resultMap="privilegeMap">
         <![CDATA[
@@ -46,8 +46,8 @@
             P.URL AS URL,
             P.PARENT_ID AS PARENT_ID,
             P.IS_DELETED AS IS_DELETED,
-            P.CREATED_TIME AS CREATED_TIME,
-            P.UPDATED_TIME AS UPDATED_TIME,
+            date_format(P.CREATED_TIME, '%Y-%m-%d %H:%i:%s') AS CREATED_TIME,
+            date_format(P.UPDATED_TIME, '%Y-%m-%d %H:%i:%s') AS UPDATED_TIME,
             PP.DISPLAY_NAME AS PARENT_NAME
             FROM PRIVILEGE P INNER JOIN PRIVILEGE PP ON P.PARENT_ID = PP.ID WHERE P.IS_DELETED = 0 and P.ID = #{id}
         ]]>
@@ -62,8 +62,8 @@
 	        P.URL AS URL,
 	        P.PARENT_ID AS PARENT_ID,
 	        P.IS_DELETED AS IS_DELETED,
-	        P.CREATED_TIME AS CREATED_TIME,
-	        P.UPDATED_TIME AS UPDATED_TIME,
+	        date_format(P.CREATED_TIME, '%Y-%m-%d %H:%i:%s') AS CREATED_TIME,
+            date_format(P.UPDATED_TIME, '%Y-%m-%d %H:%i:%s') AS UPDATED_TIME,
 	        PP.DISPLAY_NAME AS PARENT_NAME
 			FROM PRIVILEGE P INNER JOIN PRIVILEGE PP ON P.PARENT_ID = PP.ID WHERE P.IS_DELETED = 0
 		]]>

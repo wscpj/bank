@@ -25,8 +25,8 @@
             org.id AS id,
             org.organization_name AS organization_name,
             org.organization_code AS organization_code,
-            org.created_time AS created_time,
-            org.updated_time AS updated_time,
+            date_format(org.created_time, '%Y-%m-%d %H:%i:%s') AS created_time,
+            date_format(org.updated_time, '%Y-%m-%d %H:%i:%s') AS updated_time,
             org.is_deleted AS is_deleted
     </sql>
     
@@ -104,14 +104,22 @@
     </insert>
     
    <update id="update" parameterType="Organization">
-        <![CDATA[
-            UPDATE ORGANIZATION org
-            SET 
-                org.organization_name = #{organizationName},
-                org.organization_code = #{organizationCode},
-                org.updated_time = #{updatedTime}
-            WHERE org.id = #{id}
-        ]]>
+        UPDATE ORGANIZATION
+        <set>
+          <if test="organizationName != null">
+            organization_name = #{organizationName},
+          </if>
+          <if test="organizationCode != null">
+            organization_code = #{organizationCode},
+          </if>
+          <if test="updatedTime != null">
+            updated_time = #{updatedTime},
+          </if>
+          <if test="createdTime != null">
+            created_time = #{createdTime},
+          </if>
+        </set>
+        where id = #{id}
     </update>
     
     <update id="deleteOrgByIds" parameterType="java.util.List">

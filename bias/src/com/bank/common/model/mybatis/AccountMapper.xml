@@ -36,7 +36,7 @@
         SELECT
         AC.ID AS ID,
         AC.ACCOUNT_NUM AS ACCOUNT_NUM,
-        AC.OPEN_TIME AS OPEN_TIME,
+        date_format(AC.OPEN_TIME, '%Y-%m-%d %H:%i:%s') AS OPEN_TIME,
         AC.OPENER AS OPENER,
         AC.CARD_TYPE AS CARD_TYPE,
         AC.BANK_BOOK AS BANK_BOOK,
@@ -46,13 +46,13 @@
         AC.ACCOUNT_STATUS AS ACCOUNT_STATUS,
         AC.DEPOSITOR_ID AS DEPOSITOR_ID,
         AC.REMAIN_MONEY AS REMAIN_MONEY,
-        AC.INTEREST_START_TIME AS INTEREST_START_TIME,
-        AC.INTEREST_STOP_TIME AS INTEREST_STOP_TIME,
+        date_format(AC.INTEREST_START_TIME, '%Y-%m-%d %H:%i:%s') AS INTEREST_START_TIME,
+        date_format(AC.INTEREST_STOP_TIME, '%Y-%m-%d %H:%i:%s') AS INTEREST_STOP_TIME,
         AC.RATE_ID AS RATE_ID,
         AC.CONSTANT_CODE AS CONSTANT_CODE,
         AC.IS_DELETED AS IS_DELETED,
-        AC.CREATED_TIME AS CREATED_TIME,
-        AC.UPDATED_TIME AS UPDATED_TIME
+        date_format(AC.CREATED_TIME, '%Y-%m-%d %H:%i:%s') AS CREATED_TIME,
+        date_format(AC.UPDATED_TIME, '%Y-%m-%d %H:%i:%s') AS UPDATED_TIME
     </sql>
     <select id="findAllAccountByParams" parameterType="java.util.HashMap" resultMap="accountMap">
         <include refid="selectAccount"></include>

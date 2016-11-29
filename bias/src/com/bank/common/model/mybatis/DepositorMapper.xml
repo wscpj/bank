@@ -36,7 +36,7 @@
       SELECT
       ID, DEPOSITOR_NAME, CARD_NUM, DEPOSITOR_CODE, GENDER, BIRTHDAY, JOIN_TIME, POLITICAL_STATUS, 
   	  DUTY, WORK_TIME, CREDIT_LEVEL, TELEPHONE, MOBILE_PHONE, INTRODUCER, ADDRESS, IMAGE, 
-  	  ORG_ID, IS_DELETED, CREATED_TIME, UPDATED_TIME
+  	  ORG_ID, IS_DELETED, date_format(CREATED_TIME, '%Y-%m-%d %H:%i:%s') as CREATED_TIME, date_format(UPDATED_TIME, '%Y-%m-%d %H:%i:%s') as UPDATED_TIME
   </sql>
   <select id="findAllDepositorByParams" parameterType="java.util.HashMap" resultMap="depositorMap">
        <include refid="selectAccount"></include>

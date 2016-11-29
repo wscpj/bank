@@ -37,8 +37,8 @@
             u.email AS email,
             u.phone AS phone,
             u.password AS password,
-            u.created_time AS created_time,
-            u.updated_time AS updated_time,
+            date_format(u.created_time, '%Y-%m-%d %H:%i:%s') AS created_time,
+            date_format(u.updated_time, '%Y-%m-%d %H:%i:%s') AS updated_time,
             u.is_deleted AS is_deleted
     </sql>
     

@@ -27,7 +27,7 @@
             L.ROLE_NAME AS ROLE_NAME,
             L.IP AS IP,
             L.IS_DELETED AS IS_DELETED,
-            L.CREATED_TIME AS CREATED_TIME
+            date_format(L.CREATED_TIME, '%Y-%m-%d %H:%i:%s') AS CREATED_TIME
     </sql>
     
     <select id="searchLogs" parameterType="java.util.HashMap" resultMap="logMap">

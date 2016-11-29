@@ -28,8 +28,8 @@
 		R.DISPLAY_NAME AS DISPLAY_NAME,
 		R.ROLE_NAME AS ROLE_NAME,
 		R.IS_DELETED AS IS_DELETED,
-		R.CREATED_TIME AS CREATED_TIME,
-		R.UPDATED_TIME AS UPDATED_TIME
+		date_format(R.created_time, '%Y-%m-%d %H:%i:%s') AS CREATED_TIME,
+		date_format(R.UPDATED_TIME, '%Y-%m-%d %H:%i:%s') AS UPDATED_TIME
 	</sql>
 
 	<select id="findAllRoleByParams" parameterType="java.util.HashMap" resultMap="roleMap">
