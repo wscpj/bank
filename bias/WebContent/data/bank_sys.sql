@@ -163,15 +163,16 @@ CREATE TABLE `depositor` (
   `birthday` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `join_time` varchar(100) ,
   `political_status` int(5) NOT NULL,
-  `duty` int(5),
-  `work_time` int(11),
+  `duty` varchar(50),
+  `work_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `credit_level` int(10) NOT NULL,
   `telephone` varchar(50) NOT NULL,
   `mobile_phone` varchar(50) NOT NULL,
-  `introducer` int(11) NOT NULL,
+  `introducer` varchar(50) NOT NULL,
   `address` varchar(500) NOT NULL,
   `image` varchar(100),
   `org_id` int(11) NOT NULL,
+  `org_name` varchar(200) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -250,9 +251,8 @@ INSERT INTO `privilege` VALUES ('7', '登录日志', 'LogManage', '1004', '/page
 INSERT INTO `privilege` VALUES ('8', '退出系统', 'ExitSystem', '1005', '#', '2', '0', '2016-10-23 19:35:24', '2016-10-23 19:35:24');
 INSERT INTO `privilege` VALUES ('9', '平台用户管理', 'PlatformUserManage', '2000', '#', '1', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
 INSERT INTO `privilege` VALUES ('10', '社员管理', 'DepositorManage', '2001', '/page/depositor/search', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
-INSERT INTO `privilege` VALUES ('11', '帐户管理', 'AccountManage', '2002', '#', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
+INSERT INTO `privilege` VALUES ('11', '帐户管理', 'AccountManage', '2002', '/page/account/search', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
 INSERT INTO `privilege` VALUES ('12', '组织管理', 'OrganizationManage', '2003', '/page/org/search', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
-INSERT INTO `privilege` VALUES ('13', '账户管理', 'AccountManage', '2004', '/page/account/search', '9', '0', '2016-11-13 19:35:24', '2016-11-13 19:35:24');
 COMMIT;
 
 -- ----------------------------

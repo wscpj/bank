@@ -61,11 +61,11 @@
           </p>
           <p>
             <label>起息日期：</label>
-            <input name="interestStartTime" class="date" type="text" size="30"  value="${account.interestStartTime}" />
+            <input name="interestStartTime" class="date required" type="text" size="30"  value="${account.interestStartTime}" />
           </p>
           <p>
             <label>结息日期：</label>
-            <input name="interestStopTime" class="date" type="text" size="30"  value="${account.interestStopTime}" />
+            <input name="interestStopTime" class="date required" type="text" size="30"  value="${account.interestStopTime}" />
           </p>
           <p>
             <label>利率ID：</label>

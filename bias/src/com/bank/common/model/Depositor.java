@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Depositor implements Serializable{
     /**
-	 * 储户表
-	 */
-	private static final long serialVersionUID = 3085123657410621407L;
+     * 储户表
+     */
+    private static final long serialVersionUID = 3085123657410621407L;
 
-	private Integer id;
+    private Integer id;
 
     private String depositorName;// 储户姓名
 
@@ -24,9 +24,9 @@ public class Depositor implements Serializable{
 
     private Integer politicalStatus;// 政治面貌
 
-    private Integer duty;// 担当职务
+    private String duty;// 担当职务
 
-    private Integer workTime;// 任职时间
+    private String workTime;// 任职时间
 
     private Integer creditLevel;// 信用等级
 
@@ -34,13 +34,15 @@ public class Depositor implements Serializable{
 
     private String mobilePhone;// 手机
 
-    private Integer introducer;// 介绍人
+    private String introducer;// 介绍人
 
     private String address;// 成员住址
 
     private String image;// 储户个人照片
 
     private Integer orgId;// 机构ID
+
+    private String orgName;//机构名称
 
     private Boolean isDeleted = false;
 
@@ -112,20 +114,26 @@ public class Depositor implements Serializable{
         this.politicalStatus = politicalStatus;
     }
 
-    public Integer getDuty() {
+
+
+    public String getDuty() {
         return duty;
     }
 
-    public void setDuty(Integer duty) {
+    public void setDuty(String duty) {
         this.duty = duty;
     }
 
-    public Integer getWorkTime() {
+    public String getWorkTime() {
         return workTime;
     }
 
-    public void setWorkTime(Integer workTime) {
+    public void setWorkTime(String workTime) {
         this.workTime = workTime;
+    }
+
+    public void setIntroducer(String introducer) {
+        this.introducer = introducer;
     }
 
     public Integer getCreditLevel() {
@@ -150,14 +158,6 @@ public class Depositor implements Serializable{
 
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone == null ? null : mobilePhone.trim();
-    }
-
-    public Integer getIntroducer() {
-        return introducer;
-    }
-
-    public void setIntroducer(Integer introducer) {
-        this.introducer = introducer;
     }
 
     public String getAddress() {
@@ -207,4 +207,17 @@ public class Depositor implements Serializable{
     public void setUpdatedTime(String updatedTime) {
         this.updatedTime = updatedTime;
     }
+
+    public String getIntroducer() {
+        return introducer;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
 }

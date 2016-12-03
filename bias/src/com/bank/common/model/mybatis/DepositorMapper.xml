@@ -19,6 +19,7 @@
     <result column="address" property="address" />
     <result column="image" property="image" />
     <result column="org_id" property="orgId" />
+    <result column="org_name" property="orgName" />
     <result column="is_deleted" property="isDeleted" />
     <result column="created_time" property="createdTime" />
     <result column="updated_time" property="updatedTime" />
@@ -36,7 +37,7 @@
       SELECT
       ID, DEPOSITOR_NAME, CARD_NUM, DEPOSITOR_CODE, GENDER, BIRTHDAY, JOIN_TIME, POLITICAL_STATUS, 
   	  DUTY, WORK_TIME, CREDIT_LEVEL, TELEPHONE, MOBILE_PHONE, INTRODUCER, ADDRESS, IMAGE, 
-  	  ORG_ID, IS_DELETED, date_format(CREATED_TIME, '%Y-%m-%d %H:%i:%s') as CREATED_TIME, date_format(UPDATED_TIME, '%Y-%m-%d %H:%i:%s') as UPDATED_TIME
+  	  ORG_ID,ORG_NAME, IS_DELETED, date_format(CREATED_TIME, '%Y-%m-%d %H:%i:%s') as CREATED_TIME, date_format(UPDATED_TIME, '%Y-%m-%d %H:%i:%s') as UPDATED_TIME
   </sql>
   <select id="findAllDepositorByParams" parameterType="java.util.HashMap" resultMap="depositorMap">
        <include refid="selectAccount"></include>
@@ -73,13 +74,13 @@
 	      join_time, political_status, duty, 
 	      work_time, credit_level, telephone, 
 	      mobile_phone, introducer, address, 
-	      image, org_id)
+	      image, org_id,org_name)
 	    values (#{depositorName}, #{cardNum}, 
 	      #{depositorCode}, #{gender}, #{birthday}, 
 	      #{joinTime}, #{politicalStatus}, #{duty}, 
 	      #{workTime}, #{creditLevel}, #{telephone}, 
 	      #{mobilePhone}, #{introducer}, #{address}, 
-	      #{image}, #{orgId})
+	      #{image}, #{orgId},#{orgName})
    </insert>
    <update id="update" parameterType="Depositor">
      update depositor
@@ -132,6 +133,9 @@
 	      <if test="orgId != null">
 	        org_id = #{orgId},
 	      </if>
+	      <if test="orgName != null">
+            org_name = #{orgName},
+          </if>
 	      <if test="isDeleted != null">
 	        is_deleted = #{isDeleted},
 	      </if>

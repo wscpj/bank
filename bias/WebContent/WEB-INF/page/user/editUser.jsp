@@ -26,8 +26,8 @@
             <label>管理员性别：</label>
             <select name="gender" class="required combox" value="${user.gender }" style="width:100px;" >
               <option value="">请选择</option>
-              <option value="0">男</option>
-              <option value="1">女</option>
+              <option value="0" <c:if test="${user.gender =='0'}">selected</c:if> >男</option>
+              <option value="1" <c:if test="${user.gender=='1'}">selected</c:if> >女</option>
             </select>
           </p>
           <p>

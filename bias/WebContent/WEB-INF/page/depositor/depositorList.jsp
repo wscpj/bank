@@ -40,8 +40,8 @@
   <div class="pageContent">
     <div class="panelBar">
       <ul class="toolBar">
-        <li><a class="add" href="${pageContext.request.contextPath}/page/depositor/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="500" height="400"><span>添加社员</span></a></li>
-        <li><a class="edit" href="${pageContext.request.contextPath}/page/depositor/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="400" height="300"><span>修改社员</span></a></li>
+        <li><a class="add" href="${pageContext.request.contextPath}/page/depositor/add" target="dialog" rel="dialogid" resizable="false"  maxable="false" width="700" height="600"><span>添加社员</span></a></li>
+        <li><a class="edit" href="${pageContext.request.contextPath}/page/depositor/edit/{id}" target="dialog" rel="dialogid" resizable="false"  maxable="false"  width="700" height="600"><span>修改社员</span></a></li>
         <li><a class="delete" postType="string" href="${pageContext.request.contextPath}/page/depositor/delete" target="selectedTodo" title="确定要删除吗"><span target="navTab">删除社员</span></a></li>
       </ul>
     </div>

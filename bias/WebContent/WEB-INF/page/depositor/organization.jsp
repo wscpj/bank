@@ -6,7 +6,7 @@
     <title>查找组织木山木金</title>
 </head>
 <body>
-<form id="pagerForm" method="post" action="${pageContext.request.contextPath}/page/privilege/searchParent?method=suggest">
+<form id="pagerForm" method="post" action="${pageContext.request.contextPath}/page/org/searchOrgs?method=suggest">
     <input type="hidden" name="pageNum" value="${paginationDTO.currentPage}" />
     <input type="hidden" name="numPerPage" value="${paginationDTO.pageSize}" />
 </form>
@@ -16,7 +16,7 @@
   </ul>
 </div>
 <div class="pageHeader">
-  <form method="post" action="${pageContext.request.contextPath}/page/privilege/searchParent?method=suggest" onsubmit="return dwzSearch(this, 'dialog');">
+  <form method="post" action="${pageContext.request.contextPath}/page/org/searchOrgs?method=suggest" onsubmit="return dwzSearch(this, 'dialog');">
      <input type="hidden" name="pageNum" value="${paginationDTO.currentPage}" />
      <input type="hidden" name="numPerPage" value="${paginationDTO.pageSize}" />
      <div class="searchBar">
@@ -24,9 +24,9 @@
          <tbody style="text-align:right;" >
            <tr>
              <td>
-               <label>权限名称：</label>
+               <label>机构名称：</label>
              </td>
-             <td><input type="text"  name="displayName" value="${displayName}" style="width:300px;"/></td>
+             <td><input type="text"  name="organizationName" value="${organizationName}" style="width:300px;"/></td>
              <td>
                <div class="buttonActive">
                  <div class="buttonContent">
@@ -46,16 +46,16 @@
       <thead>
         <tr height="25" style="text-align: center;">
           <th class="center">序号</th>
-          <th class="center">权限名称</th>
+          <th class="center">组织机构名称</th>
           <th class="center">请选择</th>
         </tr>
       </thead>
       <tbody>
-        <c:forEach items="${paginationDTO.itemList}" var="parentPrivilege" varStatus="status">
-          <tr style="text-align: center;"height="20" rel="${parentPrivilege.id}" target="id">
+        <c:forEach items="${paginationDTO.itemList}" var="organization" varStatus="status">
+          <tr style="text-align: center;"height="20" rel="${organization.id}" target="id">
             <td>${status.index+1}</td>
-            <td>${parentPrivilege.displayName}</td>
-            <td  class="center"><a class="btnSelect" href="javascript:$.bringBack({parentId:'${parentPrivilege.id}', displayName:'${parentPrivilege.displayName}'})" title="查找带回">选择</a></td>
+            <td>${organization.organizationName}</td>
+            <td  class="center"><a class="btnSelect" href="javascript:$.bringBack({orgId:'${organization.id}', organizationName:'${organization.organizationName}'})" title="查找带回">选择</a></td>
           </tr>
         </c:forEach>
       </tbody>

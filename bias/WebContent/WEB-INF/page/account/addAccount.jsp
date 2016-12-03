@@ -19,7 +19,7 @@
           </p>
           <p>
             <label>开户人：</label>
-            <input name="opener" class="required" type="text" size="30" value="" alt="请输入开户人" />
+            <input name="opener" class="required" type="text" size="30" value="${user.userName}" alt="请输入开户人" />
           </p>
           <p>
             <label>卡类型：</label>
@@ -28,7 +28,7 @@
           
           <p>
             <label>开户时间：</label>
-            <input name="openTime" class="date" type="text" size="30" value=""/>
+            <input name="openTime" class="date required" type="text" size="30" value=""/>
           </p>
           <p>
             <label>存折号：</label>
@@ -60,11 +60,11 @@
           </p>
           <p>
             <label>起息日期：</label>
-            <input name="interestStartTime" class="date" type="text" size="30" value=""/>
+            <input name="interestStartTime" class="date required" type="text" size="30" value=""/>
           </p>
           <p>
             <label>结息日期：</label>
-            <input name="interestStopTime" class="date" type="text" size="30" value=""/>
+            <input name="interestStopTime" class="date required" type="text" size="30" value=""/>
           </p>
           <p>
             <label>利率ID：</label>

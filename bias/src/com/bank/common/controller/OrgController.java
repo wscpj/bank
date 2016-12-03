@@ -32,6 +32,7 @@ public class OrgController extends BasePageController {
     private final String ADD_JSP = "org/addOrg";
     private final String EDIT_JSP = "org/editOrg";
     private final String LIST_JSP = "org/orgList";
+    private final String ORG_JSP = "depositor/organization";
 
     private final Logger logger = Logger.getLogger(OrgController.class);
 
@@ -137,5 +138,29 @@ public class OrgController extends BasePageController {
             logger.error("updateOrg error:" + e);
         }
         return resultMsg;
+    }
+
+    @RequestMapping(value = "/searchOrgs")
+    public ModelAndView searchOrgs(
+            HttpServletRequest request,
+            @RequestParam(value = "pageNum", defaultValue = "") String pageNum,
+            @RequestParam(value = "numPerPage", defaultValue = "") String numPerPage,
+            @RequestParam(value = "organizationName", defaultValue = "") String organizationName
+            ) {
+
+        Integer pageNumInt = "".equals(pageNum) ? 1 : Integer.valueOf(pageNum);
+        Integer numPerPageInt = "".equals(numPerPage) ? 10 : Integer
+                .valueOf(numPerPage);
+
+        final Map<String, Object> paramsMap = new HashMap<String, Object>();
+        paramsMap.put("organizationName", organizationName);
+
+        return pagination(paramsMap, pageNumInt, numPerPageInt, request,
+                ORG_JSP, new PaginationCallBack<Organization>() {
+            @Override
+            public List<Organization> callBack() {
+                return orgService.searchOrganizations(paramsMap);
+            }
+        });
     }
 }
