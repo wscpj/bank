@@ -28,6 +28,8 @@ public class LoginFilter implements Filter {
     private static final String URL_LOGOUT = "/page/user/logout";
     private static final String SPRIT = "/";
     private static final String AJAX_HEAD = "X-Requested-With";
+    private static final String TIMEOUT_URL = "/page/user/timeout";
+    private static final String LOGIN_DIALOG = "loginDialog";
     private static final Logger logger = Logger.getLogger(LoginFilter.class);
     public LoginFilter() {
 
@@ -44,13 +46,17 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
         String uri = request.getRequestURI();
-        Boolean isLogin = uri.equals(request.getContextPath() + SPRIT) || uri.endsWith(URL_LOGIN) || uri.endsWith(URL_LOGOUT);
+        Boolean isLogin = uri.equals(request.getContextPath() + SPRIT) || uri.endsWith(URL_LOGIN) || uri.endsWith(URL_LOGOUT)
+                || uri.endsWith(TIMEOUT_URL);
         try {
             User user = (User) session.getAttribute(AppConstants.USER);
             if (!isLogin) {
                 if (user == null) {
                     if (request.getHeader(AJAX_HEAD) == null) {
                         response.sendRedirect(request.getContextPath());
+                        return;
+                    } else {
+                        response.sendRedirect(request.getContextPath() + TIMEOUT_URL);
                         return;
                     }
                 }

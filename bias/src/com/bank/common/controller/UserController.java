@@ -69,6 +69,12 @@ public class UserController extends BasePageController {
         return modelAndView;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/timeout", method = RequestMethod.GET)
+    public ResultMsg timeout() {
+        return ResultMsg.timeoutMsg();
+    }
+
     @RequestMapping(value = "/exit", method = RequestMethod.GET)
     public ModelAndView exit() {
         ModelAndView modelAndView = new ModelAndView();
@@ -182,11 +188,11 @@ public class UserController extends BasePageController {
 
         return pagination(paramsMap, pageNumInt, numPerPageInt, request,
                 LIST_JSP, new PaginationCallBack<User>() {
-                    @Override
-                    public List<User> callBack() {
-                        return userService.searchUsers(paramsMap);
-                    }
-                });
+            @Override
+            public List<User> callBack() {
+                return userService.searchUsers(paramsMap);
+            }
+        });
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)

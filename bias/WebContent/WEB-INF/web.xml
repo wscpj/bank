@@ -12,8 +12,8 @@
     <location>/admin/welcome.html</location>
   </error-page> 
   <session-config>
-        <session-timeout>1400</session-timeout>
-    </session-config>
+        <session-timeout>1</session-timeout>
+  </session-config>
   <listener>
     <display-name>contextLoaderListener</display-name>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

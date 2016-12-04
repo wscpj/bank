@@ -80,6 +80,17 @@ public class ResultMsg {
         return resultMsg;
     }
 
+    public static ResultMsg timeoutMsg() {
+        ResultMsg resultMsg = new ResultMsg();
+        resultMsg.setStatusCode(301);
+        resultMsg.setMessage("会话超时，请重新登录。");
+        resultMsg.setNavTabId("");
+        resultMsg.setCallbackType("");
+        resultMsg.setForwardUrl("");
+        return resultMsg;
+    }
+
+
     public static ResultMsg errorMsg() {
 
         ResultMsg resultMsg = new ResultMsg();

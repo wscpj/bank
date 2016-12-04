@@ -83,8 +83,7 @@
 <script type="text/javascript">
 $(function(){
     DWZ.init("${pageContext.request.contextPath}/static/js/lib/dwz/dwz.frag.xml", {
-        loginUrl:"${pageContext.request.contextPath}/WEB-INF/admin/loginDialog.jsp",loginTitle:"登录",    // 弹出登录对话框
-//      loginUrl:"login.html",  // 跳到登录页面
+        loginUrl:"${pageContext.request.contextPath}/admin/loginDialog",loginTitle:"登录",    // 弹出登录对话框
         statusCode:{ok:200, error:300, timeout:301}, //【可选】
         pageInfo:{pageNum:"pageNum", numPerPage:"numPerPage", orderField:"orderField", orderDirection:"orderDirection"}, //【可选】
         debug:true,    // 调试模式 【true|false】
